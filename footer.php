@@ -24,6 +24,15 @@ if ( function_exists( 'slc_is_capabilities_page' ) && slc_is_capabilities_page()
 	$slc_enquiry_label_field   = 'capabilities_enquiry_label';
 	$slc_enquiry_label         = __( 'Discuss your project', 'streamlineconnect' );
 }
+
+if ( function_exists( 'slc_is_story_page' ) && slc_is_story_page() ) {
+	$slc_enquiry_heading_field = 'story_enquiry_heading';
+	$slc_enquiry_heading       = __( 'Discuss your project', 'streamlineconnect' );
+	$slc_enquiry_body_field    = 'story_enquiry_body';
+	$slc_enquiry_body          = __( 'Tell us what you’re planning, where the site is and the programme you’re working to.', 'streamlineconnect' );
+	$slc_enquiry_label_field   = 'story_enquiry_label';
+	$slc_enquiry_label         = __( 'Discuss your project.', 'streamlineconnect' );
+}
 ?>
 <!-- Enquiry band: headline, then the note and button. Capabilities uses its own copy. -->
 <section class="enquiry" aria-labelledby="<?php echo esc_attr( slc_content_id( $slc_enquiry_heading_field, 'enquiry_heading' ) ); ?>">
