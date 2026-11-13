@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require get_template_directory() . '/inc/helpers.php';
 require get_template_directory() . '/inc/content.php';
 require get_template_directory() . '/inc/case-study.php';
+require get_template_directory() . '/inc/about.php';
 require get_template_directory() . '/inc/acf-fields.php';
 
 /**
@@ -79,6 +80,16 @@ function slc_assets() {
 		file_exists( $js ) ? (string) filemtime( $js ) : '1.0.0',
 		true
 	);
+
+	if ( is_page( 'about' ) || is_page_template( 'page-about.php' ) ) {
+		$about_css = get_theme_file_path( 'assets/css/about.css' );
+		wp_enqueue_style(
+			'slc-about',
+			get_theme_file_uri( 'assets/css/about.css' ),
+			array( 'slc-theme' ),
+			file_exists( $about_css ) ? (string) filemtime( $about_css ) : '1.0.0'
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'slc_assets' );
 

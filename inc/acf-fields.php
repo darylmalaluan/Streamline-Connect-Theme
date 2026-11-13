@@ -32,13 +32,14 @@ function slc_register_fields() {
 		return;
 	}
 
-	$version  = '8'; /* HOME-FIGMA-UPDATE: How we deliver intro and stage copy. */
+	$version  = '9';
 	$existing = acf_get_field_group( 'group_slc_front_page' );
 	$settings = acf_get_field_group( 'group_slc_theme_settings' );
 	$case     = acf_get_field_group( 'group_slc_case_study' );
+	$about    = acf_get_field_group( 'group_slc_about' );
 	$taxonomy = function_exists( 'acf_get_taxonomy' ) ? acf_get_taxonomy( 'taxonomy_slc_project_category' ) : array();
 	$taxonomy = is_array( $taxonomy ) ? $taxonomy : array();
-	if ( get_option( 'slc_field_group_version' ) === $version && ! empty( $existing['ID'] ) && ! empty( $settings['ID'] ) && ! empty( $case['ID'] ) && ! empty( $taxonomy['ID'] ) ) {
+	if ( get_option( 'slc_field_group_version' ) === $version && ! empty( $existing['ID'] ) && ! empty( $settings['ID'] ) && ! empty( $case['ID'] ) && ! empty( $about['ID'] ) && ! empty( $taxonomy['ID'] ) ) {
 		return;
 	}
 
@@ -59,6 +60,12 @@ function slc_register_fields() {
 		$case_group['ID'] = (int) $case['ID'];
 	}
 	acf_import_field_group( $case_group );
+
+	$about_group = slc_about_field_group();
+	if ( ! empty( $about['ID'] ) ) {
+		$about_group['ID'] = (int) $about['ID'];
+	}
+	acf_import_field_group( $about_group );
 
 	update_option( 'slc_field_group_version', $version, false );
 }
@@ -394,6 +401,10 @@ function slc_field_catalog() {
 		$items = array_merge( $items, slc_case_field_catalog() );
 	}
 
+	if ( function_exists( 'slc_about_field_catalog' ) ) {
+		$items = array_merge( $items, slc_about_field_catalog() );
+	}
+
 	return $items;
 }
 
@@ -424,6 +435,34 @@ function slc_case_study_field_group() {
 					'param'    => 'post_type',
 					'operator' => '==',
 					'value'    => 'project',
+				),
+			),
+		),
+		'hide_on_screen'        => array( 'the_content', 'excerpt', 'discussion', 'comments', 'revisions', 'author', 'format', 'featured_image', 'categories', 'tags', 'send-trackbacks' ),
+		'position'              => 'acf_after_title',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+		'active'                => true,
+	);
+}
+
+/**
+ * About page fields. Shown on the About template.
+ *
+ * @return array<string, mixed>
+ */
+function slc_about_field_group() {
+	return array(
+		'key'                   => 'group_slc_about',
+		'title'                 => 'About',
+		'fields'                => slc_collect_fields( 'about' ),
+		'location'              => array(
+			array(
+				array(
+					'param'    => 'page_template',
+					'operator' => '==',
+					'value'    => 'page-about.php',
 				),
 			),
 		),

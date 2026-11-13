@@ -18,7 +18,7 @@ get_header();
 		echo slc_picture(
 			array(
 				'field'         => 'hero_image',
-				'file'          => 'images/hero.jpg',
+				'file'          => 'images/home/hero.jpg',
 				'width'         => 2752,
 				'height'        => 1536,
 				'alt'           => slc_plain( 'hero_image_alt', __( 'Tracked trencher laying cable beside a reel and site containers.', 'streamlineconnect' ) ),
@@ -203,7 +203,7 @@ get_header();
 				<a<?php echo slc_attr_html( 'built_link_label', 'text-link text-link--light' ); ?> href="<?php echo esc_url( slc_href( 'built_link_url', slc_url( '/capabilities/modular-infrastructure/#design_manufacturing_and_delivery' ) ) ); ?>"><?php echo esc_html( slc_plain( 'built_link_label', __( 'See how we manufacture and deliver.', 'streamlineconnect' ) ) ); ?><?php slc_icon( 'arrow-light.svg' ); // HOME-FIGMA-UPDATE ?></a>
 			</div>
 			<div class="built-aside" data-reveal style="--i:1">
-				<?php echo slc_picture( array( 'field' => 'built_image', 'file' => 'images/built-here.png', 'width' => 3496, 'height' => 2752, 'alt' => slc_plain( 'built_image_alt', __( 'Fabrication bay at the Embleton factory, with a welder at work.', 'streamlineconnect' ) ), 'attr_field' => 'built_image' ) ); ?>
+				<?php echo slc_picture( array( 'field' => 'built_image', 'file' => 'images/home/built-here.png', 'width' => 3496, 'height' => 2752, 'alt' => slc_plain( 'built_image_alt', __( 'Fabrication bay at the Embleton factory, with a welder at work.', 'streamlineconnect' ) ), 'attr_field' => 'built_image' ) ); ?>
 				<ul class="product-links">
 					<?php foreach ( slc_products() as $product ) : ?>
 						<li><a href="<?php echo esc_url( $product['url'] ); ?>"><span><strong<?php echo slc_attr_html( $product['title_field'] ); ?>><?php echo esc_html( $product['title'] ); ?></strong><span<?php echo slc_attr_html( $product['text_field'] ); ?>><?php echo esc_html( $product['text'] ); ?></span></span><?php slc_icon( 'arrow-light.svg' ); ?></a></li>

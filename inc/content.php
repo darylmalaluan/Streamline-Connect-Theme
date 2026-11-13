@@ -319,7 +319,7 @@ function slc_capabilities() {
 			'text'  => __( 'Fibre, wireless and critical communications, including the civil construction and technical installation that support them.', 'streamlineconnect' ),
 			'link'  => __( 'Explore communications infrastructure.', 'streamlineconnect' ),
 			'url'   => slc_url( '/capabilities/communications-infrastructure/' ),
-			'image' => 'images/capability-communications.jpg',
+			'image' => 'images/home/capability-communications.jpg',
 			'alt'   => __( 'Lattice communications tower with antennas against a cloudy sky.', 'streamlineconnect' ),
 		),
 		array(
@@ -327,7 +327,7 @@ function slc_capabilities() {
 			'text'  => __( 'Electrical installations and upgrades, with renewable, hybrid and stand-alone power systems for networks and facilities.', 'streamlineconnect' ),
 			'link'  => __( 'Explore power and energy.', 'streamlineconnect' ),
 			'url'   => slc_url( '/capabilities/power-and-energy/' ),
-			'image' => 'images/capability-power.jpg',
+			'image' => 'images/home/capability-power.jpg',
 			'alt'   => __( 'Solar array beside a communications tower and equipment container.', 'streamlineconnect' ),
 		),
 		array(
@@ -335,7 +335,7 @@ function slc_capabilities() {
 			'text'  => __( 'Data Rooms for communications and IT equipment, and Facilities for project crews, designed and manufactured by Streamline.', 'streamlineconnect' ),
 			'link'  => __( 'Explore modular infrastructure.', 'streamlineconnect' ),
 			'url'   => slc_url( '/capabilities/modular-infrastructure/' ),
-			'image' => 'images/capability-modular.png',
+			'image' => 'images/home/capability-modular.png',
 			'alt'   => __( 'Welder working inside a fabricated modular room.', 'streamlineconnect' ),
 		),
 	);
@@ -507,7 +507,7 @@ function slc_projects() {
 			'sector'   => __( 'Telecommunications', 'streamlineconnect' ),
 			'client'   => __( 'Network operator', 'streamlineconnect' ),
 			'location' => __( 'Pilbara, WA', 'streamlineconnect' ),
-			'image'    => 'images/project-regional.jpg',
+			'image'    => 'images/home/project-regional.jpg',
 			'alt'      => __( 'Cell tower and antennas against a clear sky.', 'streamlineconnect' ),
 			'pdf'      => 'regional-comms-network-upgrade.pdf',
 		),
@@ -520,7 +520,7 @@ function slc_projects() {
 			'sector'   => __( 'Government', 'streamlineconnect' ),
 			'client'   => __( 'State agency', 'streamlineconnect' ),
 			'location' => __( 'Kalgoorlie, WA', 'streamlineconnect' ),
-			'image'    => 'images/project-edge.jpg',
+			'image'    => 'images/home/project-edge.jpg',
 			'alt'      => __( 'Sparks from fabrication work inside a workshop.', 'streamlineconnect' ),
 			'pdf'      => 'edge-data-room-programme.pdf',
 		),
@@ -745,4 +745,42 @@ function slc_footer_columns() {
 			),
 		),
 	);
+}
+
+add_action( 'acf/init', 'slc_seed_home_images', 40 );
+
+/**
+ * Assign the Home frame photographs to the homepage image fields.
+ */
+function slc_seed_home_images() {
+	if ( '1' === get_option( 'slc_home_images_seeded' ) || ! function_exists( 'update_field' ) ) {
+		return;
+	}
+
+	$front = (int) get_option( 'page_on_front' );
+	if ( ! $front ) {
+		return;
+	}
+
+	$assets = array(
+		'hero_image'         => array( 'images/home/hero.jpg', 'Home hero, tracked trencher laying cable' ),
+		'capability_1_image' => array( 'images/home/capability-communications.jpg', 'Home, communications tower' ),
+		'capability_2_image' => array( 'images/home/capability-power.jpg', 'Home, solar array and tower' ),
+		'capability_3_image' => array( 'images/home/capability-modular.png', 'Home, welder inside a modular room' ),
+		'project_1_image'    => array( 'images/home/project-regional.jpg', 'Home, regional communications tower' ),
+		'project_2_image'    => array( 'images/home/project-edge.jpg', 'Home, fabrication sparks' ),
+		'built_image'        => array( 'images/home/built-here.png', 'Home, fabrication bay welder' ),
+	);
+
+	$ready = true;
+	foreach ( $assets as $field => $asset ) {
+		$id = slc_import_theme_asset( $asset[0], $asset[1] );
+		if ( ! $id || ! update_field( $field, $id, $front ) ) {
+			$ready = false;
+		}
+	}
+
+	if ( $ready ) {
+		update_option( 'slc_home_images_seeded', '1', false );
+	}
 }

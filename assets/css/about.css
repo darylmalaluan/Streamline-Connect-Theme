@@ -1,0 +1,254 @@
+/* About page. Shared header, footer, hero, jump panel, sections, and buttons stay in theme.css. */
+
+/* The designed hero is 800px including the site header, not a full viewport. */
+.about-hero.hero {
+	height: calc(800px - var(--header));
+	min-height: 0;
+}
+
+@media (max-width: 1439px) {
+	.about-hero.hero {
+		height: auto;
+		min-height: calc(800px - var(--header));
+	}
+}
+
+/* Breadcrumb over the photograph. */
+.about-crumb {
+	align-items: center;
+	color: rgb(255 255 255 / 72%);
+	display: flex;
+	font-size: var(--text-xs);
+	gap: var(--space-3);
+	line-height: var(--leading-tight);
+}
+
+.about-crumb a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.about-crumb a:hover,
+.about-crumb a:focus-visible {
+	color: var(--white);
+}
+
+.about-crumb [aria-hidden="true"] {
+	color: rgb(255 255 255 / 50%);
+}
+
+.about-crumb [aria-current="page"] {
+	color: var(--white);
+}
+
+/* Headline column matches the frame width. Standfirst stays body size, not the home hero lead. */
+.about-hero .hero-text {
+	max-width: 892px;
+}
+
+.about-hero .hero-intro,
+.about-hero .hero-intro p {
+	font-size: var(--text-md);
+	margin-top: var(--space-8);
+	max-width: 739px;
+}
+
+/* Founders' statement. The mark is decorative. */
+.about-quote-row {
+	align-items: flex-start;
+	display: flex;
+	gap: var(--space-6);
+}
+
+.about-quote-mark {
+	color: var(--orange-500);
+	flex: none;
+	font-family: var(--font-display);
+	font-size: 64px;
+	font-weight: var(--weight-bold);
+	line-height: 0.7;
+}
+
+.about-quote-text,
+.about-quote-text p {
+	color: var(--white);
+	font-family: var(--font-display);
+	font-size: clamp(24px, 1.875vw, 36px);
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--track-tight);
+	line-height: var(--leading-h3);
+	margin: 0;
+}
+
+@media (max-width: 767px) {
+	.about-quote-row {
+		flex-direction: column;
+		gap: var(--space-4);
+	}
+}
+
+/* Full-width photograph under Proximity to the work. */
+.about-photo {
+	aspect-ratio: 1808 / 1017;
+	display: block;
+	object-fit: cover;
+	width: 100%;
+}
+
+/* Nine photographs. Desktop keeps the two-band mosaic. */
+.about-mosaic {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-6);
+}
+
+.about-band {
+	display: grid;
+	gap: var(--space-6);
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	min-height: 552px;
+}
+
+.about-band__split,
+.about-stack {
+	display: grid;
+	gap: var(--space-6);
+	min-height: 0;
+	min-width: 0;
+}
+
+.about-band__split {
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.about-stack {
+	grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.about-shot {
+	margin: 0;
+	min-height: 0;
+	min-width: 0;
+	overflow: hidden;
+}
+
+.about-shot img {
+	display: block;
+	height: 100%;
+	object-fit: cover;
+	width: 100%;
+}
+
+@media (max-width: 1023px) {
+	.about-mosaic {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.about-band,
+	.about-band__split,
+	.about-stack {
+		display: contents;
+		min-height: 0;
+	}
+
+	.about-shot {
+		aspect-ratio: 3 / 2;
+	}
+}
+
+@media (max-width: 767px) {
+	.about-mosaic {
+		grid-template-columns: 1fr;
+		gap: var(--space-4);
+	}
+}
+
+/* Explore heading sits above the cards. The navy section heading colour comes from theme.css. */
+.about-explore-heading {
+	margin-bottom: var(--space-16);
+}
+
+.about-cards {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.about-card {
+	border: var(--border-width) solid var(--line-inverse);
+	color: var(--white);
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-8);
+	margin-right: calc(-1 * var(--border-width));
+	min-height: 100%;
+	padding: var(--space-10);
+	text-decoration: none;
+}
+
+.about-card:last-child {
+	margin-right: 0;
+}
+
+.about-card:hover,
+.about-card:focus-visible {
+	position: relative;
+	z-index: 1;
+}
+
+.about-card-photo {
+	aspect-ratio: 2 / 1;
+	display: block;
+	object-fit: cover;
+	width: 100%;
+}
+
+.about-card-copy {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	gap: var(--space-4);
+}
+
+.about-card-title {
+	font-family: var(--font-display);
+	font-size: clamp(24px, 1.667vw, 32px);
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--track-tight);
+	line-height: var(--leading-snug);
+}
+
+.about-card-text {
+	color: var(--navy-200);
+	font-size: var(--text-lg);
+	line-height: var(--leading-body);
+}
+
+@media (max-width: 1023px) {
+	.about-card-text {
+		font-size: var(--text-md);
+	}
+}
+
+.about-card .text-link {
+	margin-top: auto;
+}
+
+@media (max-width: 1023px) {
+	.about-cards {
+		grid-template-columns: 1fr;
+	}
+
+	.about-card,
+	.about-card:last-child {
+		margin-right: 0;
+		margin-bottom: calc(-1 * var(--border-width));
+	}
+
+	.about-cards li:last-child .about-card {
+		margin-bottom: 0;
+	}
+}
