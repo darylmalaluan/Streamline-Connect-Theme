@@ -32,7 +32,7 @@ function slc_register_fields() {
 		return;
 	}
 
-	$version  = '9';
+	$version  = '10';
 	$existing = acf_get_field_group( 'group_slc_front_page' );
 	$settings = acf_get_field_group( 'group_slc_theme_settings' );
 	$case     = acf_get_field_group( 'group_slc_case_study' );
@@ -150,10 +150,6 @@ function slc_collect_fields( $scope ) {
 			}
 			$fields[] = $field;
 		}
-
-		if ( empty( $item['plain'] ) ) {
-			$fields = array_merge( $fields, slc_class_id_fields( $key, $item['name'], $item['label'] ) );
-		}
 	}
 
 	return $fields;
@@ -215,6 +211,8 @@ function slc_theme_settings_field_group() {
 }
 
 /**
+ * Optional class and id companions. Not added to field groups at the moment.
+ *
  * @param string $key   Field key prefix.
  * @param string $name  Content field name.
  * @param string $label Content label.
