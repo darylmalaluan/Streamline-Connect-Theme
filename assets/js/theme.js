@@ -47,6 +47,86 @@
 		});
 	}
 
+	/*
+	 * Count each stat figure up once its strip enters the viewport.
+	 * A leading mark such as "< " stays put while the number runs.
+	 */
+	var statStrips = Array.prototype.slice.call(document.querySelectorAll(".stats"));
+
+	function parseStat(text) {
+		var match = text.match(/^(.*?)(\d[\d,]*)(.*)$/);
+		if (!match) {
+			return null;
+		}
+		return {
+			prefix: match[1],
+			value: parseInt(match[2].replace(/,/g, ""), 10),
+			suffix: match[3],
+			grouped: match[2].indexOf(",") !== -1
+		};
+	}
+
+	function formatStat(parsed, value) {
+		var digits = parsed.grouped ? value.toLocaleString("en-AU") : String(value);
+		return parsed.prefix + digits + parsed.suffix;
+	}
+
+	function countStat(figure, delay) {
+		var parsed = parseStat(figure.textContent.trim());
+		if (!parsed || figure.getAttribute("data-counted") === "1") {
+			return;
+		}
+		figure.setAttribute("data-counted", "1");
+		if (reduceMotion) {
+			return;
+		}
+		figure.style.minWidth = figure.getBoundingClientRect().width + "px";
+		window.setTimeout(function () {
+			var start = null;
+			var duration = Math.min(1400, Math.max(700, parsed.value * 4));
+			function step(now) {
+				if (start === null) {
+					start = now;
+				}
+				var progress = Math.min(1, (now - start) / duration);
+				var eased = 1 - Math.pow(1 - progress, 3);
+				figure.textContent = formatStat(parsed, Math.round(parsed.value * eased));
+				if (progress < 1) {
+					window.requestAnimationFrame(step);
+				}
+			}
+			window.requestAnimationFrame(step);
+		}, delay);
+	}
+
+	function playStats(strip) {
+		Array.prototype.forEach.call(strip.querySelectorAll(".stat-figure"), function (figure, index) {
+			countStat(figure, index * 80);
+		});
+	}
+
+	if (statStrips.length) {
+		if (reduceMotion || !("IntersectionObserver" in window)) {
+			statStrips.forEach(playStats);
+		} else {
+			var statObserver = new IntersectionObserver(
+				function (entries) {
+					entries.forEach(function (entry) {
+						if (!entry.isIntersecting) {
+							return;
+						}
+						playStats(entry.target);
+						statObserver.unobserve(entry.target);
+					});
+				},
+				{ threshold: 0.4 }
+			);
+			statStrips.forEach(function (strip) {
+				statObserver.observe(strip);
+			});
+		}
+	}
+
 	var header = document.querySelector("[data-header]");
 	if (!header) {
 		return;
@@ -257,6 +337,25 @@
 	desktop.addEventListener("change", function () {
 		closeMenus(null);
 	});
+
+	var stickAt = 150;
+	var stuck = false;
+	var spacer = document.querySelector("[data-header-spacer]");
+
+	function updateStick() {
+		var next = window.scrollY >= stickAt;
+		if (next === stuck) {
+			return;
+		}
+		stuck = next;
+		header.classList.toggle("is-stuck", stuck);
+		if (spacer) {
+			spacer.hidden = !stuck;
+		}
+	}
+
+	updateStick();
+	window.addEventListener("scroll", updateStick, { passive: true });
 
 	document.querySelectorAll('a[href^="#"]').forEach(function (link) {
 		link.addEventListener("click", function (event) {

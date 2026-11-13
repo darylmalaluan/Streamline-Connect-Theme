@@ -91,5 +91,6 @@ $slc_menus = slc_nav_menus();
 		</nav>
 	</div>
 </header>
+<div class="header-spacer" data-header-spacer hidden></div>
 <!-- Scrim: covers the page while the menu is open. -->
 <div class="scrim" data-scrim hidden></div>

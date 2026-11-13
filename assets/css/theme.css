@@ -123,6 +123,7 @@
 	--content: 1808px;
 	--gutter: 56px;
 	--header: 80px;
+	--header-stuck: 60px;
 	--section: 112px;
 	--touch: 44px;
 
@@ -177,6 +178,7 @@
 /* Smooth in-page scrolling. Reduced motion turns it off in the query below. */
 html {
 	scroll-behavior: smooth;
+	scroll-padding-top: var(--header);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -512,10 +514,37 @@ ul, ol {
 .site-header {
 	background: var(--white);
 	position: relative;
+	transition: box-shadow 360ms var(--ease);
 	z-index: var(--z-header);
 }
 
-body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-mega-open {
+.site-header.is-stuck {
+	animation: header-stick 360ms var(--ease);
+	box-shadow: 0 1px 8px rgba(15, 27, 45, 0.08);
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 0;
+}
+
+.header-spacer {
+	height: var(--header);
+}
+
+.header-spacer[hidden] {
+	display: none;
+}
+
+@keyframes header-stick {
+	from {
+		top: -100px;
+	}
+	to {
+		top: 0;
+	}
+}
+
+body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-mega-open, .site-header.is-stuck {
 	border-bottom: var(--border-width) solid var(--line);
 }
 
@@ -528,6 +557,11 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-mega-op
 	align-items: stretch;
 	display: flex;
 	height: var(--header);
+	transition: height 360ms var(--ease);
+}
+
+.site-header.is-stuck .header-bar {
+	height: var(--header-stuck);
 }
 
 /* Logo link. It lines up with the content column. */
@@ -593,6 +627,10 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-mega-op
 		overflow: auto;
 		position: fixed;
 		z-index: var(--z-nav);
+	}
+
+	.site-header.is-stuck.is-menu-open .site-nav {
+		top: var(--header-stuck);
 	}
 
 	.nav-group {
@@ -716,13 +754,18 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-mega-op
 	position: absolute;
 	right: 0;
 	top: var(--header);
-	transition: height 420ms var(--ease);
+	transition: height 420ms var(--ease), top 360ms var(--ease);
 	z-index: var(--z-nav);
 }
 
+.site-header.is-stuck .mega {
+	top: var(--header-stuck);
+}
+
 @media (prefers-reduced-motion: reduce) {
-	.mega, .nav-button .icon {
+	.mega, .nav-button .icon, .site-header, .site-header.is-stuck, .header-bar {
 		transition: none;
+		animation: none;
 	}
 }
 
@@ -744,7 +787,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-mega-op
 	display: flex;
 	flex-direction: column;
 	gap: var(--space-4);
-	justify-content: center;
+	justify-content: flex-start;
 	padding: var(--space-10) var(--space-8);
 }
 
@@ -1355,6 +1398,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-mega-op
 .stat-figure {
 	color: var(--white);
 	font-size: var(--text-stat);
+	font-variant-numeric: tabular-nums;
 	line-height: var(--leading-none);
 }
 
