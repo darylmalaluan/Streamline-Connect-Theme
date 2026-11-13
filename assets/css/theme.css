@@ -651,35 +651,24 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 }
 
 /* Home hero. The photograph, scrim, and copy stack in this frame. */
+/*
+ * HOME-FIGMA-UPDATE: The hero fills exactly one viewport under the in-flow
+ * site header. 100vh is the fallback; 100svh/100dvh follow so mobile
+ * browser chrome does not make the banner overflow. The old 1000px
+ * fixed height is gone. min-height: min-content lets the block grow
+ * only when the copy would otherwise clip on a short viewport.
+ */
 .hero {
 	background: var(--navy-900);
 	color: var(--white);
 	display: flex;
 	flex-direction: column;
-	min-height: calc(100svh - var(--header));
+	height: calc(100vh - var(--header));
+	height: calc(100svh - var(--header));
+	height: calc(100dvh - var(--header));
+	min-height: min-content;
 	overflow: hidden;
 	position: relative;
-}
-
-@media (min-width: 1920px) {
-	.hero {
-		height: 1000px;
-		min-height: 1000px;
-	}
-}
-
-@media (min-width: 1440px) and (max-width: 1919px) {
-	.hero {
-		height: calc(100svh - var(--header));
-		min-height: calc(100svh - var(--header));
-	}
-}
-
-@media (max-width: 1439px) {
-	.hero {
-		height: auto;
-		min-height: 100svh;
-	}
 }
 
 /* Hero photograph. Id may be set from the image field. */
