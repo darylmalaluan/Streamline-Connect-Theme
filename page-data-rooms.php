@@ -30,7 +30,7 @@ get_header();
 			<nav class="dataroom-crumb" aria-label="<?php esc_attr_e( 'Breadcrumb', 'streamlineconnect' ); ?>">
 				<a href="<?php echo esc_url( slc_url( '/' ) ); ?>"><?php echo esc_html( slc_plain( 'dataroom_breadcrumb_home', __( 'Home', 'streamlineconnect' ) ) ); ?></a>
 				<span aria-hidden="true">/</span>
-				<a href="<?php echo esc_url( slc_url( '/capabilities/' ) ); ?>"><?php echo esc_html( slc_plain( 'dataroom_breadcrumb_parent', __( 'Capabilities', 'streamlineconnect' ) ) ); ?></a>
+				<a href="<?php echo esc_url( slc_url( '/products/' ) ); ?>"><?php echo esc_html( slc_plain( 'dataroom_breadcrumb_parent', __( 'Products', 'streamlineconnect' ) ) ); ?></a>
 				<span aria-hidden="true">/</span>
 				<span aria-current="page"><?php echo esc_html( slc_plain( 'dataroom_breadcrumb_current', __( 'Data Rooms', 'streamlineconnect' ) ) ); ?></span>
 			</nav>

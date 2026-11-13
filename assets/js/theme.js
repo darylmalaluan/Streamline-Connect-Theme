@@ -53,40 +53,119 @@
 	}
 
 	var menuBtn = header.querySelector("[data-menu-toggle]");
-	var capBtn = header.querySelector("[data-capabilities-toggle]");
-	var mega = document.getElementById("capabilities_menu");
+	var toggles = Array.prototype.slice.call(header.querySelectorAll("[data-nav-toggle]"));
+	var panels = Array.prototype.slice.call(header.querySelectorAll(".mega"));
 	var scrim = document.querySelector("[data-scrim]");
 	var desktop = window.matchMedia("(min-width: 1440px)");
 	var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+	var openPanel = null;
 
 	function menuOpen() {
 		return header.classList.contains("is-menu-open");
 	}
 
-	function capsOpen() {
-		return header.classList.contains("is-capabilities-open");
+	function panelOpen() {
+		return openPanel !== null;
 	}
 
-	function setOpen(menu, caps) {
+	function clearSlide(panel) {
+		panel.style.height = "";
+		panel.style.overflow = "";
+		panel.style.transition = "";
+		panel.style.zIndex = "";
+	}
+
+	function slideOpen(panel) {
+		panel.hidden = false;
+		panel.style.zIndex = "46";
+		if (reduce.matches) {
+			clearSlide(panel);
+			return;
+		}
+		panel.style.overflow = "hidden";
+		panel.style.transition = "none";
+		panel.style.height = "auto";
+		var target = panel.offsetHeight;
+		panel.style.height = "0px";
+		panel.getBoundingClientRect();
+		panel.style.transition = "";
+		panel.style.height = target + "px";
+		var token = {};
+		panel._slide = token;
+		function done(event) {
+			if (event.target !== panel || event.propertyName !== "height" || panel._slide !== token) {
+				return;
+			}
+			panel.removeEventListener("transitionend", done);
+			if (openPanel === panel) {
+				panel.style.height = "auto";
+				panel.style.overflow = "";
+			}
+		}
+		panel.addEventListener("transitionend", done);
+	}
+
+	function slideClosed(panel) {
+		if (panel.hidden) {
+			return;
+		}
+		if (reduce.matches) {
+			panel.hidden = true;
+			clearSlide(panel);
+			return;
+		}
+		var token = {};
+		panel._slide = token;
+		panel.style.overflow = "hidden";
+		panel.style.transition = "none";
+		panel.style.height = panel.getBoundingClientRect().height + "px";
+		panel.getBoundingClientRect();
+		panel.style.transition = "";
+		panel.style.height = "0px";
+		function done(event) {
+			if (event.target !== panel || event.propertyName !== "height" || panel._slide !== token) {
+				return;
+			}
+			panel.removeEventListener("transitionend", done);
+			if (openPanel !== panel) {
+				panel.hidden = true;
+				clearSlide(panel);
+			}
+		}
+		panel.addEventListener("transitionend", done);
+	}
+
+	function setOpen(menu, panel) {
+		var previous = openPanel;
+		openPanel = panel || null;
 		header.classList.toggle("is-menu-open", menu);
-		header.classList.toggle("is-capabilities-open", caps);
+		header.classList.toggle("is-mega-open", !!openPanel);
+		header.classList.toggle("is-capabilities-open", !!(openPanel && openPanel.id === "capabilities_menu"));
 		if (menuBtn) {
 			menuBtn.setAttribute("aria-expanded", menu ? "true" : "false");
 		}
-		if (capBtn) {
-			capBtn.setAttribute("aria-expanded", caps ? "true" : "false");
-		}
-		if (mega) {
-			mega.hidden = !caps;
-		}
+		toggles.forEach(function (btn) {
+			var controls = document.getElementById(btn.getAttribute("aria-controls"));
+			btn.setAttribute("aria-expanded", controls && controls === openPanel ? "true" : "false");
+		});
+		panels.forEach(function (node) {
+			if (node === openPanel) {
+				slideOpen(node);
+			} else if (node === previous) {
+				slideClosed(node);
+			} else if (!node.hidden) {
+				node.hidden = true;
+				clearSlide(node);
+			}
+		});
 		if (scrim) {
-			scrim.hidden = !(menu || caps);
+			scrim.hidden = !(menu || openPanel);
 		}
-		document.body.classList.toggle("nav-lock", menu || caps);
+		document.body.classList.toggle("nav-lock", menu || openPanel);
 	}
 
 	function closeMenus(focusEl) {
-		setOpen(false, false);
+		setOpen(false, null);
 		if (focusEl && typeof focusEl.focus === "function") {
 			focusEl.focus();
 		}
@@ -115,39 +194,46 @@
 		});
 	}
 
-	if (capBtn) {
-		capBtn.addEventListener("click", function () {
-			if (capsOpen()) {
+	toggles.forEach(function (btn) {
+		btn.addEventListener("click", function () {
+			var panel = document.getElementById(btn.getAttribute("aria-controls"));
+			if (panel && openPanel === panel) {
 				if (desktop.matches) {
-					closeMenus(capBtn);
+					closeMenus(btn);
 				} else {
-					setOpen(true, false);
-					capBtn.focus();
+					setOpen(true, null);
+					btn.focus();
 				}
 				return;
 			}
 			if (desktop.matches) {
-				setOpen(false, true);
+				setOpen(false, panel);
 			} else {
-				setOpen(true, true);
+				setOpen(true, panel);
 			}
 		});
-	}
+	});
 
 	if (scrim) {
 		scrim.addEventListener("click", function () {
-			closeMenus(menuOpen() ? menuBtn : capBtn);
+			var toggle = toggles.filter(function (btn) {
+				return btn.getAttribute("aria-expanded") === "true";
+			})[0];
+			closeMenus(menuOpen() ? menuBtn : toggle);
 		});
 	}
 
 	document.addEventListener("keydown", function (event) {
-		if (event.key === "Escape" && (menuOpen() || capsOpen())) {
+		if (event.key === "Escape" && (menuOpen() || panelOpen())) {
 			event.preventDefault();
-			closeMenus(menuOpen() ? menuBtn : capBtn);
+			var toggle = toggles.filter(function (btn) {
+				return btn.getAttribute("aria-expanded") === "true";
+			})[0];
+			closeMenus(menuOpen() ? menuBtn : toggle);
 			return;
 		}
 
-		if (event.key !== "Tab" || (!menuOpen() && !capsOpen())) {
+		if (event.key !== "Tab" || (!menuOpen() && !panelOpen())) {
 			return;
 		}
 

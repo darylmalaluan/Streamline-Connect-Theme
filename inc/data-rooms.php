@@ -82,7 +82,7 @@ function slc_data_rooms_field_catalog() {
 	$add( 'image', 'dataroom_hero_image', 'Photograph', '', 'basic', 'Cable photograph behind the headline.' );
 	$add( 'text', 'dataroom_hero_alt', 'Photograph description', 'Bundles of turquoise network cables.' );
 	$add( 'text', 'dataroom_breadcrumb_home', 'Breadcrumb home', 'Home' );
-	$add( 'text', 'dataroom_breadcrumb_parent', 'Breadcrumb parent', 'Capabilities' );
+	$add( 'text', 'dataroom_breadcrumb_parent', 'Breadcrumb parent', 'Products' );
 	$add( 'text', 'dataroom_breadcrumb_current', 'Breadcrumb current', 'Data Rooms' );
 	$add( 'wysiwyg', 'dataroom_heading', 'Heading', 'Data Rooms with field experience behind the specification', 'inline' );
 	$add( 'wysiwyg', 'dataroom_standfirst', 'Standfirst', 'Streamline spent years installing, upgrading and decommissioning communications facilities before clients asked us to manufacture them. We knew the equipment, connections and site services awaiting those rooms because our teams had dealt with them firsthand.

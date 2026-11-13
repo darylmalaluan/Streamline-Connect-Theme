@@ -321,3 +321,21 @@ function slc_create_pages() {
 	flush_rewrite_rules( false );
 }
 add_action( 'init', 'slc_create_pages', 20 );
+add_action( 'init', 'slc_ensure_legal_pages', 21 );
+
+/**
+ * Publish Terms and Accessibility when the footer links have no page yet.
+ */
+function slc_ensure_legal_pages() {
+	$pages = array(
+		'terms'         => __( 'Terms', 'streamlineconnect' ),
+		'accessibility' => __( 'Accessibility', 'streamlineconnect' ),
+	);
+
+	foreach ( $pages as $slug => $title ) {
+		if ( get_page_by_path( $slug ) instanceof WP_Post ) {
+			continue;
+		}
+		slc_ensure_page( $title, $slug, '<p>' . esc_html( $title ) . '</p>' );
+	}
+}

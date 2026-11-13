@@ -102,7 +102,7 @@ function slc_icon( $file ) {
 }
 
 /**
- * Primary navigation. Only Capabilities has a designed panel.
+ * Primary navigation. Capabilities and About open a panel.
  */
 function slc_nav_items() {
 	$items = array(
@@ -110,7 +110,7 @@ function slc_nav_items() {
 			'label'   => __( 'Capabilities', 'streamlineconnect' ),
 			'field'   => 'nav_capabilities_label',
 			'url'     => slc_url( '/capabilities/' ),
-			'menu'    => true,
+			'panel'   => 'capabilities',
 			'chevron' => true,
 		),
 		array(
@@ -131,7 +131,7 @@ function slc_nav_items() {
 			'label'   => __( 'About', 'streamlineconnect' ),
 			'field'   => 'nav_about_label',
 			'url'     => slc_url( '/about/' ),
-			'menu'    => false,
+			'panel'   => 'about',
 			'chevron' => true,
 		),
 		array(
@@ -156,8 +156,14 @@ function slc_nav_items() {
  */
 function slc_capability_menu() {
 	return array(
-		'intro'   => __( 'Streamline Connect delivers communications networks, power systems and modular facilities using its own crews, specialist plant and manufacturing capability.', 'streamlineconnect' ),
-		'columns' => array(
+		'id'        => 'capabilities_menu',
+		'prefix'    => 'menu',
+		'title'     => __( 'Capabilities', 'streamlineconnect' ),
+		'intro'     => __( 'Streamline Connect delivers communications networks, power systems and modular facilities using its own crews, specialist plant and manufacturing capability.', 'streamlineconnect' ),
+		'all_label' => __( 'All capabilities', 'streamlineconnect' ),
+		'all_url'   => slc_url( '/capabilities/' ),
+		'sections'  => array(),
+		'columns'   => array(
 			array(
 				'title'   => __( 'Communications', 'streamlineconnect' ),
 				'url'     => slc_url( '/capabilities/communications-infrastructure/' ),
@@ -202,20 +208,107 @@ function slc_capability_menu() {
 				'summary' => __( 'Electrical installations and upgrades, with renewable, hybrid and stand-alone power systems for networks and facilities.', 'streamlineconnect' ),
 				'links'   => array(
 					array(
-						'label' => __( 'Renewable & Hybrid Energy', 'streamlineconnect' ),
-						'url'   => slc_url( '/capabilities/power-and-energy/#renewable_and_hybrid_energy' ),
+						'label' => __( 'Electrical installations', 'streamlineconnect' ),
+						'url'   => slc_url( '/capabilities/power-and-energy/#electrical' ),
 					),
 					array(
-						'label' => __( 'Remote Power Systems', 'streamlineconnect' ),
-						'url'   => slc_url( '/capabilities/power-and-energy/#remote_power_systems' ),
+						'label' => __( 'Renewable and hybrid systems', 'streamlineconnect' ),
+						'url'   => slc_url( '/capabilities/power-and-energy/#renewable-hybrid' ),
 					),
 					array(
-						'label' => __( 'Power Monitoring and Control', 'streamlineconnect' ),
-						'url'   => slc_url( '/capabilities/power-and-energy/#power_monitoring_and_control' ),
+						'label' => __( 'Stand-alone power', 'streamlineconnect' ),
+						'url'   => slc_url( '/capabilities/power-and-energy/#stand-alone' ),
 					),
 				),
 			),
 		),
+	);
+}
+
+/**
+ * About menu. Columns are the pages under About, and each link is a section on that page.
+ */
+function slc_about_menu() {
+	return array(
+		'id'        => 'about_menu',
+		'prefix'    => 'menu_about',
+		'title'     => __( 'About', 'streamlineconnect' ),
+		'intro'     => __( 'Streamline Connect is a Western Australian contractor delivering communications networks, power systems and modular infrastructure across Australia.', 'streamlineconnect' ),
+		'all_label' => __( 'All about', 'streamlineconnect' ),
+		'all_url'   => slc_url( '/about/' ),
+		'sections'  => array(
+			array(
+				'label' => __( 'Proximity to the work', 'streamlineconnect' ),
+				'url'   => slc_url( '/about/#proximity_to_the_work' ),
+			),
+			array(
+				'label' => __( 'Our people', 'streamlineconnect' ),
+				'url'   => slc_url( '/about/#our_people' ),
+			),
+			array(
+				'label' => __( 'Explore Streamline', 'streamlineconnect' ),
+				'url'   => slc_url( '/about/#explore_streamline' ),
+			),
+		),
+		'columns'   => array(
+			array(
+				'title'   => __( 'Our Story', 'streamlineconnect' ),
+				'url'     => slc_url( '/about/our-story/' ),
+				'summary' => __( 'Trace Streamline Connect’s development from its telecommunications heritage to its establishment in 2018 and expansion into power and modular manufacturing.', 'streamlineconnect' ),
+				'links'   => array(
+					array(
+						'label' => __( 'Meet our leadership team', 'streamlineconnect' ),
+						'url'   => slc_url( '/about/leadership/' ),
+					),
+					array(
+						'label' => __( 'Explore our capabilities', 'streamlineconnect' ),
+						'url'   => slc_url( '/capabilities/' ),
+					),
+					array(
+						'label' => __( 'See how we deliver', 'streamlineconnect' ),
+						'url'   => slc_url( '/about/how-we-deliver/' ),
+					),
+				),
+			),
+			array(
+				'title'   => __( 'Leadership', 'streamlineconnect' ),
+				'url'     => slc_url( '/about/leadership/' ),
+				'summary' => __( 'Our leaders work directly with clients and project teams, taking responsibility for the commitments we make and the work we deliver.', 'streamlineconnect' ),
+				'links'   => array(
+					array(
+						'label' => __( 'Team capabilities', 'streamlineconnect' ),
+						'url'   => slc_url( '/about/leadership/#leadership_team_heading' ),
+					),
+				),
+			),
+			array(
+				'title'   => __( 'How we deliver', 'streamlineconnect' ),
+				'url'     => slc_url( '/about/how-we-deliver/' ),
+				'summary' => __( 'We work from design through to commissioning, with support continuing after handover. Our own crews and technical teams handle the core work.', 'streamlineconnect' ),
+				'links'   => array(
+					array(
+						'label' => __( 'The delivery model', 'streamlineconnect' ),
+						'url'   => slc_url( '/about/how-we-deliver/#the_delivery_model' ),
+					),
+					array(
+						'label' => __( 'Facilities', 'streamlineconnect' ),
+						'url'   => slc_url( '/about/how-we-deliver/#facilities' ),
+					),
+				),
+			),
+		),
+	);
+}
+
+/**
+ * Menu panels keyed by the navigation item that opens them.
+ *
+ * @return array<string, array<string, mixed>>
+ */
+function slc_nav_menus() {
+	return array(
+		'capabilities' => slc_capability_menu(),
+		'about'        => slc_about_menu(),
 	);
 }
 
@@ -675,7 +768,7 @@ function slc_products() {
 		array(
 			'title' => __( 'Project and operational facilities', 'streamlineconnect' ),
 			'text'  => __( 'Offices and amenities for site teams, with off-grid Zero Emission Rooms and grid-connected options.', 'streamlineconnect' ),
-			'url'   => slc_url( '/products/facilities/#zer' ),
+			'url'   => slc_url( '/products/facilities/#explore_our_facilities' ),
 		),
 	);
 

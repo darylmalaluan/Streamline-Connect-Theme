@@ -32,7 +32,7 @@ function slc_register_fields() {
 		return;
 	}
 
-	$version  = '19';
+	$version  = '20';
 	$existing = acf_get_field_group( 'group_slc_front_page' );
 	$settings = acf_get_field_group( 'group_slc_theme_settings' );
 	$case     = acf_get_field_group( 'group_slc_case_study' );
@@ -332,6 +332,25 @@ function slc_field_catalog() {
 		}
 	}
 
+	$add( 'tab', '', 'About menu', '', 'basic', false, 'theme' );
+	$about_menu = slc_about_menu();
+	$add( 'text', 'menu_about_title', 'Title', $about_menu['title'], 'basic', false, 'theme' );
+	$add( 'wysiwyg', 'menu_about_intro', 'Intro', $about_menu['intro'], 'basic', false, 'theme' );
+	$add( 'text', 'menu_about_all_label', 'All about label', $about_menu['all_label'], 'basic', false, 'theme' );
+	foreach ( $about_menu['sections'] as $section_index => $section ) {
+		$add( 'text', 'menu_about_section_' . ( $section_index + 1 ), $section['label'], $section['label'], 'basic', false, 'theme' );
+		$add( 'text', 'menu_about_section_' . ( $section_index + 1 ) . '_url', $section['label'] . ' link', '', 'basic', true, 'theme' );
+	}
+	foreach ( $about_menu['columns'] as $index => $column ) {
+		$n = $index + 1;
+		$add( 'text', "menu_about_{$n}_title", $column['title'], $column['title'], 'basic', false, 'theme' );
+		$add( 'wysiwyg', "menu_about_{$n}_summary", $column['title'] . ' summary', $column['summary'], 'basic', false, 'theme' );
+		foreach ( $column['links'] as $link_index => $link ) {
+			$add( 'text', 'menu_about_' . $n . '_link_' . ( $link_index + 1 ), $link['label'], $link['label'], 'basic', false, 'theme' );
+			$add( 'text', 'menu_about_' . $n . '_link_' . ( $link_index + 1 ) . '_url', $link['label'] . ' link', '', 'basic', true, 'theme' );
+		}
+	}
+
 	$add( 'tab', '', 'Hero' );
 	$add( 'wysiwyg', 'hero_heading', 'Heading', 'A more direct way to<br>deliver critical infrastructure', 'inline' );
 	$add( 'wysiwyg', 'hero_body', 'Body', 'Streamline Connect delivers communications networks, power systems and modular facilities using its own crews, specialist plant and manufacturing capability. You deal directly with people who understand the work on site and can make decisions about how it gets done.' );
@@ -415,7 +434,7 @@ function slc_field_catalog() {
 	$add( 'wysiwyg', 'built_heading', 'Heading', 'Built here.<br>Delivered with confidence.', 'inline' );
 	$add( 'wysiwyg', 'built_body', 'Body', 'At our Embleton factory in Western Australia, you can inspect your Data Room and witness Factory Acceptance Testing. The people who assembled it are on hand to investigate and resolve issues before dispatch. Our site crews can prepare the foundations and connections while the factory team completes your room.' );
 	$add( 'text', 'built_link_label', 'Link label', 'See how we manufacture and deliver.' );
-	$add( 'text', 'built_link_url', 'Link', '/capabilities/modular-infrastructure/#design_manufacturing_and_delivery', 'basic', true );
+	$add( 'text', 'built_link_url', 'Link', '/capabilities/modular-infrastructure/#factory_manufacturing', 'basic', true );
 	$add( 'image', 'built_image', 'Photograph' );
 	$add( 'text', 'built_image_alt', 'Photograph description', 'Fabrication bay at the Embleton factory, with a welder at work.' );
 	foreach ( slc_products() as $product ) {

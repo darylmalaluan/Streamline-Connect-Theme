@@ -515,7 +515,7 @@ ul, ol {
 	z-index: var(--z-header);
 }
 
-body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabilities-open {
+body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-mega-open {
 	border-bottom: var(--border-width) solid var(--line);
 }
 
@@ -581,6 +581,22 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 @media (max-width: 1439px) {
 	.site-nav {
 		display: none;
+	}
+
+	.site-header.is-menu-open .site-nav {
+		background: var(--white);
+		display: flex;
+		flex-direction: column;
+		height: auto;
+		inset: var(--header) 0 0 0;
+		margin: 0;
+		overflow: auto;
+		position: fixed;
+		z-index: var(--z-nav);
+	}
+
+	.nav-group {
+		width: 100%;
 	}
 }
 
@@ -649,6 +665,10 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	background: var(--grey-100);
 }
 
+.nav-button .icon {
+	transition: transform 420ms var(--ease);
+}
+
 .nav-button[aria-expanded="true"] .icon {
 	transform: rotate(180deg);
 }
@@ -685,7 +705,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	display: none;
 }
 
-/* Capabilities menu panel. Id hook: #capabilities_menu. */
+/* Capabilities and About panels. They slide down from the header when a trigger is clicked. */
 .mega {
 	background: var(--white);
 	border-bottom: var(--border-width) solid var(--line);
@@ -696,7 +716,14 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	position: absolute;
 	right: 0;
 	top: var(--header);
+	transition: height 420ms var(--ease);
 	z-index: var(--z-nav);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.mega, .nav-button .icon {
+		transition: none;
+	}
 }
 
 @media (max-width: 1439px) {
