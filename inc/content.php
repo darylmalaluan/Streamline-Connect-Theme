@@ -401,44 +401,51 @@ function slc_reasons() {
 }
 
 /**
- * Stat strip. Figures are the ones drawn on Home and still need business sign-off.
+ * Stat strip. Figures follow the Home – Desktop frame (WIP).
+ * HOME-FIGMA-UPDATE: prefix and new approved figures; the label sits under the number.
  */
 function slc_stats() {
 	return slc_bind_list(
 		array(
 		array(
-			'label'  => __( 'Years in the field', 'streamlineconnect' ),
-			'figure' => '30',
-			'suffix' => '+',
+			'prefix' => __( 'Since', 'streamlineconnect' ),
+			'figure' => '1996',
+			'suffix' => '',
+			'label'  => __( 'Telecommunications heritage through Streamline Underground Services', 'streamlineconnect' ),
 		),
 		array(
-			'label'  => __( 'Modules delivered', 'streamlineconnect' ),
-			'figure' => '1,200',
-			'suffix' => '+',
+			'prefix' => '',
+			'figure' => '900',
+			'suffix' => __( 'km', 'streamlineconnect' ),
+			'label'  => __( "Fibre installed by Streamline's own crews for Telstra InfraCo's Project Aura", 'streamlineconnect' ),
 		),
 		array(
-			'label'  => __( 'Capability areas', 'streamlineconnect' ),
+			'prefix' => '',
+			'figure' => '10',
+			'suffix' => '',
+			'label'  => __( "Communication Equipment Rooms in production during Streamline's 2026 factory relocation", 'streamlineconnect' ),
+		),
+		array(
+			'prefix' => '',
 			'figure' => '3',
 			'suffix' => '',
+			'label'  => __( 'Core capability areas: Communications Infrastructure, Power & Energy, and Modular Infrastructure.', 'streamlineconnect' ),
 		),
 		array(
-			'label'  => __( 'Built in Western Australia', 'streamlineconnect' ),
-			'figure' => '100',
-			'suffix' => '%',
-		),
-		array(
-			'label'  => __( 'Quote response', 'streamlineconnect' ),
-			'figure' => '24',
-			'suffix' => 'h',
+			'prefix' => '',
+			'figure' => '< 20',
+			'suffix' => __( 'min', 'streamlineconnect' ),
+			'label'  => __( 'Zero Emission Room deployment on a Pilbara mining project', 'streamlineconnect' ),
 		),
 		),
 		'stat',
-		array( 'label', 'figure', 'suffix' )
+		array( 'prefix', 'label', 'figure', 'suffix' )
 	);
 }
 
 /**
  * Delivery stages. Cards are content, not links.
+ * HOME-FIGMA-UPDATE: stage body copy shortened to the current Home – Desktop texts.
  */
 function slc_stages() {
 	return slc_bind_list(
@@ -447,37 +454,37 @@ function slc_stages() {
 			'index'    => '01',
 			'title'    => __( 'Design', 'streamlineconnect' ),
 			'parallel' => false,
-			'text'     => __( 'We work with you from concept through to detailed design. Our engineers review site conditions, cable routes, equipment access and maintenance requirements with the construction and installation teams, addressing practical constraints before work begins on site.', 'streamlineconnect' ),
+			'text'     => __( 'Engineering and design tailored to site conditions, operational requirements and long-term maintenance.', 'streamlineconnect' ),
 		),
 		array(
 			'index'    => '02',
 			'title'    => __( 'Site construction', 'streamlineconnect' ),
 			'parallel' => true,
-			'text'     => __( 'Our crews prepare the ground through earthworks, trenching, foundations, pads and access. They also install cable and conduit, deliver site services and reinstate disturbed ground, coordinating the civil works with the electrical and communications installations that follow.', 'streamlineconnect' ),
+			'text'     => __( 'Bulk earthworks, civil works and site construction through to a completed site.', 'streamlineconnect' ),
 		),
 		array(
 			'index'    => '03',
 			'title'    => __( 'Manufacture and test', 'streamlineconnect' ),
 			'parallel' => true,
-			'text'     => __( 'Our factory team fabricates and assembles modular rooms, completes the electrical and equipment fit-out, and integrates the systems specified for the project. Factory Acceptance Testing checks how a Data Room\'s power, cooling and controls operate together before dispatch.', 'streamlineconnect' ),
+			'text'     => __( 'Fabrication, fit-out and Factory Acceptance Testing of modular products at our Embleton facility.', 'streamlineconnect' ),
 		),
 		array(
 			'index'    => '04',
 			'title'    => __( 'Install', 'streamlineconnect' ),
 			'parallel' => false,
-			'text'     => __( 'Our teams coordinate the transport and installation of networks, equipment and modular facilities. On operating sites, electrical works and fibre cutovers are planned around existing services to minimise disruption.', 'streamlineconnect' ),
+			'text'     => __( 'Logistics and installation of networks, equipment and modular facilities.', 'streamlineconnect' ),
 		),
 		array(
 			'index'    => '05',
 			'title'    => __( 'Integrate and commission', 'streamlineconnect' ),
 			'parallel' => false,
-			'text'     => __( 'We connect the installed infrastructure to your communications, power and operational systems. Our teams test the connections and verify the operation of the completed installation, including environmental controls and monitoring where specified, before handover.', 'streamlineconnect' ),
+			'text'     => __( 'Connection into the client’s communications, power and operational systems, then commissioning.', 'streamlineconnect' ),
 		),
 		array(
 			'index'    => '06',
 			'title'    => __( 'Support', 'streamlineconnect' ),
 			'parallel' => false,
-			'text'     => __( 'Our teams provide maintenance, repairs and upgrades after handover. As your requirements change, you continue working with people familiar with the infrastructure and the conditions under which it was installed.', 'streamlineconnect' ),
+			'text'     => __( 'Ongoing maintenance, upgrades and operational support.', 'streamlineconnect' ),
 		),
 		),
 		'stage',
@@ -486,7 +493,7 @@ function slc_stages() {
 }
 
 /**
- * Featured projects. Summaries in the file are Latin and are omitted.
+ * Featured projects. Latin summaries in the Figma are placeholders and are not used as fallbacks.
  * PDF files are not in the design; drop them into assets/documents/.
  */
 function slc_projects() {
@@ -521,11 +528,13 @@ function slc_projects() {
 
 	foreach ( $rows as $index => &$row ) {
 		$n                  = $index + 1;
-		$row['title_field'] = "project_{$n}_title";
-		$row['alt_field']   = "project_{$n}_alt";
-		$row['image_field'] = "project_{$n}_image";
-		$row['title']       = slc_plain( $row['title_field'], $row['title'] );
-		$row['alt']         = slc_plain( $row['alt_field'], $row['alt'] );
+		$row['title_field']   = "project_{$n}_title";
+		$row['summary_field'] = "project_{$n}_summary";
+		$row['alt_field']     = "project_{$n}_alt";
+		$row['image_field']   = "project_{$n}_image";
+		$row['title']         = slc_plain( $row['title_field'], $row['title'] );
+		$row['summary']       = slc_rich( $row['summary_field'], '' ); /* HOME-FIGMA-UPDATE: optional summary, no Latin fallback */
+		$row['alt']           = slc_plain( $row['alt_field'], $row['alt'] );
 		$row['sector']      = slc_plain( "project_{$n}_sector", $row['sector'] );
 		$row['client']      = slc_plain( "project_{$n}_client", $row['client'] );
 		$row['location']    = slc_plain( "project_{$n}_location", $row['location'] );
@@ -684,7 +693,7 @@ function slc_products() {
 }
 
 /**
- * Footer columns. Placeholder slots and the unpublished phone number are omitted.
+ * Footer columns. HOME-FIGMA-UPDATE: Company list follows the WIP footer; Projects is in the header.
  */
 function slc_footer_columns() {
 	return array(
@@ -732,10 +741,6 @@ function slc_footer_columns() {
 				array(
 					'label' => __( 'Industries', 'streamlineconnect' ),
 					'url'   => slc_url( '/projects/industries/' ),
-				),
-				array(
-					'label' => __( 'Projects', 'streamlineconnect' ),
-					'url'   => slc_url( '/projects/' ),
 				),
 			),
 		),

@@ -21,7 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 </section>
 <!-- Footer: brand column, then the link columns and contact. -->
 <footer class="site-footer">
-	<div class="wrap footer-top">
+	<?php // HOME-FIGMA-UPDATE: Footer-top is full-bleed so the divider spans the section width. ?>
+	<div class="footer-top">
 		<!-- Brand: logo, then the accreditation label and the three ISO marks. -->
 		<div class="footer-brand">
 			<a class="logo" href="<?php echo esc_url( slc_url( '/' ) ); ?>"><?php
@@ -61,6 +62,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<h2><?php esc_html_e( 'Contact', 'streamlineconnect' ); ?></h2>
 				<ul>
 					<li><a<?php echo slc_attr_html( 'footer_email' ); ?> href="mailto:<?php echo esc_attr( slc_plain( 'footer_email', 'hello@streamlineconnect.com.au' ) ); ?>"><?php echo esc_html( slc_plain( 'footer_email', 'hello@streamlineconnect.com.au' ) ); ?></a></li>
+					<?php
+					$slc_footer_phone = slc_plain( 'footer_phone', '' ); // HOME-FIGMA-UPDATE: hidden until a real number is saved
+					if ( '' !== $slc_footer_phone ) :
+						$slc_footer_tel = preg_replace( '/[^0-9+]/', '', $slc_footer_phone );
+						?>
+						<li><a<?php echo slc_attr_html( 'footer_phone' ); ?> href="tel:<?php echo esc_attr( $slc_footer_tel ); ?>"><?php echo esc_html( $slc_footer_phone ); ?></a></li>
+					<?php endif; ?>
 					<li<?php echo slc_attr_html( 'footer_location' ); ?>><?php echo esc_html( slc_plain( 'footer_location', __( 'Perth, Western Australia', 'streamlineconnect' ) ) ); ?></li>
 				</ul>
 			</div>
@@ -69,7 +77,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<!-- Legal bar: copyright, policy links, then back to top. -->
 	<div class="legal">
 		<p<?php echo slc_attr_html( 'footer_copyright', 'legal-copy' ); ?>><?php echo esc_html( slc_plain( 'footer_copyright', __( '© 2026 Streamline Connect Pty Ltd', 'streamlineconnect' ) ) ); ?></p>
-		<a<?php echo slc_attr_html( 'legal_privacy' ); ?> href="<?php echo esc_url( slc_url( '/privacy-policy/' ) ); ?>"><?php echo esc_html( slc_plain( 'legal_privacy', __( 'Privacy Policy', 'streamlineconnect' ) ) ); ?></a>
+		<a<?php echo slc_attr_html( 'legal_privacy' ); ?> href="<?php echo esc_url( slc_url( '/privacy-policy/' ) ); ?>"><?php echo esc_html( slc_plain( 'legal_privacy', __( 'Privacy', 'streamlineconnect' ) ) ); ?></a>
 		<a<?php echo slc_attr_html( 'legal_terms' ); ?> href="<?php echo esc_url( slc_url( '/terms/' ) ); ?>"><?php echo esc_html( slc_plain( 'legal_terms', __( 'Terms', 'streamlineconnect' ) ) ); ?></a>
 		<a<?php echo slc_attr_html( 'legal_accessibility' ); ?> href="<?php echo esc_url( slc_url( '/accessibility/' ) ); ?>"><?php echo esc_html( slc_plain( 'legal_accessibility', __( 'Accessibility', 'streamlineconnect' ) ) ); ?></a>
 		<a<?php echo slc_attr_html( 'legal_top' ); ?> href="#top"><?php echo esc_html( slc_plain( 'legal_top', __( 'Back to top ↑', 'streamlineconnect' ) ) ); ?></a>

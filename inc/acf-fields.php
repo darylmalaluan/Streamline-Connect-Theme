@@ -32,7 +32,7 @@ function slc_register_fields() {
 		return;
 	}
 
-	$version  = '6';
+	$version  = '8'; /* HOME-FIGMA-UPDATE: How we deliver intro and stage copy. */
 	$existing = acf_get_field_group( 'group_slc_front_page' );
 	$settings = acf_get_field_group( 'group_slc_theme_settings' );
 	$case     = acf_get_field_group( 'group_slc_case_study' );
@@ -316,14 +316,15 @@ function slc_field_catalog() {
 		$add( 'wysiwyg', $reason['text_field'], $reason['title'] . ' body', $reason['text'] );
 	}
 	foreach ( slc_stats() as $stat ) {
-		$add( 'text', $stat['label_field'], $stat['label'], $stat['label'] );
+		$add( 'text', $stat['prefix_field'], $stat['label'] . ' prefix', $stat['prefix'] );
 		$add( 'text', $stat['figure_field'], $stat['label'] . ' figure', $stat['figure'] );
 		$add( 'text', $stat['suffix_field'], $stat['label'] . ' suffix', $stat['suffix'] );
+		$add( 'text', $stat['label_field'], $stat['label'], $stat['label'] );
 	}
 
 	$add( 'tab', '', 'How we deliver' );
 	$add( 'wysiwyg', 'delivery_heading', 'Heading', 'How We Deliver', 'inline' );
-	$add( 'wysiwyg', 'delivery_intro', 'Intro', 'From a defined construction package to a broader infrastructure project, Streamline involves the people responsible for delivery in planning the work. Our own crews undertake the core stages, supported by trusted contractors under our management where required. On projects involving both site construction and manufacturing, these activities proceed in parallel.' );
+	$add( 'wysiwyg', 'delivery_intro', 'Intro', 'Streamline can deliver a defined construction or installation package, or take on a project from design through to support. We’ll agree which stages you need us to deliver, with site construction and manufacturing planned in parallel on combined projects.' ); // HOME-FIGMA-UPDATE
 	foreach ( slc_stages() as $stage ) {
 		$add( 'text', $stage['index_field'], $stage['title'] . ' number', $stage['index'] );
 		$add( 'text', $stage['title_field'], $stage['title'], $stage['title'] );
@@ -338,6 +339,7 @@ function slc_field_catalog() {
 		$add( 'image', $project['image_field'], $project['title'] . ' photo' );
 		$add( 'text', $project['alt_field'], $project['title'] . ' photo description', $project['alt'] );
 		$add( 'text', $project['title_field'], $project['title'], $project['title'] );
+		$add( 'wysiwyg', $project['summary_field'], $project['title'] . ' summary', '', 'basic' ); /* HOME-FIGMA-UPDATE */
 		$add( 'text', $project['chip_fields'][0], $project['title'] . ' chip 1', $project['chips'][0] );
 		$add( 'text', $project['chip_fields'][1], $project['title'] . ' chip 2', $project['chips'][1] );
 		$add( 'text', $project['sector_field'], $project['title'] . ' sector', $project['sector'] );
@@ -348,6 +350,7 @@ function slc_field_catalog() {
 
 	$add( 'tab', '', 'Clients' );
 	$add( 'wysiwyg', 'clients_heading', 'Heading', 'Trusted by operators, accredited to deliver', 'inline' );
+	$add( 'wysiwyg', 'clients_intro', 'Intro', '', 'basic' ); /* HOME-FIGMA-UPDATE: optional; Figma Latin is not the fallback */
 	$add( 'text', 'clients_label', 'Logo label', 'Selected clients' );
 	foreach ( slc_clients() as $client ) {
 		$add( 'image', $client['field'], $client['name'] . ' logo' );
@@ -379,9 +382,10 @@ function slc_field_catalog() {
 	$add( 'image', 'iso_45001', 'ISO 45001 mark', '', 'basic', false, 'theme' );
 	$add( 'image', 'iso_14001', 'ISO 14001 mark', '', 'basic', false, 'theme' );
 	$add( 'text', 'footer_email', 'Email', 'hello@streamlineconnect.com.au', 'basic', false, 'theme' );
+	$add( 'text', 'footer_phone', 'Phone', '', 'basic', true, 'theme', 'Shown under the email when set. Leave empty to hide.' ); /* HOME-FIGMA-UPDATE */
 	$add( 'text', 'footer_location', 'Location', 'Perth, Western Australia', 'basic', false, 'theme' );
 	$add( 'text', 'footer_copyright', 'Copyright', '© 2026 Streamline Connect Pty Ltd', 'basic', false, 'theme' );
-	$add( 'text', 'legal_privacy', 'Privacy label', 'Privacy Policy', 'basic', false, 'theme' );
+	$add( 'text', 'legal_privacy', 'Privacy label', 'Privacy', 'basic', false, 'theme' ); /* HOME-FIGMA-UPDATE */
 	$add( 'text', 'legal_terms', 'Terms label', 'Terms', 'basic', false, 'theme' );
 	$add( 'text', 'legal_accessibility', 'Accessibility label', 'Accessibility', 'basic', false, 'theme' );
 	$add( 'text', 'legal_top', 'Back to top label', 'Back to top ↑', 'basic', false, 'theme' );
@@ -499,6 +503,7 @@ function slc_is_theme_setting( $key ) {
 		'iso_45001',
 		'iso_14001',
 		'footer_email',
+		'footer_phone',
 		'footer_location',
 		'footer_copyright',
 		'legal_privacy',
