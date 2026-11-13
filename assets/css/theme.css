@@ -1093,10 +1093,14 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	}
 }
 
-/* One stat. */
+/* HOME-FIGMA-UPDATE: One stat. Figure on top, label underneath. */
 .stats > div {
 	border-left: 1px solid var(--line-inverse);
-	padding: 60px 16px;
+	display: flex;
+	flex-direction: column-reverse;
+	gap: 16px;
+	justify-content: center;
+	padding: 60px 32px;
 	text-align: center;
 }
 
@@ -1124,26 +1128,26 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	}
 }
 
-/* Stat label. */
+/* HOME-FIGMA-UPDATE: Stat label under the figure, sentence case, 14px. */
 .stats dt {
 	color: var(--navy-200);
-	font-size: 12px;
-	line-height: 1.4;
-	text-transform: uppercase;
+	font-size: 14px;
+	line-height: 1.5;
+	min-height: 66px;
 }
 
-/* Stat figure and suffix. */
+/* Stat figure, prefix, and suffix. */
 .stats dd {
 	align-items: baseline;
 	display: flex;
 	gap: 4px;
 	justify-content: center;
-	margin-top: 12px;
+	margin: 0;
 	white-space: nowrap;
 }
 
-/* Shared type for the stat number and its suffix. */
-.stat-figure, .stat-suffix {
+/* Shared type for the stat number and its prefix or suffix. */
+.stat-figure, .stat-prefix, .stat-suffix {
 	font-family: var(--font-display);
 	font-weight: 700;
 	letter-spacing: -0.04em;
@@ -1156,10 +1160,10 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	line-height: 1;
 }
 
-/* Orange suffix on a stat, such as + or %. */
-.stat-suffix {
+/* HOME-FIGMA-UPDATE: Orange prefix/suffix, such as Since or km. */
+.stat-prefix, .stat-suffix {
 	color: var(--orange-600);
-	font-size: clamp(22px, 2vw, 40px);
+	font-size: 20px;
 	line-height: 1.2;
 }
 
@@ -1406,6 +1410,14 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	line-height: 1.2;
 }
 
+/* HOME-FIGMA-UPDATE: Optional summary under a related-project title. */
+.project-summary, .project-summary p {
+	color: var(--grey-700);
+	font-size: 16px;
+	line-height: 1.5;
+	margin-top: 16px;
+}
+
 /* Capability chips on a project. */
 .chips {
 	display: flex;
@@ -1484,21 +1496,32 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	}
 }
 
-/* Clients heading. Id hook: #clients_heading. */
+/* HOME-FIGMA-UPDATE: Clients heading column, with an optional intro underneath. */
+.clients-copy {
+	flex: 0 0 434px;
+	width: min(434px, 100%);
+}
+
 .clients h2 {
 	color: var(--navy-900);
-	flex: 0 0 434px;
 	font-family: var(--font-display);
 	font-size: clamp(28px, 2.083vw, 40px);
 	font-weight: 700;
 	letter-spacing: -0.04em;
 	line-height: 1.16;
 	max-width: 432px;
-	width: min(434px, 100%);
+}
+
+.clients-intro, .clients-intro p {
+	color: var(--grey-700);
+	font-size: 16px;
+	line-height: 1.5;
+	margin-top: 24px;
+	max-width: 434px;
 }
 
 @media (max-width: 1199px) {
-	.clients h2 {
+	.clients-copy {
 		flex-basis: auto;
 	}
 }

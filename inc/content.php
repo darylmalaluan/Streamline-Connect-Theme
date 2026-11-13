@@ -401,39 +401,45 @@ function slc_reasons() {
 }
 
 /**
- * Stat strip. Figures are the ones drawn on Home and still need business sign-off.
+ * Stat strip. Figures follow the Home – Desktop frame (WIP).
+ * HOME-FIGMA-UPDATE: prefix and new approved figures; the label sits under the number.
  */
 function slc_stats() {
 	return slc_bind_list(
 		array(
 		array(
-			'label'  => __( 'Years in the field', 'streamlineconnect' ),
-			'figure' => '30',
-			'suffix' => '+',
+			'prefix' => __( 'Since', 'streamlineconnect' ),
+			'figure' => '1996',
+			'suffix' => '',
+			'label'  => __( 'Telecommunications heritage through Streamline Underground Services', 'streamlineconnect' ),
 		),
 		array(
-			'label'  => __( 'Modules delivered', 'streamlineconnect' ),
-			'figure' => '1,200',
-			'suffix' => '+',
+			'prefix' => '',
+			'figure' => '900',
+			'suffix' => __( 'km', 'streamlineconnect' ),
+			'label'  => __( "Fibre installed by Streamline's own crews for Telstra InfraCo's Project Aura", 'streamlineconnect' ),
 		),
 		array(
-			'label'  => __( 'Capability areas', 'streamlineconnect' ),
+			'prefix' => '',
+			'figure' => '10',
+			'suffix' => '',
+			'label'  => __( "Communication Equipment Rooms in production during Streamline's 2026 factory relocation", 'streamlineconnect' ),
+		),
+		array(
+			'prefix' => '',
 			'figure' => '3',
 			'suffix' => '',
+			'label'  => __( 'Core capability areas: Communications Infrastructure, Power & Energy, and Modular Infrastructure.', 'streamlineconnect' ),
 		),
 		array(
-			'label'  => __( 'Built in Western Australia', 'streamlineconnect' ),
-			'figure' => '100',
-			'suffix' => '%',
-		),
-		array(
-			'label'  => __( 'Quote response', 'streamlineconnect' ),
-			'figure' => '24',
-			'suffix' => 'h',
+			'prefix' => '',
+			'figure' => '< 20',
+			'suffix' => __( 'min', 'streamlineconnect' ),
+			'label'  => __( 'Zero Emission Room deployment on a Pilbara mining project', 'streamlineconnect' ),
 		),
 		),
 		'stat',
-		array( 'label', 'figure', 'suffix' )
+		array( 'prefix', 'label', 'figure', 'suffix' )
 	);
 }
 
@@ -486,7 +492,7 @@ function slc_stages() {
 }
 
 /**
- * Featured projects. Summaries in the file are Latin and are omitted.
+ * Featured projects. Latin summaries in the Figma are placeholders and are not used as fallbacks.
  * PDF files are not in the design; drop them into assets/documents/.
  */
 function slc_projects() {
@@ -521,11 +527,13 @@ function slc_projects() {
 
 	foreach ( $rows as $index => &$row ) {
 		$n                  = $index + 1;
-		$row['title_field'] = "project_{$n}_title";
-		$row['alt_field']   = "project_{$n}_alt";
-		$row['image_field'] = "project_{$n}_image";
-		$row['title']       = slc_plain( $row['title_field'], $row['title'] );
-		$row['alt']         = slc_plain( $row['alt_field'], $row['alt'] );
+		$row['title_field']   = "project_{$n}_title";
+		$row['summary_field'] = "project_{$n}_summary";
+		$row['alt_field']     = "project_{$n}_alt";
+		$row['image_field']   = "project_{$n}_image";
+		$row['title']         = slc_plain( $row['title_field'], $row['title'] );
+		$row['summary']       = slc_rich( $row['summary_field'], '' ); /* HOME-FIGMA-UPDATE: optional summary, no Latin fallback */
+		$row['alt']           = slc_plain( $row['alt_field'], $row['alt'] );
 		$row['sector']      = slc_plain( "project_{$n}_sector", $row['sector'] );
 		$row['client']      = slc_plain( "project_{$n}_client", $row['client'] );
 		$row['location']    = slc_plain( "project_{$n}_location", $row['location'] );
@@ -684,7 +692,7 @@ function slc_products() {
 }
 
 /**
- * Footer columns. Placeholder slots and the unpublished phone number are omitted.
+ * Footer columns. HOME-FIGMA-UPDATE: Company list follows the WIP footer; Projects is in the header.
  */
 function slc_footer_columns() {
 	return array(
@@ -732,10 +740,6 @@ function slc_footer_columns() {
 				array(
 					'label' => __( 'Industries', 'streamlineconnect' ),
 					'url'   => slc_url( '/projects/industries/' ),
-				),
-				array(
-					'label' => __( 'Projects', 'streamlineconnect' ),
-					'url'   => slc_url( '/projects/' ),
 				),
 			),
 		),

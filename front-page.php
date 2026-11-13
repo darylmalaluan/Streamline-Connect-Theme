@@ -92,18 +92,22 @@ get_header();
 					</li>
 				<?php endforeach; ?>
 			</ol>
-			<!-- Stat strip: label, figure, and an optional suffix. -->
+			<!-- HOME-FIGMA-UPDATE: Stat strip, figure first visually, label underneath, optional prefix/suffix. -->
 			<dl class="stats" data-reveal style="--i:7">
 				<?php foreach ( slc_stats() as $stat ) : ?>
 					<div>
 						<dt<?php echo slc_attr_html( $stat['label_field'] ); ?>><?php echo esc_html( $stat['label'] ); ?></dt>
-						<dd><span<?php echo slc_attr_html( $stat['figure_field'], 'stat-figure' ); ?>><?php echo esc_html( $stat['figure'] ); ?></span><?php if ( '' !== $stat['suffix'] ) : ?><span<?php echo slc_attr_html( $stat['suffix_field'], 'stat-suffix' ); ?>><?php echo esc_html( $stat['suffix'] ); ?></span><?php endif; ?></dd>
+						<dd>
+							<?php if ( '' !== $stat['prefix'] ) : ?><span<?php echo slc_attr_html( $stat['prefix_field'], 'stat-prefix' ); ?>><?php echo esc_html( $stat['prefix'] ); ?></span><?php endif; ?>
+							<span<?php echo slc_attr_html( $stat['figure_field'], 'stat-figure' ); ?>><?php echo esc_html( $stat['figure'] ); ?></span>
+							<?php if ( '' !== $stat['suffix'] ) : ?><span<?php echo slc_attr_html( $stat['suffix_field'], 'stat-suffix' ); ?>><?php echo esc_html( $stat['suffix'] ); ?></span><?php endif; ?>
+						</dd>
 					</div>
 				<?php endforeach; ?>
 			</dl>
 		</div>
 	</section>
-	<!-- How we deliver: heading and intro, then stages 01–06, then the full-width enquiry bar. A stage is the number, an optional parallel mark, the title, and the explanation. -->
+	<!-- How we deliver: heading and intro, then stages 01–06, then the section action bar. A stage is the number, an optional parallel mark, the title, and the explanation. -->
 	<section class="section delivery" aria-labelledby="<?php echo esc_attr( slc_content_id( 'delivery_heading', 'how_we_deliver' ) ); ?>">
 		<div class="wrap">
 			<div class="section-intro">
@@ -141,6 +145,9 @@ get_header();
 					<?php echo slc_picture( array( 'field' => $project['image_field'], 'file' => $project['image'], 'width' => 1600, 'height' => 1067, 'alt' => $project['alt'], 'attr_field' => $project['image_field'] ) ); ?>
 					<div class="project-copy">
 						<h3<?php echo slc_attr_html( $project['title_field'] ); ?>><?php echo esc_html( $project['title'] ); ?></h3>
+						<?php if ( '' !== trim( wp_strip_all_tags( $project['summary'] ) ) ) : // HOME-FIGMA-UPDATE ?>
+							<div<?php echo slc_attr_html( $project['summary_field'], 'project-summary' ); ?>><?php echo $project['summary']; ?></div>
+						<?php endif; ?>
 						<ul class="chips">
 							<?php foreach ( $project['chips'] as $chip_index => $chip ) : ?>
 								<li<?php echo slc_attr_html( $project['chip_fields'][ $chip_index ] ); ?>><?php echo esc_html( $chip ); ?></li>
@@ -164,10 +171,18 @@ get_header();
 		</div>
 		<div class="section-bar" data-reveal style="--i:4"><a<?php echo slc_attr_html( 'projects_link_label', 'bar-link' ); ?> href="<?php echo esc_url( slc_url( '/projects/' ) ); ?>"><?php echo esc_html( slc_plain( 'projects_link_label', __( 'Explore our projects.', 'streamlineconnect' ) ) ); ?><?php slc_icon( 'plus-orange.svg' ); ?></a></div>
 	</section>
-	<!-- Clients: statement, then the selected-client label and the logo grid. -->
+	<!-- Clients: statement, optional intro, then the selected-client label and the logo grid. -->
 	<section class="section clients" aria-labelledby="<?php echo esc_attr( slc_content_id( 'clients_heading', 'clients_heading' ) ); ?>">
 		<div class="wrap clients-layout">
-			<h2<?php echo slc_attr_html( 'clients_heading', '', 'clients_heading' ); ?> data-reveal style="--i:0"><?php echo slc_inline( 'clients_heading', __( 'Trusted by operators, accredited to deliver', 'streamlineconnect' ) ); ?></h2>
+			<div class="clients-copy" data-reveal style="--i:0">
+				<h2<?php echo slc_attr_html( 'clients_heading', '', 'clients_heading' ); ?>><?php echo slc_inline( 'clients_heading', __( 'Trusted by operators, accredited to deliver', 'streamlineconnect' ) ); ?></h2>
+				<?php
+				$slc_clients_intro = slc_rich( 'clients_intro', '' ); // HOME-FIGMA-UPDATE: no Latin fallback
+				if ( '' !== trim( wp_strip_all_tags( $slc_clients_intro ) ) ) :
+					?>
+					<div<?php echo slc_attr_html( 'clients_intro', 'clients-intro' ); ?>><?php echo $slc_clients_intro; ?></div>
+				<?php endif; ?>
+			</div>
 			<div class="client-proof" data-reveal style="--i:1">
 				<p<?php echo slc_attr_html( 'clients_label' ); ?>><?php echo esc_html( slc_plain( 'clients_label', __( 'Selected clients', 'streamlineconnect' ) ) ); ?></p>
 				<ul class="logo-grid">
@@ -184,7 +199,7 @@ get_header();
 			<div class="built-copy" data-reveal style="--i:0">
 				<h2<?php echo slc_attr_html( 'built_heading', '', 'built_heading' ); ?>><?php echo slc_inline( 'built_heading', __( 'Built here.<br>Delivered with confidence.', 'streamlineconnect' ) ); ?></h2>
 				<div<?php echo slc_attr_html( 'built_body' ); ?>><?php echo slc_rich( 'built_body', __( 'At our Embleton factory in Western Australia, you can inspect your Data Room and witness Factory Acceptance Testing. The people who assembled it are on hand to investigate and resolve issues before dispatch. Our site crews can prepare the foundations and connections while the factory team completes your room.', 'streamlineconnect' ) ); ?></div>
-				<a<?php echo slc_attr_html( 'built_link_label', 'text-link text-link--light' ); ?> href="<?php echo esc_url( slc_href( 'built_link_url', slc_url( '/capabilities/modular-infrastructure/#design_manufacturing_and_delivery' ) ) ); ?>"><?php echo esc_html( slc_plain( 'built_link_label', __( 'See how we manufacture and deliver.', 'streamlineconnect' ) ) ); ?><?php slc_icon( 'plus.svg' ); ?></a>
+				<a<?php echo slc_attr_html( 'built_link_label', 'text-link text-link--light' ); ?> href="<?php echo esc_url( slc_href( 'built_link_url', slc_url( '/capabilities/modular-infrastructure/#design_manufacturing_and_delivery' ) ) ); ?>"><?php echo esc_html( slc_plain( 'built_link_label', __( 'See how we manufacture and deliver.', 'streamlineconnect' ) ) ); ?><?php slc_icon( 'arrow-light.svg' ); // HOME-FIGMA-UPDATE ?></a>
 			</div>
 			<div class="built-aside" data-reveal style="--i:1">
 				<?php echo slc_picture( array( 'field' => 'built_image', 'file' => 'images/built-here.png', 'width' => 3496, 'height' => 2752, 'alt' => slc_plain( 'built_image_alt', __( 'Fabrication bay at the Embleton factory, with a welder at work.', 'streamlineconnect' ) ), 'attr_field' => 'built_image' ) ); ?>
