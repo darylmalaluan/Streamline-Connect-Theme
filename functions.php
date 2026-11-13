@@ -19,6 +19,7 @@ require get_template_directory() . '/inc/communications.php';
 require get_template_directory() . '/inc/facilities.php';
 require get_template_directory() . '/inc/data-rooms.php';
 require get_template_directory() . '/inc/modular.php';
+require get_template_directory() . '/inc/leadership.php';
 require get_template_directory() . '/inc/acf-fields.php';
 
 /**
@@ -162,6 +163,24 @@ function slc_assets() {
 			get_theme_file_uri( 'assets/css/modular.css' ),
 			array( 'slc-theme' ),
 			file_exists( $modular_css ) ? (string) filemtime( $modular_css ) : '1.0.0'
+		);
+	}
+
+	if ( is_page( 'leadership' ) || is_page_template( 'page-leadership.php' ) ) {
+		$leadership_css = get_theme_file_path( 'assets/css/leadership.css' );
+		$leadership_js  = get_theme_file_path( 'assets/js/leadership.js' );
+		wp_enqueue_style(
+			'slc-leadership',
+			get_theme_file_uri( 'assets/css/leadership.css' ),
+			array( 'slc-theme' ),
+			file_exists( $leadership_css ) ? (string) filemtime( $leadership_css ) : '1.0.0'
+		);
+		wp_enqueue_script(
+			'slc-leadership',
+			get_theme_file_uri( 'assets/js/leadership.js' ),
+			array(),
+			file_exists( $leadership_js ) ? (string) filemtime( $leadership_js ) : '1.0.0',
+			true
 		);
 	}
 }

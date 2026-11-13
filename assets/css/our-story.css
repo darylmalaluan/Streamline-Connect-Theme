@@ -98,6 +98,10 @@
 	}
 }
 
+.story-card[data-clone] {
+	pointer-events: none;
+}
+
 .story-card {
 	border: var(--border-width) solid var(--grey-300);
 	display: flex;

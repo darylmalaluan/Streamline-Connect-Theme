@@ -32,7 +32,7 @@ function slc_register_fields() {
 		return;
 	}
 
-	$version  = '18';
+	$version  = '19';
 	$existing = acf_get_field_group( 'group_slc_front_page' );
 	$settings = acf_get_field_group( 'group_slc_theme_settings' );
 	$case     = acf_get_field_group( 'group_slc_case_study' );
@@ -43,9 +43,10 @@ function slc_register_fields() {
 	$facility = acf_get_field_group( 'group_slc_facilities' );
 	$rooms    = acf_get_field_group( 'group_slc_data_rooms' );
 	$modular  = acf_get_field_group( 'group_slc_modular' );
+	$leaders  = acf_get_field_group( 'group_slc_leadership' );
 	$taxonomy = function_exists( 'acf_get_taxonomy' ) ? acf_get_taxonomy( 'taxonomy_slc_project_category' ) : array();
 	$taxonomy = is_array( $taxonomy ) ? $taxonomy : array();
-	if ( get_option( 'slc_field_group_version' ) === $version && ! empty( $existing['ID'] ) && ! empty( $settings['ID'] ) && ! empty( $case['ID'] ) && ! empty( $about['ID'] ) && ! empty( $caps['ID'] ) && ! empty( $story['ID'] ) && ! empty( $comms['ID'] ) && ! empty( $facility['ID'] ) && ! empty( $rooms['ID'] ) && ! empty( $modular['ID'] ) && ! empty( $taxonomy['ID'] ) ) {
+	if ( get_option( 'slc_field_group_version' ) === $version && ! empty( $existing['ID'] ) && ! empty( $settings['ID'] ) && ! empty( $case['ID'] ) && ! empty( $about['ID'] ) && ! empty( $caps['ID'] ) && ! empty( $story['ID'] ) && ! empty( $comms['ID'] ) && ! empty( $facility['ID'] ) && ! empty( $rooms['ID'] ) && ! empty( $modular['ID'] ) && ! empty( $leaders['ID'] ) && ! empty( $taxonomy['ID'] ) ) {
 		return;
 	}
 
@@ -108,6 +109,12 @@ function slc_register_fields() {
 		$modular_group['ID'] = (int) $modular['ID'];
 	}
 	acf_import_field_group( $modular_group );
+
+	$leadership_group = slc_leadership_field_group();
+	if ( ! empty( $leaders['ID'] ) ) {
+		$leadership_group['ID'] = (int) $leaders['ID'];
+	}
+	acf_import_field_group( $leadership_group );
 
 	update_option( 'slc_field_group_version', $version, false );
 }
@@ -469,6 +476,10 @@ function slc_field_catalog() {
 		$items = array_merge( $items, slc_modular_field_catalog() );
 	}
 
+	if ( function_exists( 'slc_leadership_field_catalog' ) ) {
+		$items = array_merge( $items, slc_leadership_field_catalog() );
+	}
+
 	return $items;
 }
 
@@ -695,6 +706,34 @@ function slc_modular_field_group() {
 					'param'    => 'page_template',
 					'operator' => '==',
 					'value'    => 'page-modular.php',
+				),
+			),
+		),
+		'hide_on_screen'        => array( 'the_content', 'excerpt', 'discussion', 'comments', 'revisions', 'author', 'format', 'featured_image', 'categories', 'tags', 'send-trackbacks' ),
+		'position'              => 'acf_after_title',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+		'active'                => true,
+	);
+}
+
+/**
+ * Leadership page fields.
+ *
+ * @return array<string, mixed>
+ */
+function slc_leadership_field_group() {
+	return array(
+		'key'                   => 'group_slc_leadership',
+		'title'                 => 'Leadership',
+		'fields'                => slc_collect_fields( 'leadership' ),
+		'location'              => array(
+			array(
+				array(
+					'param'    => 'page_template',
+					'operator' => '==',
+					'value'    => 'page-leadership.php',
 				),
 			),
 		),
