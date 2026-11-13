@@ -445,6 +445,7 @@ function slc_stats() {
 
 /**
  * Delivery stages. Cards are content, not links.
+ * HOME-FIGMA-UPDATE: stage body copy shortened to the current Home – Desktop texts.
  */
 function slc_stages() {
 	return slc_bind_list(
@@ -453,37 +454,37 @@ function slc_stages() {
 			'index'    => '01',
 			'title'    => __( 'Design', 'streamlineconnect' ),
 			'parallel' => false,
-			'text'     => __( 'We work with you from concept through to detailed design. Our engineers review site conditions, cable routes, equipment access and maintenance requirements with the construction and installation teams, addressing practical constraints before work begins on site.', 'streamlineconnect' ),
+			'text'     => __( 'Engineering and design tailored to site conditions, operational requirements and long-term maintenance.', 'streamlineconnect' ),
 		),
 		array(
 			'index'    => '02',
 			'title'    => __( 'Site construction', 'streamlineconnect' ),
 			'parallel' => true,
-			'text'     => __( 'Our crews prepare the ground through earthworks, trenching, foundations, pads and access. They also install cable and conduit, deliver site services and reinstate disturbed ground, coordinating the civil works with the electrical and communications installations that follow.', 'streamlineconnect' ),
+			'text'     => __( 'Bulk earthworks, civil works and site construction through to a completed site.', 'streamlineconnect' ),
 		),
 		array(
 			'index'    => '03',
 			'title'    => __( 'Manufacture and test', 'streamlineconnect' ),
 			'parallel' => true,
-			'text'     => __( 'Our factory team fabricates and assembles modular rooms, completes the electrical and equipment fit-out, and integrates the systems specified for the project. Factory Acceptance Testing checks how a Data Room\'s power, cooling and controls operate together before dispatch.', 'streamlineconnect' ),
+			'text'     => __( 'Fabrication, fit-out and Factory Acceptance Testing of modular products at our Embleton facility.', 'streamlineconnect' ),
 		),
 		array(
 			'index'    => '04',
 			'title'    => __( 'Install', 'streamlineconnect' ),
 			'parallel' => false,
-			'text'     => __( 'Our teams coordinate the transport and installation of networks, equipment and modular facilities. On operating sites, electrical works and fibre cutovers are planned around existing services to minimise disruption.', 'streamlineconnect' ),
+			'text'     => __( 'Logistics and installation of networks, equipment and modular facilities.', 'streamlineconnect' ),
 		),
 		array(
 			'index'    => '05',
 			'title'    => __( 'Integrate and commission', 'streamlineconnect' ),
 			'parallel' => false,
-			'text'     => __( 'We connect the installed infrastructure to your communications, power and operational systems. Our teams test the connections and verify the operation of the completed installation, including environmental controls and monitoring where specified, before handover.', 'streamlineconnect' ),
+			'text'     => __( 'Connection into the client’s communications, power and operational systems, then commissioning.', 'streamlineconnect' ),
 		),
 		array(
 			'index'    => '06',
 			'title'    => __( 'Support', 'streamlineconnect' ),
 			'parallel' => false,
-			'text'     => __( 'Our teams provide maintenance, repairs and upgrades after handover. As your requirements change, you continue working with people familiar with the infrastructure and the conditions under which it was installed.', 'streamlineconnect' ),
+			'text'     => __( 'Ongoing maintenance, upgrades and operational support.', 'streamlineconnect' ),
 		),
 		),
 		'stage',

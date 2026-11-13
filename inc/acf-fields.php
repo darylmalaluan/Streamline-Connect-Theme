@@ -32,7 +32,7 @@ function slc_register_fields() {
 		return;
 	}
 
-	$version  = '7'; /* HOME-FIGMA-UPDATE */
+	$version  = '8'; /* HOME-FIGMA-UPDATE: How we deliver intro and stage copy. */
 	$existing = acf_get_field_group( 'group_slc_front_page' );
 	$settings = acf_get_field_group( 'group_slc_theme_settings' );
 	$case     = acf_get_field_group( 'group_slc_case_study' );
@@ -324,7 +324,7 @@ function slc_field_catalog() {
 
 	$add( 'tab', '', 'How we deliver' );
 	$add( 'wysiwyg', 'delivery_heading', 'Heading', 'How We Deliver', 'inline' );
-	$add( 'wysiwyg', 'delivery_intro', 'Intro', 'From a defined construction package to a broader infrastructure project, Streamline involves the people responsible for delivery in planning the work. Our own crews undertake the core stages, supported by trusted contractors under our management where required. On projects involving both site construction and manufacturing, these activities proceed in parallel.' );
+	$add( 'wysiwyg', 'delivery_intro', 'Intro', 'Streamline can deliver a defined construction or installation package, or take on a project from design through to support. We’ll agree which stages you need us to deliver, with site construction and manufacturing planned in parallel on combined projects.' ); // HOME-FIGMA-UPDATE
 	foreach ( slc_stages() as $stage ) {
 		$add( 'text', $stage['index_field'], $stage['title'] . ' number', $stage['index'] );
 		$add( 'text', $stage['title_field'], $stage['title'], $stage['title'] );

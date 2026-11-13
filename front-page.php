@@ -112,7 +112,8 @@ get_header();
 		<div class="wrap">
 			<div class="section-intro">
 				<h2<?php echo slc_attr_html( 'delivery_heading', 'section-heading', 'how_we_deliver' ); ?> data-reveal style="--i:0" tabindex="-1"><?php echo slc_inline( 'delivery_heading', __( 'How We Deliver', 'streamlineconnect' ) ); ?></h2>
-				<div<?php echo slc_attr_html( 'delivery_intro' ); ?> data-reveal style="--i:1"><?php echo slc_rich( 'delivery_intro', __( 'From a defined construction package to a broader infrastructure project, Streamline involves the people responsible for delivery in planning the work. Our own crews undertake the core stages, supported by trusted contractors under our management where required. On projects involving both site construction and manufacturing, these activities proceed in parallel.', 'streamlineconnect' ) ); ?></div>
+				<?php // HOME-FIGMA-UPDATE: delivery intro matches the current Home – Desktop copy. ?>
+				<div<?php echo slc_attr_html( 'delivery_intro' ); ?> data-reveal style="--i:1"><?php echo slc_rich( 'delivery_intro', __( 'Streamline can deliver a defined construction or installation package, or take on a project from design through to support. We’ll agree which stages you need us to deliver, with site construction and manufacturing planned in parallel on combined projects.', 'streamlineconnect' ) ); ?></div>
 			</div>
 			<ol class="stage-grid">
 				<?php foreach ( slc_stages() as $stage_index => $stage ) : ?>
