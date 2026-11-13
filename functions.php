@@ -13,6 +13,7 @@ require get_template_directory() . '/inc/helpers.php';
 require get_template_directory() . '/inc/content.php';
 require get_template_directory() . '/inc/case-study.php';
 require get_template_directory() . '/inc/about.php';
+require get_template_directory() . '/inc/capabilities.php';
 require get_template_directory() . '/inc/acf-fields.php';
 
 /**
@@ -88,6 +89,16 @@ function slc_assets() {
 			get_theme_file_uri( 'assets/css/about.css' ),
 			array( 'slc-theme' ),
 			file_exists( $about_css ) ? (string) filemtime( $about_css ) : '1.0.0'
+		);
+	}
+
+	if ( is_page( 'capabilities' ) || is_page_template( 'page-capabilities.php' ) ) {
+		$capabilities_css = get_theme_file_path( 'assets/css/capabilities.css' );
+		wp_enqueue_style(
+			'slc-capabilities',
+			get_theme_file_uri( 'assets/css/capabilities.css' ),
+			array( 'slc-theme' ),
+			file_exists( $capabilities_css ) ? (string) filemtime( $capabilities_css ) : '1.0.0'
 		);
 	}
 }

@@ -9,13 +9,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<!-- Enquiry band: headline, then the note and button. -->
-<section class="enquiry" aria-labelledby="<?php echo esc_attr( slc_content_id( 'enquiry_heading', 'enquiry_heading' ) ); ?>">
+<?php
+$slc_enquiry_heading_field = 'enquiry_heading';
+$slc_enquiry_heading       = __( 'Tell us about your project', 'streamlineconnect' );
+$slc_enquiry_body_field    = 'enquiry_body';
+$slc_enquiry_body          = __( 'Tell us what you\'re planning, where the site is and the programme you\'re working on.', 'streamlineconnect' );
+$slc_enquiry_label_field   = 'discuss_enquiry_label';
+$slc_enquiry_label         = __( 'Discuss your project.', 'streamlineconnect' );
+
+if ( function_exists( 'slc_is_capabilities_page' ) && slc_is_capabilities_page() ) {
+	$slc_enquiry_heading_field = 'capabilities_enquiry_heading';
+	$slc_enquiry_body_field    = 'capabilities_enquiry_body';
+	$slc_enquiry_body          = __( 'Tell us what you’re planning, and we’ll discuss which parts Streamline can deliver and how they fit the rest of the project.', 'streamlineconnect' );
+	$slc_enquiry_label_field   = 'capabilities_enquiry_label';
+	$slc_enquiry_label         = __( 'Discuss your project', 'streamlineconnect' );
+}
+?>
+<!-- Enquiry band: headline, then the note and button. Capabilities uses its own copy. -->
+<section class="enquiry" aria-labelledby="<?php echo esc_attr( slc_content_id( $slc_enquiry_heading_field, 'enquiry_heading' ) ); ?>">
 	<div class="wrap enquiry-layout">
-		<h2<?php echo slc_attr_html( 'enquiry_heading', '', 'enquiry_heading' ); ?> data-reveal style="--i:0"><?php echo slc_inline( 'enquiry_heading', __( 'Tell us about your project', 'streamlineconnect' ) ); ?></h2>
+		<h2<?php echo slc_attr_html( $slc_enquiry_heading_field, '', 'enquiry_heading' ); ?> data-reveal style="--i:0"><?php echo slc_inline( $slc_enquiry_heading_field, $slc_enquiry_heading ); ?></h2>
 		<div class="enquiry-copy">
-			<div<?php echo slc_attr_html( 'enquiry_body' ); ?> data-reveal style="--i:1"><?php echo slc_rich( 'enquiry_body', __( 'Tell us what you\'re planning, where the site is and the programme you\'re working on.', 'streamlineconnect' ) ); ?></div>
-			<a<?php echo slc_attr_html( 'discuss_enquiry_label', 'btn' ); ?> data-reveal style="--i:2" href="<?php echo esc_url( slc_discuss_url() ); ?>"><?php echo esc_html( slc_discuss_label( 'discuss_enquiry_label', 'Discuss your project.' ) ); ?><?php slc_icon( 'plus.svg' ); ?></a>
+			<div<?php echo slc_attr_html( $slc_enquiry_body_field ); ?> data-reveal style="--i:1"><?php echo slc_rich( $slc_enquiry_body_field, $slc_enquiry_body ); ?></div>
+			<a<?php echo slc_attr_html( $slc_enquiry_label_field, 'btn' ); ?> data-reveal style="--i:2" href="<?php echo esc_url( slc_discuss_url() ); ?>"><?php echo esc_html( slc_discuss_label( $slc_enquiry_label_field, $slc_enquiry_label ) ); ?><?php slc_icon( 'plus.svg' ); ?></a>
 		</div>
 	</div>
 </section>

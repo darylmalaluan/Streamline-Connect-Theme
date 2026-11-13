@@ -1,0 +1,130 @@
+/* Capabilities page. Shared header, footer, hero, jump panel, and buttons stay in theme.css. */
+
+/* The designed hero is 800px including the site header. */
+.cap-hero.hero {
+	height: calc(800px - var(--header));
+	min-height: 0;
+}
+
+@media (max-width: 1439px) {
+	.cap-hero.hero {
+		height: auto;
+		min-height: calc(800px - var(--header));
+	}
+}
+
+.cap-crumb {
+	align-items: center;
+	color: var(--white);
+	display: flex;
+	font-size: var(--text-xs);
+	gap: var(--space-3);
+	line-height: var(--leading-tight);
+	text-transform: uppercase;
+}
+
+.cap-crumb a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.cap-crumb [aria-hidden="true"] {
+	color: var(--navy-200);
+}
+
+.cap-hero .hero-text {
+	max-width: 892px;
+}
+
+.cap-hero .hero-intro,
+.cap-hero .hero-intro p {
+	font-size: var(--text-md);
+	margin-top: var(--space-8);
+	max-width: none;
+}
+
+/* The cards are the section. Padding matches the page gutter rather than a full section. */
+.cap-section.section {
+	padding: var(--gutter) 0 var(--section);
+}
+
+.cap-cards {
+	display: grid;
+	gap: var(--space-6);
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.cap-card {
+	color: var(--white);
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-4);
+	justify-content: flex-end;
+	min-height: 776px;
+	overflow: hidden;
+	padding: var(--space-8);
+	position: relative;
+	text-decoration: none;
+}
+
+.cap-card-photo {
+	height: 100%;
+	inset: 0;
+	object-fit: cover;
+	position: absolute;
+	width: 100%;
+}
+
+.cap-card::after {
+	background: linear-gradient(to top, rgb(17 16 54 / 75%), rgb(17 16 54 / 0%));
+	content: "";
+	inset: 0;
+	position: absolute;
+}
+
+.cap-card h2,
+.cap-card-text,
+.cap-card .text-link {
+	position: relative;
+	z-index: 1;
+}
+
+.cap-card h2 {
+	color: var(--white);
+	font-family: var(--font-display);
+	font-size: var(--text-5xl);
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--track-tight);
+	line-height: 1.2;
+	scroll-margin-top: var(--space-6);
+}
+
+.cap-card-text,
+.cap-card-text p {
+	color: var(--white);
+	font-size: var(--text-lg);
+	line-height: 1.55;
+	margin: 0;
+}
+
+.cap-card .text-link {
+	margin-top: var(--space-2);
+}
+
+@media (max-width: 1023px) {
+	.cap-cards {
+		grid-template-columns: 1fr;
+	}
+
+	.cap-card {
+		min-height: 560px;
+	}
+
+	.cap-card-text,
+	.cap-card-text p {
+		font-size: var(--text-md);
+	}
+}

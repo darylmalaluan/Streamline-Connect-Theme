@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * The page whose fields feed the current view.
  *
- * A project or the About page reads its own fields. Every other view reads the home page.
+ * A project, the About page, or the Capabilities page reads its own fields. Every other view reads the home page.
  *
  * @return int
  */
@@ -25,6 +25,10 @@ function slc_context_id() {
 	}
 
 	if ( $queried && function_exists( 'slc_is_about_page' ) && slc_is_about_page( $queried ) ) {
+		return $queried;
+	}
+
+	if ( $queried && function_exists( 'slc_is_capabilities_page' ) && slc_is_capabilities_page( $queried ) ) {
 		return $queried;
 	}
 
