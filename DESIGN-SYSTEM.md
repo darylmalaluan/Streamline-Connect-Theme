@@ -48,7 +48,7 @@ Families: `--font-body` (Aptos, Segoe UI, sans-serif) and `--font-display` (Mont
 
 Weights: `--weight-regular` (400), `--weight-semibold` (600), `--weight-bold` (700).
 
-Tracking: `--track-tight` (`-0.04em`) on display type, `--track-normal` (`0`) on buttons and labels.
+Tracking: all letter spacing is `0` (`--track-tight` and `--track-normal` are both `0`; keep using the tokens so it can be tuned in one place).
 
 | Size token | Value | Role |
 | --- | --- | --- |

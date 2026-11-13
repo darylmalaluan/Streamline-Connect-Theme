@@ -94,7 +94,7 @@
 	--leading-body: 1.5;
 
 	/* Typography — tracking */
-	--track-tight: -0.04em;
+	--track-tight: 0; /* Was -0.04em; Nico asked for 0 letter spacing (2026-11-13). */
 	--track-normal: 0;
 
 	/* Spacing scale (4px base, plus the 2px, 6px, and 60px values already in the sheet) */
