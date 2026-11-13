@@ -412,7 +412,7 @@ function slc_field_catalog() {
 		$add( 'image', $project['image_field'], $project['title'] . ' photo' );
 		$add( 'text', $project['alt_field'], $project['title'] . ' photo description', $project['alt'] );
 		$add( 'text', $project['title_field'], $project['title'], $project['title'] );
-		$add( 'wysiwyg', $project['summary_field'], $project['title'] . ' summary', '', 'basic' ); /* HOME-FIGMA-UPDATE */
+		$add( 'wysiwyg', $project['summary_field'], $project['title'] . ' summary', $project['summary'], 'basic' );
 		$add( 'text', $project['chip_fields'][0], $project['title'] . ' chip 1', $project['chips'][0] );
 		$add( 'text', $project['chip_fields'][1], $project['title'] . ' chip 2', $project['chips'][1] );
 		$add( 'text', $project['sector_field'], $project['title'] . ' sector', $project['sector'] );

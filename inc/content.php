@@ -586,13 +586,13 @@ function slc_stages() {
 }
 
 /**
- * Featured projects. Latin summaries in the Figma are placeholders and are not used as fallbacks.
- * PDF files are not in the design; drop them into assets/documents/.
+ * Featured projects. Summaries and download labels match the Home – Desktop frame.
  */
 function slc_projects() {
 	$rows = array(
 		array(
 			'title'    => __( 'Regional comms network upgrade', 'streamlineconnect' ),
+			'summary'  => __( 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque.', 'streamlineconnect' ),
 			'chips'    => array(
 				__( 'Communications', 'streamlineconnect' ),
 				__( 'Power', 'streamlineconnect' ),
@@ -606,6 +606,7 @@ function slc_projects() {
 		),
 		array(
 			'title'    => __( 'Edge data room programme', 'streamlineconnect' ),
+			'summary'  => __( 'Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat.', 'streamlineconnect' ),
 			'chips'    => array(
 				__( 'Data Rooms', 'streamlineconnect' ),
 				__( 'Modular', 'streamlineconnect' ),
@@ -626,7 +627,7 @@ function slc_projects() {
 		$row['alt_field']     = "project_{$n}_alt";
 		$row['image_field']   = "project_{$n}_image";
 		$row['title']         = slc_plain( $row['title_field'], $row['title'] );
-		$row['summary']       = slc_rich( $row['summary_field'], '' ); /* HOME-FIGMA-UPDATE: optional summary, no Latin fallback */
+		$row['summary']       = slc_rich( $row['summary_field'], $row['summary'] );
 		$row['alt']           = slc_plain( $row['alt_field'], $row['alt'] );
 		$row['sector']      = slc_plain( "project_{$n}_sector", $row['sector'] );
 		$row['client']      = slc_plain( "project_{$n}_client", $row['client'] );
