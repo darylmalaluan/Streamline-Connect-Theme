@@ -1762,10 +1762,12 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 }
 
 /* Footer brand and link columns. */
+/* HOME-FIGMA-UPDATE: The footer-top divider spans the full section width. Content stays aligned to the wrap. */
 .footer-top {
 	align-items: stretch;
 	border-bottom: 1px solid var(--line);
 	gap: 32px;
+	padding-inline: max(var(--gutter), calc((100% - var(--content)) / 2));
 }
 
 @media (max-width: 1023px) {
@@ -1776,13 +1778,23 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 }
 
 /* Footer logo and accreditation marks. */
+/* HOME-FIGMA-UPDATE: Brand can shrink so the contact column keeps the email on-screen at mid widths. */
 .footer-brand {
 	display: flex;
-	flex: 1.4;
+	flex: 1.4 1 0;
 	flex-direction: column;
 	gap: 40px;
+	max-width: min(744px, 100%);
+	min-width: 0;
 	padding: 80px 0;
-	width: min(744px, 100%);
+}
+
+/* HOME-FIGMA-UPDATE: Below 1920, shrink the brand column so link labels and the email stay on one line. */
+@media (max-width: 1919px) and (min-width: 1024px) {
+	.footer-brand {
+		flex: 0 1 300px;
+		max-width: 360px;
+	}
 }
 
 /* Footer logo sits on the footer padding, not the header inset. */
@@ -1840,13 +1852,14 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 }
 
 /* One footer link column. */
+/* HOME-FIGMA-UPDATE: min-width: 0 lets a column shrink below the email's intrinsic width at 1440. */
 .footer-col {
 	border-left: 1px solid var(--line);
 	display: flex;
 	flex: 1;
 	flex-direction: column;
 	gap: 16px;
-	min-width: 180px;
+	min-width: 0;
 	padding: 80px 0 80px 32px;
 }
 
@@ -1867,10 +1880,13 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 }
 
 /* Footer link target size. */
+/* HOME-FIGMA-UPDATE: Break the contact email if the column is narrower than the address. */
 .footer-col a {
 	align-items: center;
 	display: inline-flex;
+	max-width: 100%;
 	min-height: 44px;
+	overflow-wrap: anywhere;
 }
 
 /* Legal bar under the footer columns. */
@@ -1897,7 +1913,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 .legal-copy {
 	flex: 1;
 	font-weight: 400;
-	padding-left: max(var(--gutter), calc((100vw - var(--content)) / 2));
+	padding-left: max(var(--gutter), calc((100% - var(--content)) / 2));
 }
 
 /* Privacy, terms, accessibility, and back to top. */
@@ -1908,7 +1924,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 
 /* Back to top keeps the content inset on the right. */
 .legal a:last-child {
-	padding-right: max(var(--gutter), calc((100vw - var(--content)) / 2));
+	padding-right: max(var(--gutter), calc((100% - var(--content)) / 2));
 }
 
 .legal a:hover, .legal a:focus-visible {

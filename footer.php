@@ -21,7 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 </section>
 <!-- Footer: brand column, then the link columns and contact. -->
 <footer class="site-footer">
-	<div class="wrap footer-top">
+	<?php // HOME-FIGMA-UPDATE: Footer-top is full-bleed so the divider spans the section width. ?>
+	<div class="footer-top">
 		<!-- Brand: logo, then the accreditation label and the three ISO marks. -->
 		<div class="footer-brand">
 			<a class="logo" href="<?php echo esc_url( slc_url( '/' ) ); ?>"><?php
