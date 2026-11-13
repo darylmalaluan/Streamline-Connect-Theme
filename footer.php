@@ -33,6 +33,42 @@ if ( function_exists( 'slc_is_story_page' ) && slc_is_story_page() ) {
 	$slc_enquiry_label_field   = 'story_enquiry_label';
 	$slc_enquiry_label         = __( 'Discuss your project.', 'streamlineconnect' );
 }
+
+if ( function_exists( 'slc_is_communications_page' ) && slc_is_communications_page() ) {
+	$slc_enquiry_heading_field = 'comms_enquiry_heading';
+	$slc_enquiry_heading       = __( 'Discuss your communications project', 'streamlineconnect' );
+	$slc_enquiry_body_field    = 'comms_enquiry_body';
+	$slc_enquiry_body          = __( 'Tell us about the network you’re planning, the site and the programme you’re working on. We’ll establish Streamline’s scope and the steps needed to get the work underway.', 'streamlineconnect' );
+	$slc_enquiry_label_field   = 'comms_enquiry_label';
+	$slc_enquiry_label         = __( 'Discuss your project', 'streamlineconnect' );
+}
+
+if ( function_exists( 'slc_is_facilities_page' ) && slc_is_facilities_page() ) {
+	$slc_enquiry_heading_field = 'facility_enquiry_heading';
+	$slc_enquiry_heading       = __( 'Discuss your<br>facilities project', 'streamlineconnect' );
+	$slc_enquiry_body_field    = 'facility_enquiry_body';
+	$slc_enquiry_body          = __( 'Tell us which facilities your team needs, how many people they’ll serve and where they’ll be used. We’ll discuss suitable configurations, power options and any supporting infrastructure required.', 'streamlineconnect' );
+	$slc_enquiry_label_field   = 'facility_enquiry_label';
+	$slc_enquiry_label         = __( 'Discuss your project', 'streamlineconnect' );
+}
+
+if ( function_exists( 'slc_is_data_rooms_page' ) && slc_is_data_rooms_page() ) {
+	$slc_enquiry_heading_field = 'dataroom_enquiry_heading';
+	$slc_enquiry_heading       = __( 'Discuss your<br>Data Room project', 'streamlineconnect' );
+	$slc_enquiry_body_field    = 'dataroom_enquiry_body';
+	$slc_enquiry_body          = __( 'Tell us what equipment needs housing, the intended location and which services are available. We’ll discuss the room’s configuration and the site connections you need.', 'streamlineconnect' );
+	$slc_enquiry_label_field   = 'dataroom_enquiry_label';
+	$slc_enquiry_label         = __( 'Discuss your project', 'streamlineconnect' );
+}
+
+if ( function_exists( 'slc_is_modular_page' ) && slc_is_modular_page() ) {
+	$slc_enquiry_heading_field = 'modular_enquiry_heading';
+	$slc_enquiry_heading       = __( 'Discuss your<br>Data Room project', 'streamlineconnect' );
+	$slc_enquiry_body_field    = 'modular_enquiry_body';
+	$slc_enquiry_body          = __( 'Tell us what infrastructure you’re planning, where the room will operate and what services are already available. We’ll work through the manufacturing requirements and any site works needed for installation.', 'streamlineconnect' );
+	$slc_enquiry_label_field   = 'modular_enquiry_label';
+	$slc_enquiry_label         = __( 'Discuss your project', 'streamlineconnect' );
+}
 ?>
 <!-- Enquiry band: headline, then the note and button. Capabilities uses its own copy. -->
 <section class="enquiry" aria-labelledby="<?php echo esc_attr( slc_content_id( $slc_enquiry_heading_field, 'enquiry_heading' ) ); ?>">

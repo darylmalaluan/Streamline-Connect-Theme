@@ -32,16 +32,20 @@ function slc_register_fields() {
 		return;
 	}
 
-	$version  = '14';
+	$version  = '18';
 	$existing = acf_get_field_group( 'group_slc_front_page' );
 	$settings = acf_get_field_group( 'group_slc_theme_settings' );
 	$case     = acf_get_field_group( 'group_slc_case_study' );
 	$about    = acf_get_field_group( 'group_slc_about' );
 	$caps     = acf_get_field_group( 'group_slc_capabilities' );
 	$story    = acf_get_field_group( 'group_slc_story' );
+	$comms    = acf_get_field_group( 'group_slc_communications' );
+	$facility = acf_get_field_group( 'group_slc_facilities' );
+	$rooms    = acf_get_field_group( 'group_slc_data_rooms' );
+	$modular  = acf_get_field_group( 'group_slc_modular' );
 	$taxonomy = function_exists( 'acf_get_taxonomy' ) ? acf_get_taxonomy( 'taxonomy_slc_project_category' ) : array();
 	$taxonomy = is_array( $taxonomy ) ? $taxonomy : array();
-	if ( get_option( 'slc_field_group_version' ) === $version && ! empty( $existing['ID'] ) && ! empty( $settings['ID'] ) && ! empty( $case['ID'] ) && ! empty( $about['ID'] ) && ! empty( $caps['ID'] ) && ! empty( $story['ID'] ) && ! empty( $taxonomy['ID'] ) ) {
+	if ( get_option( 'slc_field_group_version' ) === $version && ! empty( $existing['ID'] ) && ! empty( $settings['ID'] ) && ! empty( $case['ID'] ) && ! empty( $about['ID'] ) && ! empty( $caps['ID'] ) && ! empty( $story['ID'] ) && ! empty( $comms['ID'] ) && ! empty( $facility['ID'] ) && ! empty( $rooms['ID'] ) && ! empty( $modular['ID'] ) && ! empty( $taxonomy['ID'] ) ) {
 		return;
 	}
 
@@ -80,6 +84,30 @@ function slc_register_fields() {
 		$story_group['ID'] = (int) $story['ID'];
 	}
 	acf_import_field_group( $story_group );
+
+	$comms_group = slc_communications_field_group();
+	if ( ! empty( $comms['ID'] ) ) {
+		$comms_group['ID'] = (int) $comms['ID'];
+	}
+	acf_import_field_group( $comms_group );
+
+	$facility_group = slc_facilities_field_group();
+	if ( ! empty( $facility['ID'] ) ) {
+		$facility_group['ID'] = (int) $facility['ID'];
+	}
+	acf_import_field_group( $facility_group );
+
+	$data_rooms_group = slc_data_rooms_field_group();
+	if ( ! empty( $rooms['ID'] ) ) {
+		$data_rooms_group['ID'] = (int) $rooms['ID'];
+	}
+	acf_import_field_group( $data_rooms_group );
+
+	$modular_group = slc_modular_field_group();
+	if ( ! empty( $modular['ID'] ) ) {
+		$modular_group['ID'] = (int) $modular['ID'];
+	}
+	acf_import_field_group( $modular_group );
 
 	update_option( 'slc_field_group_version', $version, false );
 }
@@ -425,6 +453,22 @@ function slc_field_catalog() {
 		$items = array_merge( $items, slc_story_field_catalog() );
 	}
 
+	if ( function_exists( 'slc_communications_field_catalog' ) ) {
+		$items = array_merge( $items, slc_communications_field_catalog() );
+	}
+
+	if ( function_exists( 'slc_facilities_field_catalog' ) ) {
+		$items = array_merge( $items, slc_facilities_field_catalog() );
+	}
+
+	if ( function_exists( 'slc_data_rooms_field_catalog' ) ) {
+		$items = array_merge( $items, slc_data_rooms_field_catalog() );
+	}
+
+	if ( function_exists( 'slc_modular_field_catalog' ) ) {
+		$items = array_merge( $items, slc_modular_field_catalog() );
+	}
+
 	return $items;
 }
 
@@ -539,6 +583,118 @@ function slc_story_field_group() {
 					'param'    => 'page_template',
 					'operator' => '==',
 					'value'    => 'page-our-story.php',
+				),
+			),
+		),
+		'hide_on_screen'        => array( 'the_content', 'excerpt', 'discussion', 'comments', 'revisions', 'author', 'format', 'featured_image', 'categories', 'tags', 'send-trackbacks' ),
+		'position'              => 'acf_after_title',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+		'active'                => true,
+	);
+}
+
+/**
+ * Communications and Infrastructure page fields.
+ *
+ * @return array<string, mixed>
+ */
+function slc_communications_field_group() {
+	return array(
+		'key'                   => 'group_slc_communications',
+		'title'                 => 'Communications',
+		'fields'                => slc_collect_fields( 'communications' ),
+		'location'              => array(
+			array(
+				array(
+					'param'    => 'page_template',
+					'operator' => '==',
+					'value'    => 'page-communications.php',
+				),
+			),
+		),
+		'hide_on_screen'        => array( 'the_content', 'excerpt', 'discussion', 'comments', 'revisions', 'author', 'format', 'featured_image', 'categories', 'tags', 'send-trackbacks' ),
+		'position'              => 'acf_after_title',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+		'active'                => true,
+	);
+}
+
+/**
+ * Facilities page fields.
+ *
+ * @return array<string, mixed>
+ */
+function slc_facilities_field_group() {
+	return array(
+		'key'                   => 'group_slc_facilities',
+		'title'                 => 'Facilities',
+		'fields'                => slc_collect_fields( 'facilities' ),
+		'location'              => array(
+			array(
+				array(
+					'param'    => 'page_template',
+					'operator' => '==',
+					'value'    => 'page-facilities.php',
+				),
+			),
+		),
+		'hide_on_screen'        => array( 'the_content', 'excerpt', 'discussion', 'comments', 'revisions', 'author', 'format', 'featured_image', 'categories', 'tags', 'send-trackbacks' ),
+		'position'              => 'acf_after_title',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+		'active'                => true,
+	);
+}
+
+/**
+ * Data Rooms page fields.
+ *
+ * @return array<string, mixed>
+ */
+function slc_data_rooms_field_group() {
+	return array(
+		'key'                   => 'group_slc_data_rooms',
+		'title'                 => 'Data Rooms',
+		'fields'                => slc_collect_fields( 'dataroom' ),
+		'location'              => array(
+			array(
+				array(
+					'param'    => 'page_template',
+					'operator' => '==',
+					'value'    => 'page-data-rooms.php',
+				),
+			),
+		),
+		'hide_on_screen'        => array( 'the_content', 'excerpt', 'discussion', 'comments', 'revisions', 'author', 'format', 'featured_image', 'categories', 'tags', 'send-trackbacks' ),
+		'position'              => 'acf_after_title',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+		'active'                => true,
+	);
+}
+
+/**
+ * Modular Infrastructure page fields.
+ *
+ * @return array<string, mixed>
+ */
+function slc_modular_field_group() {
+	return array(
+		'key'                   => 'group_slc_modular',
+		'title'                 => 'Modular Infrastructure',
+		'fields'                => slc_collect_fields( 'modular' ),
+		'location'              => array(
+			array(
+				array(
+					'param'    => 'page_template',
+					'operator' => '==',
+					'value'    => 'page-modular.php',
 				),
 			),
 		),

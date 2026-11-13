@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * The page whose fields feed the current view.
  *
- * A project, the About page, the Capabilities page, or Our Story reads its own fields. Every other view reads the home page.
+ * A project, the About page, the Capabilities page, Our Story, Communications, Facilities, Data Rooms, or Modular Infrastructure reads its own fields. Every other view reads the home page.
  *
  * @return int
  */
@@ -33,6 +33,22 @@ function slc_context_id() {
 	}
 
 	if ( $queried && function_exists( 'slc_is_story_page' ) && slc_is_story_page( $queried ) ) {
+		return $queried;
+	}
+
+	if ( $queried && function_exists( 'slc_is_communications_page' ) && slc_is_communications_page( $queried ) ) {
+		return $queried;
+	}
+
+	if ( $queried && function_exists( 'slc_is_facilities_page' ) && slc_is_facilities_page( $queried ) ) {
+		return $queried;
+	}
+
+	if ( $queried && function_exists( 'slc_is_data_rooms_page' ) && slc_is_data_rooms_page( $queried ) ) {
+		return $queried;
+	}
+
+	if ( $queried && function_exists( 'slc_is_modular_page' ) && slc_is_modular_page( $queried ) ) {
 		return $queried;
 	}
 

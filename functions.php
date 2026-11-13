@@ -15,6 +15,10 @@ require get_template_directory() . '/inc/case-study.php';
 require get_template_directory() . '/inc/about.php';
 require get_template_directory() . '/inc/capabilities.php';
 require get_template_directory() . '/inc/story.php';
+require get_template_directory() . '/inc/communications.php';
+require get_template_directory() . '/inc/facilities.php';
+require get_template_directory() . '/inc/data-rooms.php';
+require get_template_directory() . '/inc/modular.php';
 require get_template_directory() . '/inc/acf-fields.php';
 
 /**
@@ -118,6 +122,46 @@ function slc_assets() {
 			array(),
 			file_exists( $story_js ) ? (string) filemtime( $story_js ) : '1.0.0',
 			true
+		);
+	}
+
+	if ( is_page( 'communications-infrastructure' ) || is_page_template( 'page-communications.php' ) ) {
+		$comms_css = get_theme_file_path( 'assets/css/communications.css' );
+		wp_enqueue_style(
+			'slc-communications',
+			get_theme_file_uri( 'assets/css/communications.css' ),
+			array( 'slc-theme' ),
+			file_exists( $comms_css ) ? (string) filemtime( $comms_css ) : '1.0.0'
+		);
+	}
+
+	if ( is_page( 'facilities' ) || is_page_template( 'page-facilities.php' ) ) {
+		$facilities_css = get_theme_file_path( 'assets/css/facilities.css' );
+		wp_enqueue_style(
+			'slc-facilities',
+			get_theme_file_uri( 'assets/css/facilities.css' ),
+			array( 'slc-theme' ),
+			file_exists( $facilities_css ) ? (string) filemtime( $facilities_css ) : '1.0.0'
+		);
+	}
+
+	if ( is_page( 'data-rooms' ) || is_page_template( 'page-data-rooms.php' ) ) {
+		$data_rooms_css = get_theme_file_path( 'assets/css/data-rooms.css' );
+		wp_enqueue_style(
+			'slc-data-rooms',
+			get_theme_file_uri( 'assets/css/data-rooms.css' ),
+			array( 'slc-theme' ),
+			file_exists( $data_rooms_css ) ? (string) filemtime( $data_rooms_css ) : '1.0.0'
+		);
+	}
+
+	if ( is_page( 'modular-infrastructure' ) || is_page_template( 'page-modular.php' ) ) {
+		$modular_css = get_theme_file_path( 'assets/css/modular.css' );
+		wp_enqueue_style(
+			'slc-modular',
+			get_theme_file_uri( 'assets/css/modular.css' ),
+			array( 'slc-theme' ),
+			file_exists( $modular_css ) ? (string) filemtime( $modular_css ) : '1.0.0'
 		);
 	}
 }
