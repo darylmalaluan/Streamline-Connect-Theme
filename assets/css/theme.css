@@ -1,29 +1,152 @@
-/* Design tokens: colour, type, spacing, and the shared motion values. */
+/* HOME-FIGMA-UPDATE / DESIGN-TOKENS: Shared design-system tokens.
+ * Colour names follow the Figma file variables. Semantic aliases point at
+ * those values so later pages can use intent-based names without a visual change.
+ * Breakpoints cannot be CSS variables in media queries; they are listed below.
+ *
+ * Breakpoints:
+ *   1920  desktop (default tokens)
+ *   1919  laptop
+ *   1439  tablet
+ *   1199  small tablet (some section layouts stack)
+ *   1023  large phone (footer, delivery, and similar rows stack)
+ *   767   phone
+ */
 :root {
-	--content: 1808px;
-	--duration: 500ms;
-	--ease: cubic-bezier(0.22, 1, 0.36, 1);
-	--font-body: Aptos, "Segoe UI", sans-serif;
-	--font-display: "Montserrat", sans-serif;
-	--grey-100: #f4f6f8;
-	--grey-300: #d9dee5;
-	--grey-500: #5a6472;
-	--grey-700: #2b3645;
-	--gutter: 56px;
-	--header: 80px;
-	--ink: #0f1b2d;
-	--jump-line: #e7e7eb;
-	--line: #d9dee5;
-	--line-inverse: #33325a;
+	/* Colour — brand */
 	--navy-200: #cbcad3;
 	--navy-900: #111036;
 	--orange-50: #fef5ee;
 	--orange-500: #f57f27;
 	--orange-600: #d36d22;
+	--orange-700: #ac591b;
+
+	/* Colour — neutrals */
+	--white: #fff;
+	--grey-100: #f4f6f8;
+	--grey-300: #d9dee5;
+	--grey-500: #5a6472;
+	--grey-700: #2b3645;
+	--ink: #0f1b2d;
+
+	/* Colour — text */
+	--text: var(--ink);
+	--text-muted: var(--grey-700);
+	--text-subtle: var(--grey-500);
+	--text-on-dark: var(--white);
+	--text-on-dark-muted: var(--navy-200);
+	--text-accent: var(--orange-500);
+
+	/* Colour — surfaces */
+	--surface: var(--white);
+	--surface-muted: var(--grey-100);
+	--surface-inverse: var(--navy-900);
+	--surface-accent: var(--orange-50);
+	--overlay: rgba(17, 16, 54, 0.56);
+	--overlay-soft: rgba(17, 16, 54, 0.5);
+
+	/* Colour — borders */
+	--line: #d9dee5;
+	--line-inverse: #33325a;
+	--jump-line: #e7e7eb;
+	--border-width: 1px;
+
+	/* Typography — families */
+	--font-body: Aptos, "Segoe UI", sans-serif;
+	--font-display: "Montserrat", sans-serif;
+
+	/* Typography — sizes */
+	--text-2xs: 10px;
+	--text-xs: 12px;
+	--text-sm: 14px;
+	--text-md: 16px;
+	--text-lg: 20px;
+	--text-xl: 22px;
+	--text-2xl: 24px;
+	--text-3xl: 28px;
+	--text-4xl: 32px;
+	--text-5xl: 40px;
+
+	/* Typography — fluid sizes (clamps already used on the site) */
+	--text-lead: clamp(16px, 1.042vw, 20px);
+	--text-quote: clamp(22px, 1.6vw, 28px);
+	--text-h3: clamp(28px, 2.083vw, 40px);
+	--text-h2: clamp(32px, 2.5vw, 48px);
+	--text-display-sm: clamp(36px, 3.125vw, 60px);
+	--text-stat: clamp(36px, 3.2vw, 64px);
+	--text-display-lg: clamp(36px, 3.75vw, 72px);
+	--text-display-xl: clamp(48px, 5.833vw, 112px);
+
+	/* Typography — weights */
+	--weight-regular: 400;
+	--weight-semibold: 600;
+	--weight-bold: 700;
+
+	/* Typography — line heights (every distinct value already in the sheet) */
+	--leading-none: 1;
+	--leading-display-xl: 1.08;
+	--leading-display-lg: 1.1;
+	--leading-h2: 1.16;
+	--leading-snug: 1.2;
+	--leading-h3: 1.24;
+	--leading-mega: 1.25;
+	--leading-title: 1.32;
+	--leading-tight: 1.4;
+	--leading-body: 1.5;
+
+	/* Typography — tracking */
+	--track-tight: -0.04em;
+	--track-normal: 0;
+
+	/* Spacing scale (4px base, plus the 2px, 6px, and 60px values already in the sheet) */
+	--space-0: 0;
+	--space-0_5: 2px;
+	--space-1: 4px;
+	--space-1_5: 6px;
+	--space-2: 8px;
+	--space-3: 12px;
+	--space-4: 16px;
+	--space-5: 20px;
+	--space-6: 24px;
+	--space-7: 28px;
+	--space-8: 32px;
+	--space-10: 40px;
+	--space-12: 48px;
+	--space-14: 56px;
+	--space-15: 60px;
+	--space-16: 64px;
+	--space-20: 80px;
+	--space-24: 96px;
+	--space-28: 112px;
+	--space-32: 128px;
+
+	/* Layout */
+	--content: 1808px;
+	--gutter: 56px;
+	--header: 80px;
 	--section: 112px;
+	--touch: 44px;
+
+	/* Radii and shadows (the current UI is square and unshadowed) */
+	--radius-none: 0;
+	--shadow-none: none;
+
+	/* Motion */
+	--duration: 500ms;
+	--ease: cubic-bezier(0.22, 1, 0.36, 1);
 	--shift: 20px;
 	--stagger: 80ms;
-	--white: #fff;
+
+	/* Focus ring */
+	--focus-width: 2px;
+	--focus-offset: 2px;
+	--focus-offset-lg: 4px;
+
+	/* Z-index */
+	--z-base: 1;
+	--z-overlay: 30;
+	--z-header: 40;
+	--z-nav: 45;
+	--z-skip: 80;
 }
 
 @media (max-width: 1919px) {
@@ -133,8 +256,8 @@ body {
 	background: var(--white);
 	color: var(--ink);
 	font-family: var(--font-body);
-	font-size: 16px;
-	line-height: 1.5;
+	font-size: var(--text-md);
+	line-height: var(--leading-body);
 	margin: 0;
 }
 
@@ -173,24 +296,24 @@ ul, ol {
 }
 
 :focus-visible {
-	outline: 2px solid var(--orange-500);
-	outline-offset: 2px;
+	outline: var(--focus-width) solid var(--orange-500);
+	outline-offset: var(--focus-offset);
 }
 
 /* Skip link. It sits off screen until it receives focus. */
 .skip-link {
 	background: var(--white);
 	color: var(--navy-900);
-	left: 16px;
-	padding: 12px 16px;
+	left: var(--space-4);
+	padding: var(--space-3) var(--space-4);
 	position: absolute;
 	text-decoration: none;
-	top: -48px;
-	z-index: 80;
+	top: calc(-1 * var(--space-12));
+	z-index: var(--z-skip);
 }
 
 .skip-link:focus {
-	top: 16px;
+	top: var(--space-4);
 }
 
 /* Centred content column. Width follows the page gutter. */
@@ -222,14 +345,14 @@ ul, ol {
 	background: var(--navy-900);
 	color: var(--white);
 	display: inline-flex;
-	font-size: 16px;
-	font-weight: 600;
-	gap: 12px;
+	font-size: var(--text-md);
+	font-weight: var(--weight-semibold);
+	gap: var(--space-3);
 	justify-content: space-between;
-	letter-spacing: 0;
-	line-height: 1.4;
-	min-height: 44px;
-	padding: 16px 24px;
+	letter-spacing: var(--track-normal);
+	line-height: var(--leading-tight);
+	min-height: var(--touch);
+	padding: var(--space-4) var(--space-6);
 	text-decoration: none;
 	text-transform: uppercase;
 	transition: background-color var(--duration) var(--ease), color var(--duration) var(--ease);
@@ -252,11 +375,11 @@ ul, ol {
 	align-items: center;
 	color: var(--navy-900);
 	display: inline-flex;
-	font-size: 16px;
-	font-weight: 600;
-	gap: 8px;
-	line-height: 1.4;
-	min-height: 44px;
+	font-size: var(--text-md);
+	font-weight: var(--weight-semibold);
+	gap: var(--space-2);
+	line-height: var(--leading-tight);
+	min-height: var(--touch);
 	text-decoration: none;
 	text-transform: uppercase;
 	transition: color var(--duration) var(--ease);
@@ -306,11 +429,11 @@ ul, ol {
 .section-heading, .page-main h1 {
 	color: var(--navy-900);
 	font-family: var(--font-display);
-	font-size: clamp(32px, 2.5vw, 48px);
-	font-weight: 700;
-	letter-spacing: -0.04em;
-	line-height: 1.16;
-	scroll-margin-top: 24px;
+	font-size: var(--text-h2);
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--track-tight);
+	line-height: var(--leading-h2);
+	scroll-margin-top: var(--space-6);
 }
 
 .section--navy .section-heading, .built-copy h2 {
@@ -322,19 +445,78 @@ ul, ol {
 }
 
 .section-heading:focus-visible {
-	outline: 2px solid var(--orange-500);
-	outline-offset: 4px;
+	outline: var(--focus-width) solid var(--orange-500);
+	outline-offset: var(--focus-offset-lg);
+}
+
+
+/* DESIGN-TOKENS: Optional utilities for new pages. They are not used by
+ * existing markup, so they do not change any current screen.
+ * Prefer .section, .section-heading, .btn, .text-link, and .wrap when those already fit.
+ */
+
+/* Small uppercase label. */
+.kicker {
+	font-family: var(--font-body);
+	font-size: var(--text-xs);
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--track-normal);
+	line-height: var(--leading-tight);
+	text-transform: uppercase;
+}
+
+/* Supporting intro copy that tracks the lead fluid size. */
+.lede {
+	font-family: var(--font-body);
+	font-size: var(--text-lead);
+	font-weight: var(--weight-regular);
+	line-height: var(--leading-body);
+}
+
+/* Page or section title. Same metrics as .section-heading. */
+.heading-1 {
+	color: var(--navy-900);
+	font-family: var(--font-display);
+	font-size: var(--text-h2);
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--track-tight);
+	line-height: var(--leading-h2);
+}
+
+/* Subsection title. Same metrics as interior .entry h2. */
+.heading-2 {
+	color: var(--navy-900);
+	font-family: var(--font-display);
+	font-size: var(--text-2xl);
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--track-tight);
+	line-height: var(--leading-title);
+}
+
+/* Mid-size display title. Same metrics as card and project titles. */
+.heading-3 {
+	color: var(--navy-900);
+	font-family: var(--font-display);
+	font-size: var(--text-h3);
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--track-tight);
+	line-height: var(--leading-snug);
+}
+
+/* Full-bleed row: a divider or background goes edge to edge, content stays on the wrap column. */
+.full-bleed {
+	padding-inline: max(var(--gutter), calc((100% - var(--content)) / 2));
 }
 
 /* Site header. It sits above the page and the open menu. */
 .site-header {
 	background: var(--white);
 	position: relative;
-	z-index: 40;
+	z-index: var(--z-header);
 }
 
 body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabilities-open {
-	border-bottom: 1px solid var(--line);
+	border-bottom: var(--border-width) solid var(--line);
 }
 
 .site-header:focus {
@@ -368,16 +550,16 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 .menu-toggle {
 	align-self: center;
 	background: var(--white);
-	border: 1px solid var(--line);
+	border: var(--border-width) solid var(--line);
 	color: var(--ink);
 	display: none;
-	font-size: 16px;
-	letter-spacing: -0.04em;
+	font-size: var(--text-md);
+	letter-spacing: var(--track-tight);
 	margin-left: auto;
 	margin-right: var(--gutter);
-	min-height: 44px;
-	min-width: 44px;
-	padding: 0 16px;
+	min-height: var(--touch);
+	min-width: var(--touch);
+	padding: 0 var(--space-4);
 }
 
 @media (max-width: 1439px) {
@@ -410,7 +592,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 @media (max-width: 1439px) {
 	.nav-cta--menu {
 		display: flex;
-		margin: 16px var(--gutter);
+		margin: var(--space-4) var(--gutter);
 	}
 }
 
@@ -419,16 +601,16 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	align-items: center;
 	background: transparent;
 	border: 0;
-	border-right: 1px solid var(--line);
+	border-right: var(--border-width) solid var(--line);
 	color: var(--ink);
 	display: flex;
-	font-size: 16px;
-	gap: 4px;
+	font-size: var(--text-md);
+	gap: var(--space-1);
 	height: 100%;
 	justify-content: center;
-	letter-spacing: -0.04em;
-	line-height: 1.5;
-	padding: 0 24px;
+	letter-spacing: var(--track-tight);
+	line-height: var(--leading-body);
+	padding: 0 var(--space-6);
 	text-decoration: none;
 	transition: background-color var(--duration) var(--ease), color var(--duration) var(--ease);
 	width: 160px;
@@ -436,29 +618,29 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 
 @media (max-width: 1439px) {
 	.nav-button, .nav-link {
-		border-bottom: 1px solid var(--line);
+		border-bottom: var(--border-width) solid var(--line);
 		border-left: 0;
 		border-right: 0;
 		justify-content: space-between;
 		min-height: 56px;
-		padding: 16px var(--gutter);
+		padding: var(--space-4) var(--gutter);
 		width: 100%;
 	}
 }
 
 /* Capabilities cell. It has a border on both sides. */
 .nav-button {
-	border-left: 1px solid var(--line);
+	border-left: var(--border-width) solid var(--line);
 }
 
 @media (max-width: 1439px) {
 	.nav-button {
-		border-bottom: 1px solid var(--line);
+		border-bottom: var(--border-width) solid var(--line);
 		border-left: 0;
 		border-right: 0;
 		justify-content: space-between;
 		min-height: 56px;
-		padding: 16px var(--gutter);
+		padding: var(--space-4) var(--gutter);
 		width: 100%;
 	}
 }
@@ -477,9 +659,9 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 
 /* Discuss button in the desktop header bar. */
 .nav-cta--bar {
-	border-radius: 0;
+	border-radius: var(--radius-none);
 	height: 100%;
-	padding-left: 40px;
+	padding-left: var(--space-10);
 	padding-right: max(var(--gutter), calc((100vw - var(--content)) / 2));
 }
 
@@ -491,12 +673,12 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 
 /* Navy scrim behind an open menu. */
 .scrim {
-	background: rgba(17, 16, 54, 0.56);
+	background: var(--overlay);
 	border: 0;
 	inset: 0;
 	padding: 0;
 	position: fixed;
-	z-index: 30;
+	z-index: var(--z-overlay);
 }
 
 .scrim[hidden] {
@@ -506,15 +688,15 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 /* Capabilities menu panel. Id hook: #capabilities_menu. */
 .mega {
 	background: var(--white);
-	border-bottom: 1px solid var(--line);
-	border-top: 1px solid var(--line);
+	border-bottom: var(--border-width) solid var(--line);
+	border-top: var(--border-width) solid var(--line);
 	color: var(--ink);
 	display: flex;
 	left: 0;
 	position: absolute;
 	right: 0;
 	top: var(--header);
-	z-index: 45;
+	z-index: var(--z-nav);
 }
 
 @media (max-width: 1439px) {
@@ -531,29 +713,29 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 
 /* Shared padding for the menu introduction and columns. */
 .mega-intro, .mega-col {
-	border-right: 1px solid var(--line);
+	border-right: var(--border-width) solid var(--line);
 	display: flex;
 	flex-direction: column;
-	gap: 16px;
+	gap: var(--space-4);
 	justify-content: center;
-	padding: 40px 32px;
+	padding: var(--space-10) var(--space-8);
 }
 
 /* Capabilities introduction: title, summary, and the all-capabilities link. */
 .mega-intro {
 	flex: 0 0 514px;
-	gap: 20px;
+	gap: var(--space-5);
 	padding-left: max(var(--gutter), calc((100vw - var(--content)) / 2));
-	padding-right: 40px;
+	padding-right: var(--space-10);
 	width: 514px;
 }
 
 @media (max-width: 1439px) {
 	.mega-intro {
-		border-bottom: 1px solid var(--line);
+		border-bottom: var(--border-width) solid var(--line);
 		border-right: 0;
 		flex: none;
-		padding: 24px var(--gutter) 32px;
+		padding: var(--space-6) var(--gutter) var(--space-8);
 		width: auto;
 	}
 }
@@ -566,10 +748,10 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 
 @media (max-width: 1439px) {
 	.mega-col {
-		border-bottom: 1px solid var(--line);
+		border-bottom: var(--border-width) solid var(--line);
 		border-right: 0;
 		flex: none;
-		padding: 24px var(--gutter) 32px;
+		padding: var(--space-6) var(--gutter) var(--space-8);
 		width: auto;
 	}
 }
@@ -582,30 +764,30 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 .mega-title, .mega-heading {
 	color: var(--navy-900);
 	font-family: var(--font-display);
-	font-weight: 700;
+	font-weight: var(--weight-bold);
 	text-decoration: none;
 }
 
 /* Capabilities menu title. */
 .mega-title {
-	font-size: 40px;
-	letter-spacing: -0.04em;
-	line-height: 1.2;
+	font-size: var(--text-5xl);
+	letter-spacing: var(--track-tight);
+	line-height: var(--leading-snug);
 }
 
 @media (max-width: 1439px) {
 	.mega-title {
-		font-size: clamp(28px, 2.083vw, 40px);
+		font-size: var(--text-h3);
 	}
 }
 
 /* Column heading inside the Capabilities menu. */
 .mega-heading {
 	color: var(--ink);
-	font-size: 24px;
-	font-weight: 600;
-	letter-spacing: -0.04em;
-	line-height: 1.25;
+	font-size: var(--text-2xl);
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--track-tight);
+	line-height: var(--leading-mega);
 }
 
 /* Supporting text in the Capabilities menu. */
@@ -618,10 +800,10 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	align-items: center;
 	color: var(--navy-900);
 	display: inline-flex;
-	font-size: 12px;
-	gap: 8px;
-	line-height: 1.5;
-	min-height: 44px;
+	font-size: var(--text-xs);
+	gap: var(--space-2);
+	line-height: var(--leading-body);
+	min-height: var(--touch);
 	text-decoration: none;
 	text-transform: uppercase;
 }
@@ -630,7 +812,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 .mega-list {
 	display: flex;
 	flex-direction: column;
-	gap: 12px;
+	gap: var(--space-3);
 }
 
 /* One child link in the Capabilities menu. */
@@ -638,10 +820,10 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	align-items: center;
 	color: var(--grey-700);
 	display: flex;
-	font-weight: 600;
-	gap: 12px;
-	letter-spacing: -0.04em;
-	min-height: 44px;
+	font-weight: var(--weight-semibold);
+	gap: var(--space-3);
+	letter-spacing: var(--track-tight);
+	min-height: var(--touch);
 	text-decoration: none;
 }
 
@@ -684,7 +866,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 
 /* Navy scrim over the hero photograph. */
 .hero-scrim {
-	background: rgba(17, 16, 54, 0.5);
+	background: var(--overlay-soft);
 	inset: 0;
 	position: absolute;
 }
@@ -700,14 +882,14 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	padding: var(--gutter) 0;
 	position: relative;
 	width: min(var(--content), calc(100% - (var(--gutter) * 2)));
-	z-index: 1;
+	z-index: var(--z-base);
 }
 
 /* Hero headline column and the On this page panel. */
 .hero-copy {
 	align-items: flex-end;
 	display: flex;
-	gap: 48px;
+	gap: var(--space-12);
 	justify-content: space-between;
 }
 
@@ -726,23 +908,23 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 /* Hero headline. Id hook: #hero_heading. */
 .hero-text h1 {
 	font-family: var(--font-display);
-	font-size: clamp(36px, 3.125vw, 60px);
-	font-weight: 700;
-	letter-spacing: -0.04em;
-	line-height: 1;
+	font-size: var(--text-display-sm);
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--track-tight);
+	line-height: var(--leading-none);
 }
 
 /* Hero supporting text. */
 .hero-text .hero-intro, .hero-text .hero-intro p {
-	font-size: clamp(16px, 1.042vw, 20px);
-	line-height: 1.5;
-	margin-top: 56px;
+	font-size: var(--text-lead);
+	line-height: var(--leading-body);
+	margin-top: var(--space-14);
 	max-width: 739px;
 }
 
 @media (max-width: 1439px) {
 	.hero-text .hero-intro, .hero-text .hero-intro p {
-		margin-top: 32px;
+		margin-top: var(--space-8);
 	}
 }
 
@@ -753,9 +935,9 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	display: flex;
 	flex: 0 0 434px;
 	flex-direction: column;
-	gap: 24px;
+	gap: var(--space-6);
 	max-width: 100%;
-	padding: 32px;
+	padding: var(--space-8);
 	width: 434px;
 }
 
@@ -769,25 +951,25 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 /* On this page label. */
 .jump > p {
 	color: var(--grey-500);
-	font-size: 12px;
-	line-height: 1.4;
+	font-size: var(--text-xs);
+	line-height: var(--leading-tight);
 	text-transform: uppercase;
 }
 
 /* Jump link inside the On this page panel. */
 .jump a {
 	align-items: center;
-	border-bottom: 1px solid var(--jump-line);
+	border-bottom: var(--border-width) solid var(--jump-line);
 	color: var(--navy-900);
 	display: flex;
 	font-family: var(--font-display);
-	font-size: 20px;
-	font-weight: 600;
-	gap: 16px;
+	font-size: var(--text-lg);
+	font-weight: var(--weight-semibold);
+	gap: var(--space-4);
 	justify-content: space-between;
-	line-height: 1.24;
-	min-height: 44px;
-	padding: 16px 0;
+	line-height: var(--leading-h3);
+	min-height: var(--touch);
+	padding: var(--space-4) 0;
 	text-decoration: none;
 }
 
@@ -796,10 +978,10 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	border-bottom: 0;
 	color: var(--white);
 	font-family: var(--font-body);
-	font-size: 16px;
-	font-weight: 600;
-	line-height: 1.4;
-	padding: 16px 24px;
+	font-size: var(--text-md);
+	font-weight: var(--weight-semibold);
+	line-height: var(--leading-tight);
+	padding: var(--space-4) var(--space-6);
 	text-transform: uppercase;
 }
 
@@ -822,7 +1004,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 /* Two-column row used by several sections. It stacks in the queries below each section. */
 .sectors-layout, .clients-layout, .built-layout, .section-intro, .enquiry-layout, .footer-top {
 	display: flex;
-	gap: 48px;
+	gap: var(--space-12);
 	justify-content: space-between;
 }
 
@@ -835,7 +1017,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	.sectors-layout {
 		align-items: flex-start;
 		flex-direction: column;
-		gap: 32px;
+		gap: var(--space-8);
 	}
 }
 
@@ -860,13 +1042,13 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 /* One sector row. The whole row is the link. */
 .sector {
 	align-items: center;
-	border-bottom: 1px solid var(--line);
+	border-bottom: var(--border-width) solid var(--line);
 	color: inherit;
 	display: grid;
-	gap: 24px;
+	gap: var(--space-6);
 	grid-template-columns: minmax(160px, 384px) minmax(0, 1fr) 16px;
 	min-height: 89px;
-	padding: 28px 24px 28px 0;
+	padding: var(--space-7) var(--space-6) var(--space-7) 0;
 	text-decoration: none;
 }
 
@@ -880,15 +1062,15 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 .sector-name {
 	color: var(--orange-500);
 	font-family: var(--font-display);
-	font-size: 24px;
-	font-weight: 600;
-	letter-spacing: -0.04em;
-	line-height: 1.32;
+	font-size: var(--text-2xl);
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--track-tight);
+	line-height: var(--leading-title);
 }
 
 @media (max-width: 767px) {
 	.sector-name {
-		font-size: 22px;
+		font-size: var(--text-xl);
 	}
 }
 
@@ -915,13 +1097,13 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 
 /* Space under the What we deliver heading. */
 .capabilities .section-heading {
-	margin-bottom: 64px;
+	margin-bottom: var(--space-16);
 }
 
 /* Three capability cards. */
 .card-grid {
 	display: grid;
-	gap: 24px;
+	gap: var(--space-6);
 	grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
@@ -940,7 +1122,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 /* One capability card. */
 .card {
 	background: var(--white);
-	border: 1px solid var(--line);
+	border: var(--border-width) solid var(--line);
 	display: flex;
 	flex-direction: column;
 }
@@ -973,17 +1155,17 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	display: flex;
 	flex: 1;
 	flex-direction: column;
-	gap: 20px;
-	padding: 32px;
+	gap: var(--space-5);
+	padding: var(--space-8);
 }
 
 /* Capability card title. */
 .card h3 {
 	font-family: var(--font-display);
-	font-size: clamp(28px, 2.083vw, 40px);
-	font-weight: 700;
-	letter-spacing: -0.04em;
-	line-height: 1.2;
+	font-size: var(--text-h3);
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--track-tight);
+	line-height: var(--leading-snug);
 	min-height: 96px;
 }
 
@@ -1007,13 +1189,13 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 
 /* Space under the Why Streamline heading. */
 .why .section-heading {
-	margin-bottom: 40px;
+	margin-bottom: var(--space-10);
 }
 
 /* Six Why Streamline tiles. */
 .reason-grid {
-	border-left: 1px solid var(--line-inverse);
-	border-top: 1px solid var(--line-inverse);
+	border-left: var(--border-width) solid var(--line-inverse);
+	border-top: var(--border-width) solid var(--line-inverse);
 	display: grid;
 	grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -1032,29 +1214,29 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 
 /* One Why Streamline tile. */
 .reason-grid li {
-	border-bottom: 1px solid var(--line-inverse);
-	border-right: 1px solid var(--line-inverse);
+	border-bottom: var(--border-width) solid var(--line-inverse);
+	border-right: var(--border-width) solid var(--line-inverse);
 	display: flex;
 	flex-direction: column;
-	gap: 16px;
-	padding: 32px 32px 40px;
+	gap: var(--space-4);
+	padding: var(--space-8) var(--space-8) var(--space-10);
 }
 
 /* Orange index on a Why Streamline tile. */
 .reason-index {
 	color: var(--orange-500);
-	font-size: 12px;
-	line-height: 1.4;
+	font-size: var(--text-xs);
+	line-height: var(--leading-tight);
 	text-transform: uppercase;
 }
 
 /* Why Streamline tile title. */
 .reason-grid h3 {
 	font-family: var(--font-display);
-	font-size: 24px;
-	font-weight: 600;
-	letter-spacing: -0.04em;
-	line-height: 1.32;
+	font-size: var(--text-2xl);
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--track-tight);
+	line-height: var(--leading-title);
 }
 
 /* Why Streamline tile body. */
@@ -1064,10 +1246,10 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 
 /* Stat strip under the Why Streamline tiles. */
 .stats {
-	border: 1px solid var(--line-inverse);
+	border: var(--border-width) solid var(--line-inverse);
 	display: grid;
 	grid-template-columns: repeat(5, minmax(0, 1fr));
-	margin-top: -1px;
+	margin-top: calc(-1 * var(--border-width));
 }
 
 @media (max-width: 1023px) {
@@ -1084,26 +1266,26 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 
 /* HOME-FIGMA-UPDATE: One stat. Figure on top, label underneath. */
 .stats > div {
-	border-left: 1px solid var(--line-inverse);
+	border-left: var(--border-width) solid var(--line-inverse);
 	display: flex;
 	flex-direction: column-reverse;
-	gap: 16px;
+	gap: var(--space-4);
 	justify-content: center;
-	padding: 60px 32px;
+	padding: var(--space-15) var(--space-8);
 	text-align: center;
 }
 
 @media (max-width: 1023px) {
 	.stats > div {
 		border-left: 0;
-		border-top: 1px solid var(--line-inverse);
+		border-top: var(--border-width) solid var(--line-inverse);
 	}
 }
 
 @media (max-width: 767px) {
 	.stats > div {
 		border-left: 0;
-		border-top: 1px solid var(--line-inverse);
+		border-top: var(--border-width) solid var(--line-inverse);
 	}
 }
 
@@ -1120,8 +1302,8 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 /* HOME-FIGMA-UPDATE: Stat label under the figure, sentence case, 14px. */
 .stats dt {
 	color: var(--navy-200);
-	font-size: 14px;
-	line-height: 1.5;
+	font-size: var(--text-sm);
+	line-height: var(--leading-body);
 	min-height: 66px;
 }
 
@@ -1129,7 +1311,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 .stats dd {
 	align-items: baseline;
 	display: flex;
-	gap: 4px;
+	gap: var(--space-1);
 	justify-content: center;
 	margin: 0;
 	white-space: nowrap;
@@ -1138,36 +1320,36 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 /* Shared type for the stat number and its prefix or suffix. */
 .stat-figure, .stat-prefix, .stat-suffix {
 	font-family: var(--font-display);
-	font-weight: 700;
-	letter-spacing: -0.04em;
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--track-tight);
 }
 
 /* Stat number. */
 .stat-figure {
 	color: var(--white);
-	font-size: clamp(36px, 3.2vw, 64px);
-	line-height: 1;
+	font-size: var(--text-stat);
+	line-height: var(--leading-none);
 }
 
 /* HOME-FIGMA-UPDATE: Orange prefix/suffix, such as Since or km. */
 .stat-prefix, .stat-suffix {
 	color: var(--orange-600);
-	font-size: 20px;
-	line-height: 1.2;
+	font-size: var(--text-lg);
+	line-height: var(--leading-snug);
 }
 
 /* Section heading with the intro beside it. */
 .section-intro {
 	align-items: flex-end;
-	gap: 64px;
-	margin-bottom: 64px;
+	gap: var(--space-16);
+	margin-bottom: var(--space-16);
 }
 
 @media (max-width: 1199px) {
 	.section-intro {
 		align-items: flex-start;
 		flex-direction: column;
-		gap: 32px;
+		gap: var(--space-8);
 	}
 }
 
@@ -1190,8 +1372,8 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 
 /* Six delivery stages. */
 .stage-grid {
-	border-bottom: 1px solid var(--line);
-	border-right: 1px solid var(--line);
+	border-bottom: var(--border-width) solid var(--line);
+	border-right: var(--border-width) solid var(--line);
 	display: grid;
 	grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -1211,13 +1393,13 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 /* One delivery stage. */
 .stage {
 	background: var(--white);
-	border-left: 1px solid var(--line);
-	border-top: 1px solid var(--line);
+	border-left: var(--border-width) solid var(--line);
+	border-top: var(--border-width) solid var(--line);
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
+	gap: var(--space-5);
 	min-height: 265px;
-	padding: 32px 32px 40px;
+	padding: var(--space-8) var(--space-8) var(--space-10);
 }
 
 .stage:hover, .stage:focus-visible {
@@ -1228,7 +1410,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 .stage-top {
 	align-items: center;
 	display: flex;
-	gap: 12px;
+	gap: var(--space-3);
 	justify-content: space-between;
 }
 
@@ -1236,17 +1418,17 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 .stage-top p {
 	align-items: center;
 	display: flex;
-	gap: 12px;
+	gap: var(--space-3);
 }
 
 /* Orange stage number. */
 .stage-index {
 	color: var(--orange-500);
 	font-family: var(--font-display);
-	font-size: 16px;
-	font-weight: 700;
-	letter-spacing: -0.04em;
-	line-height: 1;
+	font-size: var(--text-md);
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--track-tight);
+	line-height: var(--leading-none);
 }
 
 /* Arrow on a delivery stage. */
@@ -1259,14 +1441,14 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 .parallel {
 	align-items: center;
 	background: var(--orange-50);
-	border: 1px solid var(--orange-500);
+	border: var(--border-width) solid var(--orange-500);
 	color: var(--navy-900);
 	display: inline-flex;
-	font-size: 10px;
-	font-weight: 600;
-	gap: 4px;
-	line-height: 1.4;
-	padding: 2px 6px;
+	font-size: var(--text-2xs);
+	font-weight: var(--weight-semibold);
+	gap: var(--space-1);
+	line-height: var(--leading-tight);
+	padding: var(--space-0_5) var(--space-1_5);
 	text-transform: uppercase;
 }
 
@@ -1280,15 +1462,15 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 .stage h3 {
 	color: var(--navy-900);
 	font-family: var(--font-display);
-	font-size: 32px;
-	font-weight: 600;
-	letter-spacing: -0.04em;
-	line-height: 1.24;
+	font-size: var(--text-4xl);
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--track-tight);
+	line-height: var(--leading-h3);
 }
 
 @media (max-width: 767px) {
 	.stage h3 {
-		font-size: 28px;
+		font-size: var(--text-3xl);
 	}
 }
 
@@ -1299,7 +1481,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 
 /* Bar under a section that holds the orange action. */
 .section-bar {
-	border-top: 1px solid var(--line);
+	border-top: var(--border-width) solid var(--line);
 	display: flex;
 	height: 64px;
 	justify-content: flex-end;
@@ -1340,12 +1522,12 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	background: var(--orange-500);
 	color: var(--navy-900);
 	display: inline-flex;
-	font-size: 16px;
-	font-weight: 600;
-	gap: 8px;
+	font-size: var(--text-md);
+	font-weight: var(--weight-semibold);
+	gap: var(--space-2);
 	height: 100%;
 	justify-content: center;
-	line-height: 1.4;
+	line-height: var(--leading-tight);
 	text-decoration: none;
 	text-transform: uppercase;
 	transition: background-color var(--duration) var(--ease), color var(--duration) var(--ease);
@@ -1370,11 +1552,11 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 /* HOME-FIGMA-UPDATE: Row dividers span the full section width. Content stays aligned to the wrap. */
 .project {
 	align-items: center;
-	border-bottom: 1px solid var(--line);
+	border-bottom: var(--border-width) solid var(--line);
 	display: grid;
-	gap: 48px;
+	gap: var(--space-12);
 	grid-template-columns: minmax(0, 716fr) minmax(0, 572fr) minmax(220px, 424fr);
-	padding: 40px max(var(--gutter), calc((100% - var(--content)) / 2));
+	padding: var(--space-10) max(var(--gutter), calc((100% - var(--content)) / 2));
 }
 
 @media (max-width: 1199px) {
@@ -1399,82 +1581,82 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 .project h3 {
 	color: var(--navy-900);
 	font-family: var(--font-display);
-	font-size: clamp(28px, 2.083vw, 40px);
-	font-weight: 700;
-	letter-spacing: -0.04em;
-	line-height: 1.2;
+	font-size: var(--text-h3);
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--track-tight);
+	line-height: var(--leading-snug);
 }
 
 /* HOME-FIGMA-UPDATE: Optional summary under a related-project title. */
 .project-summary, .project-summary p {
 	color: var(--grey-700);
-	font-size: 16px;
-	line-height: 1.5;
-	margin-top: 16px;
+	font-size: var(--text-md);
+	line-height: var(--leading-body);
+	margin-top: var(--space-4);
 }
 
 /* Capability chips on a project. */
 .chips {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 8px;
-	margin-top: 20px;
+	gap: var(--space-2);
+	margin-top: var(--space-5);
 }
 
 /* One project chip. */
 .chips li {
-	border: 1px solid var(--line);
+	border: var(--border-width) solid var(--line);
 	color: var(--grey-700);
-	font-size: 12px;
-	line-height: 1.4;
-	padding: 4px 8px;
+	font-size: var(--text-xs);
+	line-height: var(--leading-tight);
+	padding: var(--space-1) var(--space-2);
 	text-transform: uppercase;
 }
 
 /* One project detail row: sector, client, or location. */
 .project-spec dl > div {
-	border-bottom: 1px solid var(--line);
+	border-bottom: var(--border-width) solid var(--line);
 	display: flex;
-	gap: 24px;
-	padding: 12px 0;
+	gap: var(--space-6);
+	padding: var(--space-3) 0;
 }
 
 @media (max-width: 767px) {
 	.project-spec dl > div {
 		flex-direction: column;
-		gap: 4px;
+		gap: var(--space-1);
 	}
 }
 
 /* Project detail list. */
 .project-spec dl {
-	border-top: 1px solid var(--line);
+	border-top: var(--border-width) solid var(--line);
 }
 
 /* Project detail label. */
 .project-spec dt {
 	color: var(--grey-500);
 	flex: none;
-	font-size: 12px;
-	line-height: 1.4;
+	font-size: var(--text-xs);
+	line-height: var(--leading-tight);
 	text-transform: uppercase;
 	width: 160px;
 }
 
 /* Project detail value. */
 .project-spec dd {
-	letter-spacing: -0.04em;
+	letter-spacing: var(--track-tight);
 }
 
 /* Space above the project PDF action. */
 .project-spec .text-link, .pdf-pending {
-	margin-top: 24px;
+	margin-top: var(--space-6);
 }
 
 /* Shown when a project PDF has not been added yet. */
 .pdf-pending {
 	color: var(--grey-700);
-	font-weight: 600;
+	font-weight: var(--weight-semibold);
 	text-transform: uppercase;
 }
 
@@ -1487,7 +1669,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	.clients-layout {
 		align-items: flex-start;
 		flex-direction: column;
-		gap: 32px;
+		gap: var(--space-8);
 	}
 }
 
@@ -1500,18 +1682,18 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 .clients h2 {
 	color: var(--navy-900);
 	font-family: var(--font-display);
-	font-size: clamp(28px, 2.083vw, 40px);
-	font-weight: 700;
-	letter-spacing: -0.04em;
-	line-height: 1.16;
+	font-size: var(--text-h3);
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--track-tight);
+	line-height: var(--leading-h2);
 	max-width: 432px;
 }
 
 .clients-intro, .clients-intro p {
 	color: var(--grey-700);
-	font-size: 16px;
-	line-height: 1.5;
-	margin-top: 24px;
+	font-size: var(--text-md);
+	line-height: var(--leading-body);
+	margin-top: var(--space-6);
 	max-width: 434px;
 }
 
@@ -1529,8 +1711,8 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 
 /* Selected clients label. */
 .client-proof > p {
-	font-size: 12px;
-	margin-bottom: 24px;
+	font-size: var(--text-xs);
+	margin-bottom: var(--space-6);
 	text-transform: uppercase;
 }
 
@@ -1558,7 +1740,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	display: flex;
 	justify-content: center;
 	min-height: 88px;
-	padding: 8px;
+	padding: var(--space-2);
 }
 
 @media (max-width: 767px) {
@@ -1579,7 +1761,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 /* Built here: statement beside the photograph and product links. */
 .built-layout {
 	align-items: center;
-	gap: 64px;
+	gap: var(--space-16);
 }
 
 @media (max-width: 1023px) {
@@ -1603,18 +1785,18 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 /* Built here headline. Id hook: #built_heading. */
 .built-copy h2 {
 	font-family: var(--font-display);
-	font-size: clamp(48px, 5.833vw, 112px);
-	font-weight: 700;
-	letter-spacing: -0.04em;
-	line-height: 1.08;
+	font-size: var(--text-display-xl);
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--track-tight);
+	line-height: var(--leading-display-xl);
 }
 
 /* Built here supporting text. */
 .built-copy > div, .built-copy > div p, .built-copy p {
 	color: var(--navy-200);
-	font-size: clamp(16px, 1.042vw, 20px);
-	line-height: 1.5;
-	margin: 40px 0;
+	font-size: var(--text-lead);
+	line-height: var(--leading-body);
+	margin: var(--space-10) 0;
 	max-width: 740px;
 }
 
@@ -1637,26 +1819,26 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 
 /* Product links under the Built here photograph. */
 .product-links {
-	border-top: 1px solid var(--line-inverse);
-	margin-top: 24px;
+	border-top: var(--border-width) solid var(--line-inverse);
+	margin-top: var(--space-6);
 }
 
 /* One Built here product link. */
 .product-links a {
 	align-items: flex-start;
-	border-bottom: 1px solid var(--line-inverse);
+	border-bottom: var(--border-width) solid var(--line-inverse);
 	color: var(--navy-200);
 	display: flex;
-	gap: 16px;
+	gap: var(--space-4);
 	justify-content: space-between;
-	padding: 16px 0;
+	padding: var(--space-4) 0;
 	text-decoration: none;
 }
 
 /* Arrow on a Built here product link. */
 .product-links a .icon {
 	height: 20px;
-	margin-top: 2px;
+	margin-top: var(--space-0_5);
 	width: 20px;
 }
 
@@ -1665,11 +1847,11 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	color: var(--white);
 	display: block;
 	font-family: var(--font-display);
-	font-size: 20px;
-	font-weight: 600;
-	letter-spacing: -0.04em;
-	line-height: 1.24;
-	margin-bottom: 8px;
+	font-size: var(--text-lg);
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--track-tight);
+	line-height: var(--leading-h3);
+	margin-bottom: var(--space-2);
 }
 
 .product-links a:hover, .product-links a:focus-visible {
@@ -1685,7 +1867,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 /* Enquiry headline beside the note and button. */
 .enquiry-layout {
 	align-items: center;
-	gap: 32px;
+	gap: var(--space-8);
 }
 
 @media (max-width: 1023px) {
@@ -1699,10 +1881,10 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 .enquiry h2 {
 	color: var(--navy-900);
 	font-family: var(--font-display);
-	font-size: clamp(36px, 3.75vw, 72px);
-	font-weight: 700;
-	letter-spacing: -0.04em;
-	line-height: 1.1;
+	font-size: var(--text-display-lg);
+	font-weight: var(--weight-bold);
+	letter-spacing: var(--track-tight);
+	line-height: var(--leading-display-lg);
 	width: min(1045px, 55%);
 }
 
@@ -1718,7 +1900,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	align-items: flex-end;
 	display: flex;
 	flex-direction: column;
-	gap: 32px;
+	gap: var(--space-8);
 	width: min(739px, 42%);
 }
 
@@ -1732,8 +1914,8 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 /* Enquiry supporting text. */
 .enquiry-copy > div, .enquiry-copy > div p, .enquiry-copy p {
 	color: var(--navy-900);
-	font-size: clamp(16px, 1.042vw, 20px);
-	line-height: 1.5;
+	font-size: var(--text-lead);
+	line-height: var(--leading-body);
 	text-align: right;
 }
 
@@ -1758,15 +1940,15 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 /* Site footer. */
 .site-footer {
 	background: var(--white);
-	border-top: 1px solid var(--line);
+	border-top: var(--border-width) solid var(--line);
 }
 
 /* Footer brand and link columns. */
 /* HOME-FIGMA-UPDATE: The footer-top divider spans the full section width. Content stays aligned to the wrap. */
 .footer-top {
 	align-items: stretch;
-	border-bottom: 1px solid var(--line);
-	gap: 32px;
+	border-bottom: var(--border-width) solid var(--line);
+	gap: var(--space-8);
 	padding-inline: max(var(--gutter), calc((100% - var(--content)) / 2));
 }
 
@@ -1783,10 +1965,10 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	display: flex;
 	flex: 1.4 1 0;
 	flex-direction: column;
-	gap: 40px;
+	gap: var(--space-10);
 	max-width: min(744px, 100%);
 	min-width: 0;
-	padding: 80px 0;
+	padding: var(--space-20) 0;
 }
 
 /* HOME-FIGMA-UPDATE: Below 1920, shrink the brand column so link labels and the email stay on one line. */
@@ -1806,22 +1988,22 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 /* Small uppercase label in the footer. */
 .accreditations p, .footer-col > h2 {
 	color: var(--grey-700);
-	font-size: 12px;
-	font-weight: 400;
-	line-height: 1.4;
+	font-size: var(--text-xs);
+	font-weight: var(--weight-regular);
+	line-height: var(--leading-tight);
 	text-transform: uppercase;
 }
 
 /* Accreditations and licences label. */
 .accreditations p {
 	color: var(--ink);
-	margin-bottom: 24px;
+	margin-bottom: var(--space-6);
 }
 
 /* Row of accreditation marks. */
 .accreditations ul {
 	display: flex;
-	gap: 16px;
+	gap: var(--space-4);
 }
 
 /* One accreditation mark. */
@@ -1854,19 +2036,19 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 /* One footer link column. */
 /* HOME-FIGMA-UPDATE: min-width: 0 lets a column shrink below the email's intrinsic width at 1440. */
 .footer-col {
-	border-left: 1px solid var(--line);
+	border-left: var(--border-width) solid var(--line);
 	display: flex;
 	flex: 1;
 	flex-direction: column;
-	gap: 16px;
+	gap: var(--space-4);
 	min-width: 0;
-	padding: 80px 0 80px 32px;
+	padding: var(--space-20) 0 var(--space-20) var(--space-8);
 }
 
 @media (max-width: 767px) {
 	.footer-col {
 		border-left: 0;
-		border-top: 1px solid var(--line);
+		border-top: var(--border-width) solid var(--line);
 		padding-left: 0;
 	}
 }
@@ -1874,8 +2056,8 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 /* Footer link text. */
 .footer-col a, .footer-col li {
 	color: var(--navy-900);
-	font-weight: 600;
-	letter-spacing: -0.04em;
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--track-tight);
 	text-decoration: none;
 }
 
@@ -1885,7 +2067,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	align-items: center;
 	display: inline-flex;
 	max-width: 100%;
-	min-height: 44px;
+	min-height: var(--touch);
 	overflow-wrap: anywhere;
 }
 
@@ -1901,10 +2083,10 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	align-items: center;
 	color: var(--grey-700);
 	display: flex;
-	font-size: 14px;
-	line-height: 1.4;
-	min-height: 44px;
-	padding: 20px 28px;
+	font-size: var(--text-sm);
+	line-height: var(--leading-tight);
+	min-height: var(--touch);
+	padding: var(--space-5) var(--space-7);
 	text-decoration: none;
 	text-transform: uppercase;
 }
@@ -1912,14 +2094,14 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 /* Copyright line. */
 .legal-copy {
 	flex: 1;
-	font-weight: 400;
+	font-weight: var(--weight-regular);
 	padding-left: max(var(--gutter), calc((100% - var(--content)) / 2));
 }
 
 /* Privacy, terms, accessibility, and back to top. */
 .legal a {
-	border-left: 1px solid var(--line);
-	font-weight: 600;
+	border-left: var(--border-width) solid var(--line);
+	font-weight: var(--weight-semibold);
 }
 
 /* Back to top keeps the content inset on the right. */
@@ -1943,24 +2125,24 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 
 /* Space under an interior page title. */
 .page-main h1 {
-	margin-bottom: 24px;
+	margin-bottom: var(--space-6);
 }
 
 /* Space between blocks of interior copy. */
 .entry > * + *, .page-main .entry p + p {
-	margin-top: 16px;
+	margin-top: var(--space-4);
 }
 
 /* Interior heading. Industry headings are also the anchor targets. */
 .entry h2, .industry-list h2 {
 	color: var(--navy-900);
 	font-family: var(--font-display);
-	font-size: 24px;
-	font-weight: 600;
-	letter-spacing: -0.04em;
-	line-height: 1.32;
-	margin-top: 32px;
-	scroll-margin-top: 24px;
+	font-size: var(--text-2xl);
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--track-tight);
+	line-height: var(--leading-title);
+	margin-top: var(--space-8);
+	scroll-margin-top: var(--space-6);
 }
 
 /* Link inside interior copy. */
@@ -1970,20 +2152,20 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 
 /* Industry sections on the Industries page. */
 .industry-list {
-	margin-top: 40px;
+	margin-top: var(--space-10);
 }
 
 /* One industry. Ids: #mining, #telco, #energy, #rail, #government. */
 .industry-list li {
-	border-bottom: 1px solid var(--line);
-	padding: 28px 0;
-	scroll-margin-top: 24px;
+	border-bottom: var(--border-width) solid var(--line);
+	padding: var(--space-7) 0;
+	scroll-margin-top: var(--space-6);
 }
 
 /* Industry name. */
 .industry-list h2 {
 	color: var(--orange-500);
-	margin-bottom: 8px;
+	margin-bottom: var(--space-2);
 	margin-top: 0;
 }
 
@@ -1992,8 +2174,8 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 }
 
 .industry-list li:focus-visible {
-	outline: 2px solid var(--orange-500);
-	outline-offset: 4px;
+	outline: var(--focus-width) solid var(--orange-500);
+	outline-offset: var(--focus-offset-lg);
 }
 
 /* Case study. Reuses the homepage section rhythm, type, and snapshot rows. */
@@ -2006,30 +2188,30 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 /* Document label above the case study heading. */
 .case-kicker {
 	color: var(--orange-500);
-	font-size: 12px;
-	font-weight: 600;
-	line-height: 1.4;
-	margin-top: 24px;
+	font-size: var(--text-xs);
+	font-weight: var(--weight-semibold);
+	line-height: var(--leading-tight);
+	margin-top: var(--space-6);
 	text-transform: uppercase;
 }
 
 /* Space under a case study section heading. */
 .case-study .section-heading {
-	margin-bottom: 40px;
+	margin-bottom: var(--space-10);
 }
 
 /* The introduction heading sits tight to the tagline. Id hook: #case_heading. */
 .case-study .case-intro .section-heading {
 	margin-bottom: 0;
-	margin-top: 16px;
+	margin-top: var(--space-4);
 }
 
 /* Tagline under the outcome heading. */
 .case-tagline {
 	color: var(--grey-700);
-	font-size: clamp(16px, 1.042vw, 20px);
-	line-height: 1.5;
-	margin-top: 24px;
+	font-size: var(--text-lead);
+	line-height: var(--leading-body);
+	margin-top: var(--space-6);
 	max-width: 739px;
 }
 
@@ -2053,7 +2235,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 .case-frame {
 	aspect-ratio: 3 / 2;
 	background: var(--grey-100);
-	border: 1px solid var(--line);
+	border: var(--border-width) solid var(--line);
 	display: grid;
 	margin: 0;
 	overflow: hidden;
@@ -2078,10 +2260,10 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	align-items: center;
 	color: var(--grey-500);
 	display: flex;
-	font-size: 12px;
-	font-weight: 600;
+	font-size: var(--text-xs);
+	font-weight: var(--weight-semibold);
 	justify-content: center;
-	padding: 16px;
+	padding: var(--space-4);
 	text-align: center;
 	text-transform: uppercase;
 }
@@ -2094,13 +2276,13 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 
 .case-prose p + p,
 .case-prose li + li {
-	margin-top: 16px;
+	margin-top: var(--space-4);
 }
 
 .case-prose ul,
 .case-prose ol {
 	list-style: disc;
-	margin-top: 16px;
+	margin-top: var(--space-4);
 	padding-left: 1.25em;
 }
 
@@ -2114,13 +2296,13 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 
 /* Solution detail sits below the solution narrative. */
 .case-detail {
-	margin-top: 64px;
+	margin-top: var(--space-16);
 }
 
 /* Four solution-detail cells. Borders follow the delivery stages. */
 .case-detail-grid {
-	border-bottom: 1px solid var(--line);
-	border-right: 1px solid var(--line);
+	border-bottom: var(--border-width) solid var(--line);
+	border-right: var(--border-width) solid var(--line);
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 }
@@ -2134,12 +2316,12 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 /* One solution-detail cell: label, then the answer. */
 .case-detail-grid li {
 	background: var(--white);
-	border-left: 1px solid var(--line);
-	border-top: 1px solid var(--line);
+	border-left: var(--border-width) solid var(--line);
+	border-top: var(--border-width) solid var(--line);
 	display: flex;
 	flex-direction: column;
-	gap: 12px;
-	padding: 32px;
+	gap: var(--space-3);
+	padding: var(--space-8);
 }
 
 .case-detail-grid li:hover,
@@ -2151,10 +2333,10 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 .case-detail-grid h3 {
 	color: var(--grey-500);
 	font-family: var(--font-body);
-	font-size: 12px;
-	font-weight: 600;
-	letter-spacing: 0;
-	line-height: 1.4;
+	font-size: var(--text-xs);
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--track-normal);
+	line-height: var(--leading-tight);
 	text-transform: uppercase;
 }
 
@@ -2165,7 +2347,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 
 /* Two quotations. */
 .voice-grid {
-	border-top: 1px solid var(--line-inverse);
+	border-top: var(--border-width) solid var(--line-inverse);
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 }
@@ -2177,14 +2359,14 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 }
 
 .voice-grid blockquote {
-	border-right: 1px solid var(--line-inverse);
+	border-right: var(--border-width) solid var(--line-inverse);
 	margin: 0;
-	padding: 40px 40px 0 0;
+	padding: var(--space-10) var(--space-10) 0 0;
 }
 
 .voice-grid blockquote:last-child {
 	border-right: 0;
-	padding-left: 40px;
+	padding-left: var(--space-10);
 	padding-right: 0;
 }
 
@@ -2192,37 +2374,37 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	.voice-grid blockquote,
 	.voice-grid blockquote:last-child {
 		border-right: 0;
-		border-top: 1px solid var(--line-inverse);
-		padding: 32px 0 0;
+		border-top: var(--border-width) solid var(--line-inverse);
+		padding: var(--space-8) 0 0;
 	}
 
 	.voice-grid blockquote:first-child {
 		border-top: 0;
-		padding-top: 32px;
+		padding-top: var(--space-8);
 	}
 }
 
 /* Client quote or Streamline Connect quote. */
 .voice-label {
 	color: var(--orange-500);
-	font-size: 12px;
-	font-weight: 600;
-	line-height: 1.4;
+	font-size: var(--text-xs);
+	font-weight: var(--weight-semibold);
+	line-height: var(--leading-tight);
 	text-transform: uppercase;
 }
 
 /* Quotation. The marks belong to the quote element. */
 .voice-text {
-	margin-top: 20px;
+	margin-top: var(--space-5);
 }
 
 .voice-text p {
 	color: var(--white);
 	font-family: var(--font-display);
-	font-size: clamp(22px, 1.6vw, 28px);
-	font-weight: 600;
-	letter-spacing: -0.04em;
-	line-height: 1.32;
+	font-size: var(--text-quote);
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--track-tight);
+	line-height: var(--leading-title);
 }
 
 .voice-text p:first-child::before {
@@ -2236,9 +2418,9 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 /* Name, position, and organisation. */
 .voice-by {
 	color: var(--navy-200);
-	font-size: 14px;
-	line-height: 1.4;
-	margin-top: 24px;
+	font-size: var(--text-sm);
+	line-height: var(--leading-tight);
+	margin-top: var(--space-6);
 }
 
 .voice-by span + span::before {
@@ -2247,12 +2429,12 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 
 /* Project names on the Projects page. */
 .project-index {
-	margin-top: 40px;
+	margin-top: var(--space-10);
 }
 
 .project-index li {
-	border-bottom: 1px solid var(--line);
-	padding: 8px 0;
+	border-bottom: var(--border-width) solid var(--line);
+	padding: var(--space-2) 0;
 }
 
 .project-index-title {
@@ -2260,11 +2442,11 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 	color: var(--navy-900);
 	display: inline-flex;
 	font-family: var(--font-display);
-	font-size: 24px;
-	font-weight: 600;
-	letter-spacing: -0.04em;
-	line-height: 1.32;
-	min-height: 44px;
+	font-size: var(--text-2xl);
+	font-weight: var(--weight-semibold);
+	letter-spacing: var(--track-tight);
+	line-height: var(--leading-title);
+	min-height: var(--touch);
 	text-decoration: none;
 }
 
@@ -2277,17 +2459,17 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 .project-index-cats {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 8px 16px;
-	margin-top: -4px;
-	padding-bottom: 12px;
+	gap: var(--space-2) var(--space-4);
+	margin-top: calc(-1 * var(--space-1));
+	padding-bottom: var(--space-3);
 }
 
 .project-index-cats a {
 	color: var(--grey-500);
-	font-size: 12px;
-	font-weight: 600;
-	line-height: 1.4;
-	min-height: 44px;
+	font-size: var(--text-xs);
+	font-weight: var(--weight-semibold);
+	line-height: var(--leading-tight);
+	min-height: var(--touch);
 	text-decoration: none;
 	text-transform: uppercase;
 }
@@ -2300,7 +2482,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 }
 
 .case-cats {
-	margin-top: 24px;
+	margin-top: var(--space-6);
 }
 
 .case-cats a {
