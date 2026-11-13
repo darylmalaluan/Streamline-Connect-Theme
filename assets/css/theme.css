@@ -1331,7 +1331,12 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 }
 
 /* Space between the section copy and its action bar. */
-.delivery .wrap, .projects .wrap {
+.delivery .wrap {
+	margin-bottom: var(--section);
+}
+
+/* HOME-FIGMA-UPDATE: Space before the projects bar sits after the last full-width row. */
+.projects .project:last-of-type {
 	margin-bottom: var(--section);
 }
 
@@ -1373,13 +1378,14 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-capabil
 }
 
 /* One related project: photograph, summary, and details. */
+/* HOME-FIGMA-UPDATE: Row dividers span the full section width. Content stays aligned to the wrap. */
 .project {
 	align-items: center;
 	border-bottom: 1px solid var(--line);
 	display: grid;
 	gap: 48px;
 	grid-template-columns: minmax(0, 716fr) minmax(0, 572fr) minmax(220px, 424fr);
-	padding: 40px 0;
+	padding: 40px max(var(--gutter), calc((100% - var(--content)) / 2));
 }
 
 @media (max-width: 1199px) {

@@ -136,39 +136,39 @@ get_header();
 				<h2<?php echo slc_attr_html( 'projects_heading', 'section-heading', 'related_projects' ); ?> data-reveal style="--i:0" tabindex="-1"><?php echo slc_inline( 'projects_heading', __( 'Related projects', 'streamlineconnect' ) ); ?></h2>
 				<div<?php echo slc_attr_html( 'projects_intro' ); ?> data-reveal style="--i:1"><?php echo slc_rich( 'projects_intro', __( 'Clients keep our teams on between scopes and talk to us early about their next project.', 'streamlineconnect' ) ); ?></div>
 			</div>
-			<?php foreach ( slc_projects() as $project_index => $project ) : ?>
-				<?php
-				$pdf_path = get_theme_file_path( 'assets/documents/' . $project['pdf'] );
-				$pdf_url  = slc_asset( 'documents/' . $project['pdf'] );
-				?>
-				<article class="project" data-reveal style="--i:<?php echo esc_attr( (string) ( $project_index + 2 ) ); ?>">
-					<?php echo slc_picture( array( 'field' => $project['image_field'], 'file' => $project['image'], 'width' => 1600, 'height' => 1067, 'alt' => $project['alt'], 'attr_field' => $project['image_field'] ) ); ?>
-					<div class="project-copy">
-						<h3<?php echo slc_attr_html( $project['title_field'] ); ?>><?php echo esc_html( $project['title'] ); ?></h3>
-						<?php if ( '' !== trim( wp_strip_all_tags( $project['summary'] ) ) ) : // HOME-FIGMA-UPDATE ?>
-							<div<?php echo slc_attr_html( $project['summary_field'], 'project-summary' ); ?>><?php echo $project['summary']; ?></div>
-						<?php endif; ?>
-						<ul class="chips">
-							<?php foreach ( $project['chips'] as $chip_index => $chip ) : ?>
-								<li<?php echo slc_attr_html( $project['chip_fields'][ $chip_index ] ); ?>><?php echo esc_html( $chip ); ?></li>
-							<?php endforeach; ?>
-						</ul>
-					</div>
-					<div class="project-spec">
-						<dl>
-							<div><dt><?php esc_html_e( 'Sector', 'streamlineconnect' ); ?></dt><dd<?php echo slc_attr_html( $project['sector_field'] ); ?>><?php echo esc_html( $project['sector'] ); ?></dd></div>
-							<div><dt><?php esc_html_e( 'Client', 'streamlineconnect' ); ?></dt><dd<?php echo slc_attr_html( $project['client_field'] ); ?>><?php echo esc_html( $project['client'] ); ?></dd></div>
-							<div><dt><?php esc_html_e( 'Location', 'streamlineconnect' ); ?></dt><dd<?php echo slc_attr_html( $project['location_field'] ); ?>><?php echo esc_html( $project['location'] ); ?></dd></div>
-						</dl>
-						<?php if ( file_exists( $pdf_path ) ) : ?>
-							<a class="text-link" href="<?php echo esc_url( $pdf_url ); ?>" download><?php esc_html_e( 'Download project PDF', 'streamlineconnect' ); ?><?php slc_icon( 'arrow-link.svg' ); ?></a>
-						<?php else : ?>
-							<p class="pdf-pending"><?php esc_html_e( 'Project PDF to be added.', 'streamlineconnect' ); ?></p>
-						<?php endif; ?>
-					</div>
-				</article>
-			<?php endforeach; ?>
 		</div>
+		<?php foreach ( slc_projects() as $project_index => $project ) : ?>
+			<?php
+			$pdf_path = get_theme_file_path( 'assets/documents/' . $project['pdf'] );
+			$pdf_url  = slc_asset( 'documents/' . $project['pdf'] );
+			?>
+			<article class="project" data-reveal style="--i:<?php echo esc_attr( (string) ( $project_index + 2 ) ); ?>">
+				<?php echo slc_picture( array( 'field' => $project['image_field'], 'file' => $project['image'], 'width' => 1600, 'height' => 1067, 'alt' => $project['alt'], 'attr_field' => $project['image_field'] ) ); ?>
+				<div class="project-copy">
+					<h3<?php echo slc_attr_html( $project['title_field'] ); ?>><?php echo esc_html( $project['title'] ); ?></h3>
+					<?php if ( '' !== trim( wp_strip_all_tags( $project['summary'] ) ) ) : // HOME-FIGMA-UPDATE ?>
+						<div<?php echo slc_attr_html( $project['summary_field'], 'project-summary' ); ?>><?php echo $project['summary']; ?></div>
+					<?php endif; ?>
+					<ul class="chips">
+						<?php foreach ( $project['chips'] as $chip_index => $chip ) : ?>
+							<li<?php echo slc_attr_html( $project['chip_fields'][ $chip_index ] ); ?>><?php echo esc_html( $chip ); ?></li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
+				<div class="project-spec">
+					<dl>
+						<div><dt><?php esc_html_e( 'Sector', 'streamlineconnect' ); ?></dt><dd<?php echo slc_attr_html( $project['sector_field'] ); ?>><?php echo esc_html( $project['sector'] ); ?></dd></div>
+						<div><dt><?php esc_html_e( 'Client', 'streamlineconnect' ); ?></dt><dd<?php echo slc_attr_html( $project['client_field'] ); ?>><?php echo esc_html( $project['client'] ); ?></dd></div>
+						<div><dt><?php esc_html_e( 'Location', 'streamlineconnect' ); ?></dt><dd<?php echo slc_attr_html( $project['location_field'] ); ?>><?php echo esc_html( $project['location'] ); ?></dd></div>
+					</dl>
+					<?php if ( file_exists( $pdf_path ) ) : ?>
+						<a class="text-link" href="<?php echo esc_url( $pdf_url ); ?>" download><?php esc_html_e( 'Download project PDF', 'streamlineconnect' ); ?><?php slc_icon( 'arrow-link.svg' ); ?></a>
+					<?php else : ?>
+						<p class="pdf-pending"><?php esc_html_e( 'Project PDF to be added.', 'streamlineconnect' ); ?></p>
+					<?php endif; ?>
+				</div>
+			</article>
+		<?php endforeach; ?>
 		<div class="section-bar" data-reveal style="--i:4"><a<?php echo slc_attr_html( 'projects_link_label', 'bar-link' ); ?> href="<?php echo esc_url( slc_url( '/projects/' ) ); ?>"><?php echo esc_html( slc_plain( 'projects_link_label', __( 'Explore our projects.', 'streamlineconnect' ) ) ); ?><?php slc_icon( 'plus-orange.svg' ); ?></a></div>
 	</section>
 	<!-- Clients: statement, optional intro, then the selected-client label and the logo grid. -->
