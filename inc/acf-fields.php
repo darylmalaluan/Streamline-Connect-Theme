@@ -32,7 +32,7 @@ function slc_register_fields() {
 		return;
 	}
 
-	$version  = '24';
+	$version  = '26';
 	$existing = acf_get_field_group( 'group_slc_front_page' );
 	$settings = acf_get_field_group( 'group_slc_theme_settings' );
 	$case     = acf_get_field_group( 'group_slc_case_study' );
@@ -209,6 +209,20 @@ function slc_collect_fields( $scope ) {
 				'return_format' => 'object',
 				'multiple'      => 0,
 				'allow_null'    => 1,
+			);
+			if ( '' !== $notes ) {
+				$field['instructions'] = $notes;
+			}
+			$fields[] = $field;
+		} elseif ( 'file' === $item['type'] ) {
+			$field = array(
+				'key'           => $key,
+				'label'         => $item['label'],
+				'name'          => $item['name'],
+				'type'          => 'file',
+				'return_format' => 'id',
+				'library'       => 'all',
+				'mime_types'    => 'pdf',
 			);
 			if ( '' !== $notes ) {
 				$field['instructions'] = $notes;
@@ -552,21 +566,10 @@ function slc_field_catalog() {
  * @return array<string, mixed>
  */
 function slc_case_study_field_group() {
-	$fields   = slc_collect_fields( 'case' );
-	$fields[] = array(
-		'key'       => 'field_slc_case_approval_note',
-		'label'     => 'Approval note',
-		'name'      => 'case_approval_note',
-		'type'      => 'message',
-		'message'   => 'Use only verified project details, approved client names, approved images and authorised quotations.',
-		'new_lines' => 'wpautop',
-		'esc_html'  => 0,
-	);
-
 	return array(
 		'key'                   => 'group_slc_case_study',
 		'title'                 => 'Project',
-		'fields'                => $fields,
+		'fields'                => slc_collect_fields( 'case' ),
 		'location'              => array(
 			array(
 				array(

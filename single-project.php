@@ -20,6 +20,12 @@ while ( have_posts() ) :
 			<p<?php echo slc_attr_html( 'case_kicker', 'case-kicker' ); ?> data-reveal style="--i:1"><?php echo esc_html( slc_plain( 'case_kicker', __( 'Project case study', 'streamlineconnect' ) ) ); ?></p>
 			<h1<?php echo slc_attr_html( 'case_heading', 'section-heading', 'case_heading' ); ?> data-reveal style="--i:2"><?php echo slc_inline( 'case_heading', __( 'Use a clear, outcome-led heading of approximately 16 to 18 words.', 'streamlineconnect' ) ); ?></h1>
 			<p<?php echo slc_attr_html( 'case_tagline', 'case-tagline' ); ?> data-reveal style="--i:3"><?php echo esc_html( slc_plain( 'case_tagline', __( 'Practical delivery. Proven capability. Connected outcomes.', 'streamlineconnect' ) ) ); ?></p>
+			<?php $slc_pdf = slc_case_pdf(); ?>
+			<?php if ( $slc_pdf ) : ?>
+				<div class="case-download" data-reveal style="--i:4">
+					<a class="btn" href="<?php echo esc_url( $slc_pdf['url'] ); ?>" download="<?php echo esc_attr( $slc_pdf['name'] ); ?>"><?php esc_html_e( 'Download PDF', 'streamlineconnect' ); ?><?php slc_icon( 'plus.svg' ); ?></a>
+				</div>
+			<?php endif; ?>
 		</div>
 	</section>
 	<!-- Snapshot: heading, then industry, client, project, and location. -->

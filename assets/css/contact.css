@@ -163,28 +163,43 @@
 }
 
 .contact-check {
-	align-items: flex-start;
+	align-items: start;
 	color: var(--ink);
-	display: flex;
+	column-gap: var(--space-4);
+	display: grid;
 	font-family: var(--font-body);
 	font-weight: var(--weight-regular);
-	gap: var(--space-4);
+	grid-template-columns: 24px minmax(0, 1fr);
 	line-height: var(--leading-body);
+	margin-top: 20px;
+	row-gap: var(--space-3);
 }
 
-.contact-consent .wpcf7-acceptance,
-.contact-consent .wpcf7-list-item {
-	margin: 0;
+.contact-check > .wpcf7-form-control-wrap,
+.contact-check .wpcf7-acceptance,
+.contact-check .wpcf7-list-item {
+	display: contents;
+}
+
+.contact-check-text {
+	grid-column: 2;
+	grid-row: 1;
 }
 
 .contact-consent input[type="checkbox"] {
 	appearance: none;
 	background: var(--white);
 	border: var(--border-width) solid var(--grey-500);
-	flex: 0 0 24px;
+	grid-column: 1;
+	grid-row: 1;
 	height: 24px;
 	margin: 0;
 	width: 24px;
+}
+
+.contact-consent .wpcf7-acceptance,
+.contact-consent .wpcf7-list-item {
+	margin: 0;
 }
 
 .contact-consent input[type="checkbox"]:checked {
@@ -205,23 +220,85 @@
 	cursor: pointer;
 	min-height: 54px;
 	padding-right: var(--space-12);
+	transition: background-color var(--duration) var(--ease), color var(--duration) var(--ease), opacity var(--duration) var(--ease);
 	width: 370px;
 	max-width: 100%;
 }
 
-.contact-form .wpcf7-not-valid {
-	border-color: var(--orange-700);
+.contact-form .wpcf7-submit.contact-submit.is-inactive {
+	opacity: 0.45;
+}
+
+.contact-form input.wpcf7-not-valid,
+.contact-form select.wpcf7-not-valid,
+.contact-form textarea.wpcf7-not-valid {
+	border: 2px solid var(--orange-800);
+}
+
+.contact-consent input[type="checkbox"].wpcf7-not-valid {
+	background: var(--white);
+	border: 2px solid var(--orange-800);
 }
 
 .contact-form .wpcf7-not-valid-tip {
-	color: var(--orange-700);
+	color: var(--orange-800);
+	display: block;
 	font-family: var(--font-body);
-	font-size: var(--text-sm);
+	font-size: var(--text-md);
 	font-weight: var(--weight-regular);
+	line-height: var(--leading-body);
+	margin-top: var(--space-2);
+}
+
+.contact-check .wpcf7-not-valid-tip {
+	grid-column: 1 / -1;
+	grid-row: 2;
+	margin-top: 0;
+}
+
+.contact-form .screen-reader-response {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
 }
 
 .contact-form .wpcf7-response-output {
+	background: var(--grey-100);
 	border: 0;
+	border-left: 4px solid var(--orange-800);
+	color: var(--navy-900);
+	display: none;
+	font-family: var(--font-body);
+	font-size: var(--text-md);
+	font-weight: var(--weight-regular);
+	line-height: var(--leading-body);
 	margin: 0;
+	padding: var(--space-5) var(--space-6);
+}
+
+.contact-form form.sent .wpcf7-response-output,
+.contact-form form.failed .wpcf7-response-output,
+.contact-form form.aborted .wpcf7-response-output,
+.contact-form form.spam .wpcf7-response-output,
+.contact-form form.invalid .wpcf7-response-output,
+.contact-form form.unaccepted .wpcf7-response-output,
+.contact-form form.payment-required .wpcf7-response-output {
+	display: block;
+	order: -1;
+}
+
+.contact-form form.sent .wpcf7-response-output {
+	border-left-color: var(--navy-900);
+}
+
+
+.contact-form .hidden-fields-container {
+	border: none;
 	padding: 0;
 }

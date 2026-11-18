@@ -237,7 +237,7 @@ function slc_contact_form_markup() {
 	$markup .= $field( 'contact_label_email', 'Email (Required)', '[email* your-email akismet:author_email autocomplete:email id:your-email class:contact-control]' );
 	$markup .= $field( 'contact_label_phone', 'Phone (Optional)', '[tel phone autocomplete:tel id:phone class:contact-control]' );
 	$markup .= '</div>';
-	$markup .= '<div class="contact-consent"><p class="contact-label">' . esc_html( slc_contact_copy( 'contact_label_privacy', 'Privacy consent (Required)' ) ) . '</p><label class="contact-check">[acceptance privacy] ' . $privacy . '</label></div>';
+	$markup .= '<div class="contact-consent"><p class="contact-label">' . esc_html( slc_contact_copy( 'contact_label_privacy', 'Privacy consent (Required)' ) ) . '</p><label class="contact-check">[acceptance privacy]<span class="contact-check-text">' . $privacy . '</span></label></div>';
 	$markup .= '[submit class:btn class:contact-submit "' . esc_attr( slc_contact_copy( 'contact_submit_label', 'Send enquiry' ) ) . '"]';
 
 	return $markup;

@@ -19,6 +19,7 @@
 	--orange-500: #f57f27;
 	--orange-600: #d36d22;
 	--orange-700: #ac591b;
+	--orange-800: #874615;
 
 	/* Colour — neutrals */
 	--white: #fff;
@@ -2083,6 +2084,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-mega-op
 	font-size: var(--text-lead);
 	line-height: var(--leading-body);
 	text-align: right;
+	text-wrap: balance;
 }
 
 @media (max-width: 1023px) {
@@ -2480,6 +2482,10 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-mega-op
 	line-height: var(--leading-body);
 	margin-top: var(--space-6);
 	max-width: 739px;
+}
+
+.case-download {
+	margin-top: var(--space-8);
 }
 
 /* Snapshot values can run longer than the homepage project column. */

@@ -71,4 +71,19 @@
 	}
 
 	updateProjectFields();
+
+	var submit = form.querySelector(".contact-submit");
+
+	function syncSubmit() {
+		if (!submit) {
+			return;
+		}
+		var privacy = form.querySelector('.contact-consent input[type="checkbox"]');
+		submit.classList.toggle("is-inactive", !privacy || !privacy.checked);
+	}
+
+	form.addEventListener("change", syncSubmit);
+	document.addEventListener("wpcf7reset", syncSubmit);
+	document.addEventListener("wpcf7mailsent", syncSubmit);
+	syncSubmit();
 })();

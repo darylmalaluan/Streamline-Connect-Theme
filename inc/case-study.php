@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 add_action( 'init', 'slc_register_project_type', 5 );
+add_action( 'init', 'slc_flush_project_rewrites', 99 );
 add_action( 'acf/init', 'slc_register_project_taxonomy', 5 );
 add_action( 'init', 'slc_seed_project_categories', 20 );
 add_action( 'init', 'slc_migrate_project_posts', 30 );
@@ -60,6 +61,18 @@ function slc_register_project_type() {
 			'publicly_queryable'  => true,
 		)
 	);
+}
+
+/**
+ * Restore /project/name/ when the saved rewrite rules predate the project type.
+ */
+function slc_flush_project_rewrites() {
+	$rules = get_option( 'rewrite_rules' );
+	if ( is_array( $rules ) && isset( $rules['project/([^/]+)(?:/([0-9]+))?/?$'] ) ) {
+		return;
+	}
+
+	flush_rewrite_rules( false );
 }
 
 /**
@@ -266,7 +279,8 @@ function slc_case_field_catalog() {
 	$add( 'text', 'case_streamline_position', 'Streamline Connect position', 'Position' );
 	$add( 'text', 'case_streamline_organisation', 'Streamline Connect organisation', 'Organisation' );
 
-	$add( 'tab', '', 'Approval' );
+	$add( 'tab', '', 'Project PDF' );
+	$add( 'file', 'case_pdf', 'Project PDF', '', 'basic', 'Upload a PDF for this project. Only PDF files are accepted.' );
 
 	return $items;
 }
@@ -474,6 +488,29 @@ function slc_case_voices() {
 	unset( $row );
 
 	return $rows;
+}
+
+/**
+ * Uploaded project PDF, when the file is still in the media library.
+ *
+ * @return array{url: string, name: string}|null
+ */
+function slc_case_pdf() {
+	$attachment = slc_attachment_id( slc_raw( 'case_pdf' ) );
+	if ( ! $attachment || ! slc_attachment_exists( $attachment ) || 'application/pdf' !== get_post_mime_type( $attachment ) ) {
+		return null;
+	}
+
+	$url  = wp_get_attachment_url( $attachment );
+	$file = get_attached_file( $attachment );
+	if ( ! is_string( $url ) || '' === $url || ! is_string( $file ) || '' === $file ) {
+		return null;
+	}
+
+	return array(
+		'url'  => $url,
+		'name' => basename( $file ),
+	);
 }
 
 /**
