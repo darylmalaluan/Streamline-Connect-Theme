@@ -233,10 +233,13 @@ function slc_case_field_catalog() {
 	$add( 'text', 'case_project_label', 'Project label', 'Project' );
 	$add( 'text', 'case_project', 'Project', 'Project name and reference', 'basic', 'Project name and reference.' );
 	$add( 'text', 'case_location_label', 'Location label', 'Location' );
-	$add( 'text', 'case_location', 'Location', 'Project location', 'basic', 'Project location.' );
+	$add( 'text', 'case_location', 'Location', 'Project location', 'basic', 'Project location. Shown as Region on the project detail page.' );
+	$add( 'text', 'case_status', 'Status', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'basic', 'Shown on the project detail page.' );
 
 	$add( 'tab', '', 'Images' );
 	$add( 'text', 'case_images_heading', 'Heading', 'Project images' );
+	$add( 'image', 'case_feature_image', 'Feature photograph', '', 'basic', 'Large photograph under the title on the project detail page.' );
+	$add( 'text', 'case_feature_alt', 'Feature photograph description', 'Lorem ipsum dolor sit amet.' );
 	foreach ( array( 1, 2, 3 ) as $image_number ) {
 		$add( 'image', 'case_image_' . $image_number, 'Image ' . $image_number, '', 'basic', 'Approved project photograph.' );
 		$add( 'text', 'case_image_' . $image_number . '_alt', 'Image ' . $image_number . ' description', 'Project image ' . $image_number );
@@ -282,6 +285,8 @@ function slc_case_field_catalog() {
 
 	$add( 'tab', '', 'Project PDF' );
 	$add( 'file', 'case_pdf', 'Project PDF', '', 'basic', 'Upload a PDF for this project. Only PDF files are accepted.' );
+	$add( 'text', 'case_pdf_label', 'PDF link label', 'Lorem ipsum dolor sit amet.' );
+	$add( 'text', 'case_other_heading', 'Other projects heading', 'Lorem ipsum dolor sit amet.' );
 
 	return $items;
 }

@@ -32,7 +32,7 @@ function slc_register_fields() {
 		return;
 	}
 
-	$version  = '27';
+	$version  = '28';
 	$existing = acf_get_field_group( 'group_slc_front_page' );
 	$settings = acf_get_field_group( 'group_slc_theme_settings' );
 	$case     = acf_get_field_group( 'group_slc_case_study' );

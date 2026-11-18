@@ -1,8 +1,9 @@
 <?php
 /**
- * Single project case study.
+ * Single project detail.
  *
- * The enquiry band and footer follow the project.
+ * Replaces the earlier case study layout. The previous template is kept in
+ * single-project.backup.php. Header, enquiry band, and footer are shared.
  *
  * @package StreamlineConnect
  */
@@ -11,102 +12,140 @@ get_header();
 
 while ( have_posts() ) :
 	the_post();
+	$slc_project_id = get_the_ID();
+	$slc_terms      = slc_project_categories( $slc_project_id );
+	$slc_industry   = array();
+	foreach ( $slc_terms as $slc_term ) {
+		$slc_industry[] = $slc_term->name;
+	}
+	$slc_feature = slc_attachment_id( slc_raw( 'case_feature_image' ) );
+	$slc_feature = ( $slc_feature && slc_attachment_exists( $slc_feature ) ) ? $slc_feature : 0;
+	$slc_pdf     = slc_case_pdf();
+	$slc_others  = array();
+	foreach ( slc_project_listing_cards() as $slc_card ) {
+		if ( (int) $slc_card['id'] !== (int) $slc_project_id ) {
+			$slc_others[] = $slc_card;
+		}
+	}
 	?>
-<main id="main" class="case-study">
-	<!-- Introduction: marker, document label, outcome heading, then the tagline. -->
-	<section class="section case-intro" aria-labelledby="<?php echo esc_attr( slc_content_id( 'case_heading', 'case_heading' ) ); ?>">
-		<div class="wrap case-intro-copy">
-			<div class="hero-mark" data-reveal style="--i:0" aria-hidden="true"><img class="stripes" src="<?php echo esc_url( slc_asset( 'icons/stripes.svg' ) ); ?>" alt=""></div>
-			<p<?php echo slc_attr_html( 'case_kicker', 'case-kicker' ); ?> data-reveal style="--i:1"><?php echo esc_html( slc_plain( 'case_kicker', __( 'Project case study', 'streamlineconnect' ) ) ); ?></p>
-			<h1<?php echo slc_attr_html( 'case_heading', 'section-heading', 'case_heading' ); ?> data-reveal style="--i:2"><?php echo slc_inline( 'case_heading', __( 'Use a clear, outcome-led heading of approximately 16 to 18 words.', 'streamlineconnect' ) ); ?></h1>
-			<p<?php echo slc_attr_html( 'case_tagline', 'case-tagline' ); ?> data-reveal style="--i:3"><?php echo esc_html( slc_plain( 'case_tagline', __( 'Practical delivery. Proven capability. Connected outcomes.', 'streamlineconnect' ) ) ); ?></p>
-			<?php $slc_pdf = slc_case_pdf(); ?>
-			<?php if ( $slc_pdf ) : ?>
-				<div class="case-download" data-reveal style="--i:4">
-					<a class="btn" href="<?php echo esc_url( $slc_pdf['url'] ); ?>" download="<?php echo esc_attr( $slc_pdf['name'] ); ?>"><?php esc_html_e( 'Download PDF', 'streamlineconnect' ); ?><?php slc_icon( 'plus.svg' ); ?></a>
-				</div>
-			<?php endif; ?>
-		</div>
-	</section>
-	<!-- Snapshot: heading, then industry, client, project, and location. -->
-	<section class="section section--grey" aria-labelledby="<?php echo esc_attr( slc_content_id( 'case_snapshot_heading', 'project_snapshot' ) ); ?>">
-		<div class="wrap">
-			<h2<?php echo slc_attr_html( 'case_snapshot_heading', 'section-heading', 'project_snapshot' ); ?> data-reveal style="--i:0"><?php echo esc_html( slc_plain( 'case_snapshot_heading', __( 'Project snapshot', 'streamlineconnect' ) ) ); ?></h2>
-			<div class="project-spec" data-reveal style="--i:1">
-				<dl>
-					<?php foreach ( slc_case_snapshot() as $row ) : ?>
-						<?php if ( isset( $row['terms'] ) && ! $row['terms'] ) : ?>
-							<?php continue; ?>
-						<?php endif; ?>
-						<div><dt<?php echo slc_attr_html( $row['label_field'] ); ?>><?php echo esc_html( $row['label'] ); ?></dt><dd<?php echo $row['value_field'] ? slc_attr_html( $row['value_field'] ) : ''; ?>><?php
-						if ( isset( $row['terms'] ) ) :
-							$slc_first = true;
-							foreach ( $row['terms'] as $slc_term ) :
-								if ( ! $slc_first ) {
-									echo ' / ';
-								}
-								$slc_first = false;
-								?><a href="<?php echo esc_url( get_term_link( $slc_term ) ); ?>"><?php echo esc_html( $slc_term->name ); ?></a><?php
-							endforeach;
-						else :
-							echo esc_html( $row['value'] );
-						endif;
-						?></dd></div>
-					<?php endforeach; ?>
+<main id="main" class="project-detail">
+	<section class="project-detail-hero" aria-label="<?php echo esc_attr( get_the_title() ); ?>">
+		<div class="wrap project-detail-hero-body">
+			<nav class="projects-crumb" aria-label="<?php esc_attr_e( 'Breadcrumb', 'streamlineconnect' ); ?>">
+				<a href="<?php echo esc_url( slc_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'streamlineconnect' ); ?></a>
+				<span aria-hidden="true">/</span>
+				<a href="<?php echo esc_url( slc_url( '/projects/' ) ); ?>"><?php esc_html_e( 'Projects', 'streamlineconnect' ); ?></a>
+				<span aria-hidden="true">/</span>
+				<span aria-current="page"><?php the_title(); ?></span>
+			</nav>
+			<div class="project-detail-hero-copy">
+				<h1><?php the_title(); ?></h1>
+				<dl class="project-facts">
+					<div>
+						<dt><?php echo esc_html( slc_plain( 'case_client_label', __( 'Client', 'streamlineconnect' ) ) ); ?></dt>
+						<dd><?php echo esc_html( slc_plain( 'case_client', __( 'Company name', 'streamlineconnect' ) ) ); ?></dd>
+					</div>
+					<div>
+						<dt><?php esc_html_e( 'Capability', 'streamlineconnect' ); ?></dt>
+						<dd><?php echo esc_html( slc_plain( 'case_capability', '' ) ); ?></dd>
+					</div>
+					<div>
+						<dt><?php echo esc_html( slc_plain( 'case_industry_label', __( 'Industry', 'streamlineconnect' ) ) ); ?></dt>
+						<dd><?php echo esc_html( implode( ' / ', $slc_industry ) ); ?></dd>
+					</div>
+					<div>
+						<dt><?php esc_html_e( 'Region', 'streamlineconnect' ); ?></dt>
+						<dd><?php echo esc_html( slc_plain( 'case_location', __( 'Project location', 'streamlineconnect' ) ) ); ?></dd>
+					</div>
+					<div>
+						<dt><?php esc_html_e( 'Status', 'streamlineconnect' ); ?></dt>
+						<dd><?php echo esc_html( slc_plain( 'case_status', __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'streamlineconnect' ) ) ); ?></dd>
+					</div>
 				</dl>
 			</div>
 		</div>
 	</section>
-	<!-- Photographs: three frames. An empty frame keeps the insert prompt. -->
-	<section class="section" aria-labelledby="<?php echo esc_attr( slc_content_id( 'case_images_heading', 'project_images' ) ); ?>">
+
+	<section class="project-feature">
 		<div class="wrap">
-			<h2<?php echo slc_attr_html( 'case_images_heading', 'section-heading', 'project_images' ); ?> data-reveal style="--i:0"><?php echo esc_html( slc_plain( 'case_images_heading', __( 'Project images', 'streamlineconnect' ) ) ); ?></h2>
-			<ul class="card-grid case-gallery">
-				<?php foreach ( slc_case_images() as $image_index => $image ) : ?>
-					<li data-reveal style="--i:<?php echo esc_attr( (string) ( $image_index + 1 ) ); ?>"><figure class="case-frame"><?php echo slc_case_figure( $image ); ?></figure></li>
+			<div class="project-feature-media">
+				<?php if ( $slc_feature ) : ?>
+					<?php
+					echo wp_get_attachment_image(
+						$slc_feature,
+						'full',
+						false,
+						array(
+							'alt' => slc_plain( 'case_feature_alt', get_the_title() ),
+						)
+					);
+					?>
+				<?php endif; ?>
+			</div>
+		</div>
+	</section>
+
+	<section class="section project-overview">
+		<div class="wrap">
+			<div class="project-overview-copy">
+				<?php echo slc_rich( 'case_background', __( 'Briefly explain who the client is, the operating context and what the client needed to achieve.', 'streamlineconnect' ) ); ?>
+				<?php if ( $slc_pdf ) : ?>
+					<a class="text-link" href="<?php echo esc_url( $slc_pdf['url'] ); ?>" download="<?php echo esc_attr( $slc_pdf['name'] ); ?>"><?php echo esc_html( slc_plain( 'case_pdf_label', __( 'Lorem ipsum dolor sit amet.', 'streamlineconnect' ) ) ); ?><?php slc_icon( 'arrow-link.svg' ); ?></a>
+				<?php endif; ?>
+			</div>
+		</div>
+	</section>
+
+	<section class="project-gallery" aria-label="<?php echo esc_attr( slc_plain( 'case_images_heading', __( 'Project images', 'streamlineconnect' ) ) ); ?>">
+		<div class="wrap">
+			<ul class="project-gallery-grid">
+				<?php foreach ( slc_case_images() as $image ) : ?>
+					<?php $slc_gallery = slc_attachment_id( slc_raw( $image['field'] ) ); ?>
+					<li>
+						<?php if ( $slc_gallery && slc_attachment_exists( $slc_gallery ) ) : ?>
+							<?php echo wp_get_attachment_image( $slc_gallery, 'large', false, array( 'alt' => $image['alt'] ) ); ?>
+						<?php endif; ?>
+					</li>
 				<?php endforeach; ?>
 			</ul>
 		</div>
 	</section>
-	<?php foreach ( slc_case_sections() as $section ) : ?>
-		<!-- Narrative section: heading, then the approved copy. The solution also carries the detail grid. -->
-		<section class="section<?php echo $section['grey'] ? ' section--grey' : ''; ?>" aria-labelledby="<?php echo esc_attr( slc_content_id( $section['heading_field'], $section['anchor'] ) ); ?>">
+
+	<?php if ( $slc_others ) : ?>
+		<section class="section" aria-labelledby="other_projects">
 			<div class="wrap">
-				<div class="case-copy">
-					<h2<?php echo slc_attr_html( $section['heading_field'], 'section-heading', $section['anchor'] ); ?> data-reveal style="--i:0"><?php echo esc_html( $section['heading'] ); ?></h2>
-					<div<?php echo slc_attr_html( $section['body_field'], 'case-prose' ); ?> data-reveal style="--i:1"><?php echo slc_rich( $section['body_field'], $section['body'] ); ?></div>
+				<h2 class="section-heading" id="other_projects" tabindex="-1"><?php echo esc_html( slc_plain( 'case_other_heading', __( 'Lorem ipsum dolor sit amet.', 'streamlineconnect' ) ) ); ?></h2>
+				<div class="project-grid">
+					<?php foreach ( $slc_others as $card ) : ?>
+						<a class="project-card" href="<?php echo esc_url( $card['url'] ); ?>">
+							<div class="project-card-media">
+								<?php if ( $card['image'] ) : ?>
+									<?php echo wp_get_attachment_image( $card['image'], 'large', false, array( 'alt' => $card['alt'] ) ); ?>
+								<?php endif; ?>
+							</div>
+							<div class="project-card-copy">
+								<?php if ( '' !== $card['capability'] ) : ?>
+									<p class="project-card-capability"><?php echo esc_html( $card['capability'] ); ?></p>
+								<?php endif; ?>
+								<p class="project-card-title"><?php echo esc_html( $card['title'] ); ?></p>
+							</div>
+							<dl class="project-card-meta">
+								<div>
+									<dt><?php echo esc_html( slc_plain( 'projects_client_label', __( 'Client', 'streamlineconnect' ) ) ); ?></dt>
+									<dd><?php echo esc_html( $card['client'] ); ?></dd>
+								</div>
+								<div>
+									<dt><?php echo esc_html( slc_plain( 'projects_region_label', __( 'Region', 'streamlineconnect' ) ) ); ?></dt>
+									<dd><?php echo esc_html( $card['region'] ); ?></dd>
+								</div>
+							</dl>
+							<span class="project-card-action"><span class="bar-link"><?php echo esc_html( slc_plain( 'projects_view_label', __( 'View project', 'streamlineconnect' ) ) ); ?><?php slc_icon( 'plus-orange.svg' ); ?></span></span>
+						</a>
+					<?php endforeach; ?>
 				</div>
-				<?php if ( ! empty( $section['detail'] ) ) : ?>
-					<div class="case-detail">
-						<h2<?php echo slc_attr_html( 'case_detail_heading', 'section-heading', 'solution_detail' ); ?> data-reveal style="--i:2"><?php echo esc_html( slc_plain( 'case_detail_heading', __( 'Solution detail', 'streamlineconnect' ) ) ); ?></h2>
-						<ul class="case-detail-grid">
-							<?php foreach ( slc_case_details() as $detail_index => $detail ) : ?>
-								<li data-reveal style="--i:<?php echo esc_attr( (string) ( $detail_index + 3 ) ); ?>">
-									<h3<?php echo slc_attr_html( $detail['label_field'] ); ?>><?php echo esc_html( $detail['label'] ); ?></h3>
-									<div<?php echo slc_attr_html( $detail['body_field'] ); ?>><?php echo slc_rich( $detail['body_field'], $detail['body'] ); ?></div>
-								</li>
-							<?php endforeach; ?>
-						</ul>
-					</div>
-				<?php endif; ?>
 			</div>
 		</section>
-	<?php endforeach; ?>
-	<!-- Quotations: client, then Streamline Connect. Each voice is the quote and the attribution. -->
-	<section class="section section--navy case-voices" aria-labelledby="<?php echo esc_attr( slc_content_id( 'case_voices_heading', 'project_voices' ) ); ?>">
-		<div class="wrap">
-			<h2<?php echo slc_attr_html( 'case_voices_heading', 'section-heading', 'project_voices' ); ?> data-reveal style="--i:0"><?php echo esc_html( slc_plain( 'case_voices_heading', __( 'Project voices', 'streamlineconnect' ) ) ); ?></h2>
-			<div class="voice-grid">
-				<?php foreach ( slc_case_voices() as $voice_index => $voice ) : ?>
-					<blockquote data-reveal style="--i:<?php echo esc_attr( (string) ( $voice_index + 1 ) ); ?>">
-						<p<?php echo slc_attr_html( $voice['label_field'], 'voice-label' ); ?>><?php echo esc_html( $voice['label'] ); ?></p>
-						<div<?php echo slc_attr_html( $voice['quote_field'], 'voice-text' ); ?>><?php echo slc_rich( $voice['quote_field'], $voice['quote'] ); ?></div>
-						<p class="voice-by"><span<?php echo slc_attr_html( $voice['name_field'] ); ?>><?php echo esc_html( $voice['name'] ); ?></span><span<?php echo slc_attr_html( $voice['position_field'] ); ?>><?php echo esc_html( $voice['position'] ); ?></span><span<?php echo slc_attr_html( $voice['organisation_field'] ); ?>><?php echo esc_html( $voice['organisation'] ); ?></span></p>
-					</blockquote>
-				<?php endforeach; ?>
-			</div>
-		</div>
-	</section>
+	<?php endif; ?>
 </main>
 	<?php
 endwhile;

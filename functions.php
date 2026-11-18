@@ -217,7 +217,7 @@ function slc_assets() {
 		);
 	}
 
-	if ( is_page( 'projects' ) || is_page_template( 'page-projects.php' ) ) {
+	if ( is_page( 'projects' ) || is_page_template( 'page-projects.php' ) || is_singular( 'project' ) ) {
 		$projects_css = get_theme_file_path( 'assets/css/projects.css' );
 		wp_enqueue_style(
 			'slc-projects',

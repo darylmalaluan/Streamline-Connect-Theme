@@ -131,6 +131,7 @@ function slc_project_listing_cards() {
 		$region = slc_project_card_text( $project->ID, 'case_location' );
 
 		$cards[] = array(
+			'id'         => $project->ID,
 			'url'        => get_permalink( $project ),
 			'title'      => get_the_title( $project ),
 			'capability' => slc_project_card_text( $project->ID, 'case_capability' ),

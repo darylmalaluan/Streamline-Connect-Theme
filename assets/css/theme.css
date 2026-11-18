@@ -581,6 +581,13 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-mega-op
 	width: 240px;
 }
 
+@media (max-width: 767px) {
+	.site-header .logo img {
+		height: 25.454px;
+		width: 200px;
+	}
+}
+
 /* Menu button. It replaces the navigation below 1440px. */
 .menu-toggle {
 	align-self: center;
