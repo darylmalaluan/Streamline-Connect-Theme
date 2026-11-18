@@ -20,6 +20,10 @@ require get_template_directory() . '/inc/facilities.php';
 require get_template_directory() . '/inc/data-rooms.php';
 require get_template_directory() . '/inc/modular.php';
 require get_template_directory() . '/inc/leadership.php';
+require get_template_directory() . '/inc/contact.php';
+require get_template_directory() . '/inc/power.php';
+require get_template_directory() . '/inc/privacy.php';
+require get_template_directory() . '/inc/terms.php';
 require get_template_directory() . '/inc/acf-fields.php';
 
 /**
@@ -166,6 +170,70 @@ function slc_assets() {
 		);
 	}
 
+	if ( is_page( 'terms' ) || is_page_template( 'page-terms.php' ) ) {
+		$terms_css = get_theme_file_path( 'assets/css/terms.css' );
+		$terms_js  = get_theme_file_path( 'assets/js/privacy.js' );
+		wp_enqueue_style(
+			'slc-terms',
+			get_theme_file_uri( 'assets/css/terms.css' ),
+			array( 'slc-theme' ),
+			file_exists( $terms_css ) ? (string) filemtime( $terms_css ) : '1.0.0'
+		);
+		wp_enqueue_script(
+			'slc-terms',
+			get_theme_file_uri( 'assets/js/privacy.js' ),
+			array(),
+			file_exists( $terms_js ) ? (string) filemtime( $terms_js ) : '1.0.0',
+			true
+		);
+	}
+
+	if ( is_page( 'privacy-policy' ) || is_page_template( 'page-privacy-policy.php' ) ) {
+		$privacy_css = get_theme_file_path( 'assets/css/privacy.css' );
+		$privacy_js  = get_theme_file_path( 'assets/js/privacy.js' );
+		wp_enqueue_style(
+			'slc-privacy',
+			get_theme_file_uri( 'assets/css/privacy.css' ),
+			array( 'slc-theme' ),
+			file_exists( $privacy_css ) ? (string) filemtime( $privacy_css ) : '1.0.0'
+		);
+		wp_enqueue_script(
+			'slc-privacy',
+			get_theme_file_uri( 'assets/js/privacy.js' ),
+			array(),
+			file_exists( $privacy_js ) ? (string) filemtime( $privacy_js ) : '1.0.0',
+			true
+		);
+	}
+
+	if ( is_page( 'power-and-energy' ) || is_page_template( 'page-power.php' ) ) {
+		$power_css = get_theme_file_path( 'assets/css/power.css' );
+		wp_enqueue_style(
+			'slc-power',
+			get_theme_file_uri( 'assets/css/power.css' ),
+			array( 'slc-theme' ),
+			file_exists( $power_css ) ? (string) filemtime( $power_css ) : '1.0.0'
+		);
+	}
+
+	if ( is_page( 'contact' ) || is_page_template( 'page-contact.php' ) ) {
+		$contact_css = get_theme_file_path( 'assets/css/contact.css' );
+		$contact_js  = get_theme_file_path( 'assets/js/contact.js' );
+		wp_enqueue_style(
+			'slc-contact',
+			get_theme_file_uri( 'assets/css/contact.css' ),
+			array( 'slc-theme' ),
+			file_exists( $contact_css ) ? (string) filemtime( $contact_css ) : '1.0.0'
+		);
+		wp_enqueue_script(
+			'slc-contact',
+			get_theme_file_uri( 'assets/js/contact.js' ),
+			array(),
+			file_exists( $contact_js ) ? (string) filemtime( $contact_js ) : '1.0.0',
+			true
+		);
+	}
+
 	if ( is_page( 'leadership' ) || is_page_template( 'page-leadership.php' ) ) {
 		$leadership_css = get_theme_file_path( 'assets/css/leadership.css' );
 		$leadership_js  = get_theme_file_path( 'assets/js/leadership.js' );
@@ -185,6 +253,16 @@ function slc_assets() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'slc_assets' );
+
+/**
+ * The Contact page uses the theme form styles instead of the Contact Form 7 stylesheet.
+ */
+function slc_dequeue_contact_form_styles() {
+	if ( function_exists( 'slc_is_contact_page' ) && slc_is_contact_page() ) {
+		wp_dequeue_style( 'contact-form-7' );
+	}
+}
+add_action( 'wp_enqueue_scripts', 'slc_dequeue_contact_form_styles', 100 );
 
 /**
  * Create the pages Home links to, once an editor is present.

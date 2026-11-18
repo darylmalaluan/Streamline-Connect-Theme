@@ -242,6 +242,7 @@
 			scrim.hidden = !(menu || openPanel);
 		}
 		document.body.classList.toggle("nav-lock", menu || openPanel);
+		syncSpacer();
 	}
 
 	function closeMenus(focusEl) {
@@ -342,6 +343,19 @@
 	var stuck = false;
 	var spacer = document.querySelector("[data-header-spacer]");
 
+	function headerPinned() {
+		if (!desktop.matches) {
+			return menuOpen();
+		}
+		return stuck;
+	}
+
+	function syncSpacer() {
+		if (spacer) {
+			spacer.hidden = !headerPinned();
+		}
+	}
+
 	function updateStick() {
 		var next = window.scrollY >= stickAt;
 		if (next === stuck) {
@@ -349,9 +363,7 @@
 		}
 		stuck = next;
 		header.classList.toggle("is-stuck", stuck);
-		if (spacer) {
-			spacer.hidden = !stuck;
-		}
+		syncSpacer();
 	}
 
 	updateStick();

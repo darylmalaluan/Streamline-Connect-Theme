@@ -208,16 +208,16 @@ function slc_capability_menu() {
 				'summary' => __( 'Electrical installations and upgrades, with renewable, hybrid and stand-alone power systems for networks and facilities.', 'streamlineconnect' ),
 				'links'   => array(
 					array(
-						'label' => __( 'Electrical installations', 'streamlineconnect' ),
-						'url'   => slc_url( '/capabilities/power-and-energy/#electrical' ),
+						'label' => __( 'Electrical infrastructure', 'streamlineconnect' ),
+						'url'   => slc_url( '/capabilities/power-and-energy/#electrical_infrastructure' ),
 					),
 					array(
-						'label' => __( 'Renewable and hybrid systems', 'streamlineconnect' ),
-						'url'   => slc_url( '/capabilities/power-and-energy/#renewable-hybrid' ),
+						'label' => __( 'Remote power', 'streamlineconnect' ),
+						'url'   => slc_url( '/capabilities/power-and-energy/#remote_power' ),
 					),
 					array(
-						'label' => __( 'Stand-alone power', 'streamlineconnect' ),
-						'url'   => slc_url( '/capabilities/power-and-energy/#stand-alone' ),
+						'label' => __( 'Zero Emission Rooms', 'streamlineconnect' ),
+						'url'   => slc_url( '/capabilities/power-and-energy/#zero_emission_rooms' ),
 					),
 				),
 			),

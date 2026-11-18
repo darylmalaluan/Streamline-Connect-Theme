@@ -32,7 +32,7 @@ function slc_register_fields() {
 		return;
 	}
 
-	$version  = '20';
+	$version  = '24';
 	$existing = acf_get_field_group( 'group_slc_front_page' );
 	$settings = acf_get_field_group( 'group_slc_theme_settings' );
 	$case     = acf_get_field_group( 'group_slc_case_study' );
@@ -44,9 +44,13 @@ function slc_register_fields() {
 	$rooms    = acf_get_field_group( 'group_slc_data_rooms' );
 	$modular  = acf_get_field_group( 'group_slc_modular' );
 	$leaders  = acf_get_field_group( 'group_slc_leadership' );
+	$contact  = acf_get_field_group( 'group_slc_contact' );
+	$power    = acf_get_field_group( 'group_slc_power' );
+	$privacy  = acf_get_field_group( 'group_slc_privacy' );
+	$terms    = acf_get_field_group( 'group_slc_terms' );
 	$taxonomy = function_exists( 'acf_get_taxonomy' ) ? acf_get_taxonomy( 'taxonomy_slc_project_category' ) : array();
 	$taxonomy = is_array( $taxonomy ) ? $taxonomy : array();
-	if ( get_option( 'slc_field_group_version' ) === $version && ! empty( $existing['ID'] ) && ! empty( $settings['ID'] ) && ! empty( $case['ID'] ) && ! empty( $about['ID'] ) && ! empty( $caps['ID'] ) && ! empty( $story['ID'] ) && ! empty( $comms['ID'] ) && ! empty( $facility['ID'] ) && ! empty( $rooms['ID'] ) && ! empty( $modular['ID'] ) && ! empty( $leaders['ID'] ) && ! empty( $taxonomy['ID'] ) ) {
+	if ( get_option( 'slc_field_group_version' ) === $version && ! empty( $existing['ID'] ) && ! empty( $settings['ID'] ) && ! empty( $case['ID'] ) && ! empty( $about['ID'] ) && ! empty( $caps['ID'] ) && ! empty( $story['ID'] ) && ! empty( $comms['ID'] ) && ! empty( $facility['ID'] ) && ! empty( $rooms['ID'] ) && ! empty( $modular['ID'] ) && ! empty( $leaders['ID'] ) && ! empty( $contact['ID'] ) && ! empty( $power['ID'] ) && ! empty( $privacy['ID'] ) && ! empty( $terms['ID'] ) && ! empty( $taxonomy['ID'] ) ) {
 		return;
 	}
 
@@ -115,6 +119,30 @@ function slc_register_fields() {
 		$leadership_group['ID'] = (int) $leaders['ID'];
 	}
 	acf_import_field_group( $leadership_group );
+
+	$contact_group = slc_contact_field_group();
+	if ( ! empty( $contact['ID'] ) ) {
+		$contact_group['ID'] = (int) $contact['ID'];
+	}
+	acf_import_field_group( $contact_group );
+
+	$power_group = slc_power_field_group();
+	if ( ! empty( $power['ID'] ) ) {
+		$power_group['ID'] = (int) $power['ID'];
+	}
+	acf_import_field_group( $power_group );
+
+	$privacy_group = slc_privacy_field_group();
+	if ( ! empty( $privacy['ID'] ) ) {
+		$privacy_group['ID'] = (int) $privacy['ID'];
+	}
+	acf_import_field_group( $privacy_group );
+
+	$terms_group = slc_terms_field_group();
+	if ( ! empty( $terms['ID'] ) ) {
+		$terms_group['ID'] = (int) $terms['ID'];
+	}
+	acf_import_field_group( $terms_group );
 
 	update_option( 'slc_field_group_version', $version, false );
 }
@@ -499,6 +527,22 @@ function slc_field_catalog() {
 		$items = array_merge( $items, slc_leadership_field_catalog() );
 	}
 
+	if ( function_exists( 'slc_contact_field_catalog' ) ) {
+		$items = array_merge( $items, slc_contact_field_catalog() );
+	}
+
+	if ( function_exists( 'slc_power_field_catalog' ) ) {
+		$items = array_merge( $items, slc_power_field_catalog() );
+	}
+
+	if ( function_exists( 'slc_privacy_field_catalog' ) ) {
+		$items = array_merge( $items, slc_privacy_field_catalog() );
+	}
+
+	if ( function_exists( 'slc_terms_field_catalog' ) ) {
+		$items = array_merge( $items, slc_terms_field_catalog() );
+	}
+
 	return $items;
 }
 
@@ -753,6 +797,118 @@ function slc_leadership_field_group() {
 					'param'    => 'page_template',
 					'operator' => '==',
 					'value'    => 'page-leadership.php',
+				),
+			),
+		),
+		'hide_on_screen'        => array( 'the_content', 'excerpt', 'discussion', 'comments', 'revisions', 'author', 'format', 'featured_image', 'categories', 'tags', 'send-trackbacks' ),
+		'position'              => 'acf_after_title',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+		'active'                => true,
+	);
+}
+
+/**
+ * Contact page fields.
+ *
+ * @return array<string, mixed>
+ */
+function slc_contact_field_group() {
+	return array(
+		'key'                   => 'group_slc_contact',
+		'title'                 => 'Contact',
+		'fields'                => slc_collect_fields( 'contact' ),
+		'location'              => array(
+			array(
+				array(
+					'param'    => 'page_template',
+					'operator' => '==',
+					'value'    => 'page-contact.php',
+				),
+			),
+		),
+		'hide_on_screen'        => array( 'the_content', 'excerpt', 'discussion', 'comments', 'revisions', 'author', 'format', 'featured_image', 'categories', 'tags', 'send-trackbacks' ),
+		'position'              => 'acf_after_title',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+		'active'                => true,
+	);
+}
+
+/**
+ * Power and Energy page fields.
+ *
+ * @return array<string, mixed>
+ */
+function slc_power_field_group() {
+	return array(
+		'key'                   => 'group_slc_power',
+		'title'                 => 'Power and Energy',
+		'fields'                => slc_collect_fields( 'power' ),
+		'location'              => array(
+			array(
+				array(
+					'param'    => 'page_template',
+					'operator' => '==',
+					'value'    => 'page-power.php',
+				),
+			),
+		),
+		'hide_on_screen'        => array( 'the_content', 'excerpt', 'discussion', 'comments', 'revisions', 'author', 'format', 'featured_image', 'categories', 'tags', 'send-trackbacks' ),
+		'position'              => 'acf_after_title',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+		'active'                => true,
+	);
+}
+
+/**
+ * Privacy Policy page fields.
+ *
+ * @return array<string, mixed>
+ */
+function slc_privacy_field_group() {
+	return array(
+		'key'                   => 'group_slc_privacy',
+		'title'                 => 'Privacy Policy',
+		'fields'                => slc_collect_fields( 'privacy' ),
+		'location'              => array(
+			array(
+				array(
+					'param'    => 'page_template',
+					'operator' => '==',
+					'value'    => 'page-privacy-policy.php',
+				),
+			),
+		),
+		'hide_on_screen'        => array( 'the_content', 'excerpt', 'discussion', 'comments', 'revisions', 'author', 'format', 'featured_image', 'categories', 'tags', 'send-trackbacks' ),
+		'position'              => 'acf_after_title',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+		'active'                => true,
+	);
+}
+
+/**
+ * Legal Terms and Company Policies fields.
+ *
+ * @return array<string, mixed>
+ */
+function slc_terms_field_group() {
+	return array(
+		'key'                   => 'group_slc_terms',
+		'title'                 => 'Legal Terms and Company Policies',
+		'fields'                => slc_collect_fields( 'terms' ),
+		'location'              => array(
+			array(
+				array(
+					'param'    => 'page_template',
+					'operator' => '==',
+					'value'    => 'page-terms.php',
 				),
 			),
 		),

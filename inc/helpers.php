@@ -56,6 +56,22 @@ function slc_context_id() {
 		return $queried;
 	}
 
+	if ( $queried && function_exists( 'slc_is_contact_page' ) && slc_is_contact_page( $queried ) ) {
+		return $queried;
+	}
+
+	if ( $queried && function_exists( 'slc_is_power_page' ) && slc_is_power_page( $queried ) ) {
+		return $queried;
+	}
+
+	if ( $queried && function_exists( 'slc_is_privacy_page' ) && slc_is_privacy_page( $queried ) ) {
+		return $queried;
+	}
+
+	if ( $queried && function_exists( 'slc_is_terms_page' ) && slc_is_terms_page( $queried ) ) {
+		return $queried;
+	}
+
 	$front = (int) get_option( 'page_on_front' );
 	if ( $front ) {
 		return $front;

@@ -78,8 +78,18 @@ if ( function_exists( 'slc_is_leadership_page' ) && slc_is_leadership_page() ) {
 	$slc_enquiry_label_field   = 'leadership_enquiry_label';
 	$slc_enquiry_label         = __( 'Discuss your project.', 'streamlineconnect' );
 }
+
+if ( function_exists( 'slc_is_power_page' ) && slc_is_power_page() ) {
+	$slc_enquiry_heading_field = 'power_enquiry_heading';
+	$slc_enquiry_heading       = __( 'Discuss your power project', 'streamlineconnect' );
+	$slc_enquiry_body_field    = 'power_enquiry_body';
+	$slc_enquiry_body          = __( 'Tell us what needs powering, where it will operate and which services are already available.', 'streamlineconnect' );
+	$slc_enquiry_label_field   = 'power_enquiry_label';
+	$slc_enquiry_label         = __( 'Discuss your project.', 'streamlineconnect' );
+}
 ?>
-<!-- Enquiry band: headline, then the note and button. Capabilities uses its own copy. -->
+<?php if ( ( ! function_exists( 'slc_is_contact_page' ) || ! slc_is_contact_page() ) && ( ! function_exists( 'slc_is_privacy_page' ) || ! slc_is_privacy_page() ) && ( ! function_exists( 'slc_is_terms_page' ) || ! slc_is_terms_page() ) ) : ?>
+<!-- Enquiry band: headline, then the note and button. Capabilities uses its own copy. The Contact page uses its own form instead. -->
 <section class="enquiry" aria-labelledby="<?php echo esc_attr( slc_content_id( $slc_enquiry_heading_field, 'enquiry_heading' ) ); ?>">
 	<div class="wrap enquiry-layout">
 		<h2<?php echo slc_attr_html( $slc_enquiry_heading_field, '', 'enquiry_heading' ); ?> data-reveal style="--i:0"><?php echo slc_inline( $slc_enquiry_heading_field, $slc_enquiry_heading ); ?></h2>
@@ -89,6 +99,7 @@ if ( function_exists( 'slc_is_leadership_page' ) && slc_is_leadership_page() ) {
 		</div>
 	</div>
 </section>
+<?php endif; ?>
 <!-- Footer: brand column, then the link columns and contact. -->
 <footer class="site-footer">
 	<?php // HOME-FIGMA-UPDATE: Footer-top is full-bleed so the divider spans the section width. ?>

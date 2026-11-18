@@ -1,0 +1,227 @@
+/* Contact page. Shared header, hero, and footer stay in theme.css. */
+
+.contact-hero.hero {
+	height: calc(800px - var(--header));
+	min-height: 0;
+}
+
+@media (max-width: 1439px) {
+	.contact-hero.hero {
+		height: auto;
+		min-height: calc(800px - var(--header));
+	}
+}
+
+.contact-crumb {
+	align-items: center;
+	color: var(--white);
+	display: flex;
+	font-size: var(--text-xs);
+	gap: var(--space-3);
+	line-height: var(--leading-tight);
+	text-transform: uppercase;
+}
+
+.contact-crumb a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.contact-crumb [aria-hidden="true"] {
+	color: var(--navy-200);
+}
+
+.contact-hero .hero-text {
+	max-width: 892px;
+}
+
+.contact-hero .hero-intro,
+.contact-hero .hero-intro p {
+	font-size: var(--text-md);
+	margin-top: var(--space-8);
+	max-width: 739px;
+}
+
+.contact-layout {
+	align-items: start;
+	display: grid;
+	gap: var(--space-6);
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+@media (max-width: 1023px) {
+	.contact-layout {
+		grid-template-columns: 1fr;
+	}
+}
+
+.contact-intro {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-6);
+	max-width: 892px;
+}
+
+.contact-intro .section-heading {
+	margin: 0;
+}
+
+.contact-intro-text,
+.contact-intro-text p {
+	color: var(--grey-700);
+	margin: 0;
+}
+
+.contact-photo {
+	aspect-ratio: 739 / 493;
+	display: block;
+	height: auto;
+	max-width: 739px;
+	object-fit: cover;
+	object-position: center 42%;
+	width: 100%;
+}
+
+.contact-form .wpcf7-form {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-8);
+}
+
+.contact-project {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-8);
+}
+
+.contact-project[hidden] {
+	display: none;
+}
+
+.contact-field label,
+.contact-label {
+	color: var(--navy-900);
+	display: flex;
+	flex-direction: column;
+	font-family: var(--font-display);
+	font-size: var(--text-md);
+	font-weight: var(--weight-semibold);
+	gap: var(--space-2);
+	line-height: var(--leading-none);
+}
+
+.contact-helper {
+	color: var(--grey-700);
+	font-family: var(--font-body);
+	font-size: var(--text-md);
+	font-weight: var(--weight-regular);
+	line-height: var(--leading-body);
+}
+
+.contact-control,
+.contact-form select,
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form input[type="tel"],
+.contact-form textarea {
+	background: var(--white);
+	border: var(--border-width) solid var(--grey-500);
+	color: var(--ink);
+	font-family: var(--font-body);
+	font-size: var(--text-md);
+	font-weight: var(--weight-regular);
+	line-height: var(--leading-body);
+	min-height: 56px;
+	padding: var(--space-4) var(--space-5);
+	width: 100%;
+}
+
+.contact-form textarea {
+	min-height: 160px;
+	resize: vertical;
+}
+
+.contact-form select {
+	appearance: none;
+	background-image: url("../icons/chevron.svg");
+	background-position: right var(--space-5) center;
+	background-repeat: no-repeat;
+	background-size: 12px 12px;
+	padding-right: var(--space-12);
+}
+
+.contact-pair {
+	display: grid;
+	gap: var(--space-6);
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+@media (max-width: 767px) {
+	.contact-pair {
+		grid-template-columns: 1fr;
+	}
+}
+
+.contact-check {
+	align-items: flex-start;
+	color: var(--ink);
+	display: flex;
+	font-family: var(--font-body);
+	font-weight: var(--weight-regular);
+	gap: var(--space-4);
+	line-height: var(--leading-body);
+}
+
+.contact-consent .wpcf7-acceptance,
+.contact-consent .wpcf7-list-item {
+	margin: 0;
+}
+
+.contact-consent input[type="checkbox"] {
+	appearance: none;
+	background: var(--white);
+	border: var(--border-width) solid var(--grey-500);
+	flex: 0 0 24px;
+	height: 24px;
+	margin: 0;
+	width: 24px;
+}
+
+.contact-consent input[type="checkbox"]:checked {
+	background: var(--navy-900);
+	box-shadow: inset 0 0 0 4px var(--white);
+}
+
+.contact-consent a {
+	color: inherit;
+}
+
+.contact-form .wpcf7-submit.contact-submit {
+	background-image: url("../icons/plus.svg");
+	background-position: right var(--space-6) center;
+	background-repeat: no-repeat;
+	background-size: 12px 12px;
+	border: 0;
+	cursor: pointer;
+	min-height: 54px;
+	padding-right: var(--space-12);
+	width: 370px;
+	max-width: 100%;
+}
+
+.contact-form .wpcf7-not-valid {
+	border-color: var(--orange-700);
+}
+
+.contact-form .wpcf7-not-valid-tip {
+	color: var(--orange-700);
+	font-family: var(--font-body);
+	font-size: var(--text-sm);
+	font-weight: var(--weight-regular);
+}
+
+.contact-form .wpcf7-response-output {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
