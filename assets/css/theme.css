@@ -712,8 +712,16 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-mega-op
 	transform: rotate(180deg);
 }
 
-.nav-link:hover, .nav-button:hover {
+.nav-link:hover,
+.nav-button:hover,
+.nav-link.is-current,
+.nav-button.is-current {
 	background: var(--grey-100);
+}
+
+.nav-link.is-current,
+.nav-button.is-current {
+	font-weight: var(--weight-semibold);
 }
 
 /* Discuss button in the desktop header bar. */
@@ -796,6 +804,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-mega-op
 .mega-intro {
 	flex: 0 0 514px;
 	gap: var(--space-5);
+	justify-content: center;
 	padding-left: max(var(--gutter), calc((100vw - var(--content)) / 2));
 	padding-right: var(--space-10);
 	width: 514px;
@@ -806,6 +815,7 @@ body:not(.home) .site-header, .site-header.is-menu-open, .site-header.is-mega-op
 		border-bottom: var(--border-width) solid var(--line);
 		border-right: 0;
 		flex: none;
+		justify-content: flex-start;
 		padding: var(--space-6) var(--gutter) var(--space-8);
 		width: auto;
 	}

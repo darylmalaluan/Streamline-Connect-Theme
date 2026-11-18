@@ -225,6 +225,7 @@ function slc_case_field_catalog() {
 
 	$add( 'tab', '', 'Snapshot' );
 	$add( 'taxonomy', 'case_category', 'Industry', '', 'basic', 'Select the industry for this project. Add a new industry here, or manage the list under Projects → Project Categories.' );
+	$add( 'text', 'case_capability', 'Capability', '', 'basic', 'Shown on the Projects listing card. Leave empty to hide.' );
 	$add( 'text', 'case_snapshot_heading', 'Heading', 'Project snapshot' );
 	$add( 'text', 'case_industry_label', 'Industry label', 'Industry' );
 	$add( 'text', 'case_client_label', 'Client label', 'Client' );

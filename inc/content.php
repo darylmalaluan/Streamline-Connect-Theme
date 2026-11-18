@@ -110,6 +110,7 @@ function slc_nav_items() {
 			'label'   => __( 'Capabilities', 'streamlineconnect' ),
 			'field'   => 'nav_capabilities_label',
 			'url'     => slc_url( '/capabilities/' ),
+			'root'    => 'capabilities',
 			'panel'   => 'capabilities',
 			'chevron' => true,
 		),
@@ -117,6 +118,7 @@ function slc_nav_items() {
 			'label'   => __( 'Products', 'streamlineconnect' ),
 			'field'   => 'nav_products_label',
 			'url'     => slc_url( '/products/' ),
+			'root'    => 'products',
 			'menu'    => false,
 			'chevron' => true,
 		),
@@ -124,6 +126,7 @@ function slc_nav_items() {
 			'label'   => __( 'Projects', 'streamlineconnect' ),
 			'field'   => 'nav_projects_label',
 			'url'     => slc_url( '/projects/' ),
+			'root'    => 'projects',
 			'menu'    => false,
 			'chevron' => true,
 		),
@@ -131,6 +134,7 @@ function slc_nav_items() {
 			'label'   => __( 'About', 'streamlineconnect' ),
 			'field'   => 'nav_about_label',
 			'url'     => slc_url( '/about/' ),
+			'root'    => 'about',
 			'panel'   => 'about',
 			'chevron' => true,
 		),
@@ -138,6 +142,7 @@ function slc_nav_items() {
 			'label'   => __( 'Contact', 'streamlineconnect' ),
 			'field'   => 'nav_contact_label',
 			'url'     => slc_url( '/contact/' ),
+			'root'    => 'contact',
 			'menu'    => false,
 			'chevron' => false,
 		),
@@ -149,6 +154,38 @@ function slc_nav_items() {
 	unset( $item );
 
 	return $items;
+}
+
+/**
+ * Whether the current view belongs to a primary menu item.
+ *
+ * Child pages keep their parent item active. A project case study keeps Projects active.
+ *
+ * @param string $root Top-level page slug for the menu item.
+ * @return bool
+ */
+function slc_nav_is_current( $root ) {
+	if ( 'projects' === $root && ( is_singular( 'project' ) || is_tax( 'project_category' ) ) ) {
+		return true;
+	}
+
+	if ( ! is_page() ) {
+		return false;
+	}
+
+	$page_id = (int) get_queried_object_id();
+	while ( $page_id ) {
+		$page = get_post( $page_id );
+		if ( ! $page instanceof WP_Post ) {
+			return false;
+		}
+		if ( $page->post_name === $root && 0 === (int) $page->post_parent ) {
+			return true;
+		}
+		$page_id = (int) $page->post_parent;
+	}
+
+	return false;
 }
 
 /**

@@ -72,6 +72,10 @@ function slc_context_id() {
 		return $queried;
 	}
 
+	if ( $queried && function_exists( 'slc_is_projects_page' ) && slc_is_projects_page( $queried ) ) {
+		return $queried;
+	}
+
 	$front = (int) get_option( 'page_on_front' );
 	if ( $front ) {
 		return $front;

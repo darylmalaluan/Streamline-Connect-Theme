@@ -49,7 +49,7 @@ $slc_menus = slc_nav_menus();
 					$slc_menu_prefix = $slc_menu['prefix'];
 					?>
 					<div class="nav-group">
-						<button<?php echo slc_attr_html( $item['field'], 'nav-button' ); ?> type="button" data-nav-toggle aria-expanded="false" aria-controls="<?php echo esc_attr( $slc_menu['id'] ); ?>"><?php echo esc_html( $item['label'] ); ?><?php slc_icon( 'chevron.svg' ); ?></button>
+						<button<?php echo slc_attr_html( $item['field'], 'nav-button' . ( slc_nav_is_current( $item['root'] ) ? ' is-current' : '' ) ); ?> type="button" data-nav-toggle aria-expanded="false" aria-controls="<?php echo esc_attr( $slc_menu['id'] ); ?>"<?php echo slc_nav_is_current( $item['root'] ) ? ' aria-current="page"' : ''; ?>><?php echo esc_html( $item['label'] ); ?><?php slc_icon( 'chevron.svg' ); ?></button>
 						<div class="mega" id="<?php echo esc_attr( $slc_menu['id'] ); ?>" hidden>
 							<div class="mega-intro">
 								<p<?php echo slc_attr_html( $slc_menu_prefix . '_title', 'mega-title' ); ?>><?php echo slc_inline( $slc_menu_prefix . '_title', $slc_menu['title'] ); ?></p>
@@ -80,7 +80,7 @@ $slc_menus = slc_nav_menus();
 						</div>
 					</div>
 				<?php else : ?>
-					<a<?php echo slc_attr_html( $item['field'], 'nav-link' . ( empty( $item['chevron'] ) ? ' nav-link--plain' : '' ) ); ?> href="<?php echo esc_url( $item['url'] ); ?>"><?php echo esc_html( $item['label'] ); ?><?php
+					<a<?php echo slc_attr_html( $item['field'], 'nav-link' . ( empty( $item['chevron'] ) ? ' nav-link--plain' : '' ) . ( slc_nav_is_current( $item['root'] ) ? ' is-current' : '' ) ); ?> href="<?php echo esc_url( $item['url'] ); ?>"<?php echo slc_nav_is_current( $item['root'] ) ? ' aria-current="page"' : ''; ?>><?php echo esc_html( $item['label'] ); ?><?php
 					if ( ! empty( $item['chevron'] ) ) {
 						slc_icon( 'chevron.svg' );
 					}

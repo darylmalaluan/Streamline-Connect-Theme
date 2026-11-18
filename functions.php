@@ -24,6 +24,7 @@ require get_template_directory() . '/inc/contact.php';
 require get_template_directory() . '/inc/power.php';
 require get_template_directory() . '/inc/privacy.php';
 require get_template_directory() . '/inc/terms.php';
+require get_template_directory() . '/inc/projects.php';
 require get_template_directory() . '/inc/acf-fields.php';
 
 /**
@@ -213,6 +214,16 @@ function slc_assets() {
 			get_theme_file_uri( 'assets/css/power.css' ),
 			array( 'slc-theme' ),
 			file_exists( $power_css ) ? (string) filemtime( $power_css ) : '1.0.0'
+		);
+	}
+
+	if ( is_page( 'projects' ) || is_page_template( 'page-projects.php' ) ) {
+		$projects_css = get_theme_file_path( 'assets/css/projects.css' );
+		wp_enqueue_style(
+			'slc-projects',
+			get_theme_file_uri( 'assets/css/projects.css' ),
+			array( 'slc-theme' ),
+			file_exists( $projects_css ) ? (string) filemtime( $projects_css ) : '1.0.0'
 		);
 	}
 
